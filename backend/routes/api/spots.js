@@ -82,14 +82,26 @@ router.put('/:spotId', [requireAuth, validateSpot], async (req, res) => {
 
     if (querySpot === null) return res.status(404).json({ "message": "Spot couldn't be found" });
 
-    const targetSpot = querySpot.toJSON(); // do you need to convert to JSON here
-
     if (userId !== targetSpot.ownerId) return res.status(403).json({ message: "Forbidden" });
 
     querySpot.set({ address: address, city: city, state: state, country: country, lat: lat, lng: lng, name: name, description: description, price: price });
     querySpot.save();
 
     return res.json(querySpot);
+});
+
+router.delete('/:spotId', requireAuth, async (req, res) => {
+    const spotId = req.params.spotId;
+    const userId = req.user.id;
+    const querySpot = await Spot.findOne({where: {id: spotId}});
+
+    if (querySpot === null) return res.status(404).json({ "message": "Spot couldn't be found" });
+
+    if (userId !== querySpot.ownerId) return res.status(403).json({ message: "Forbidden" });
+
+    await querySpot.destroy();
+
+    return res.json({message: "Successfully deleted"});
 });
 
 router.get('/:spotId', async (req, res) => {
