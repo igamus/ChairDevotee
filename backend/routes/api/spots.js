@@ -3,6 +3,42 @@ const router = express.Router();
 const { setTokenCookie } = require('../../utils/auth');
 const { Spot, Review, SpotImage, User, sequelize } = require('../../db/models');
 const { restoreUser, requireAuth } = require('../../utils/auth');
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
+const { Op } = require('sequelize');
+
+const validateSpot = [
+    check('address')
+        .exists({ checkFalsy: true })
+        .withMessage("Street address is required"),
+    check('city')
+        .exists({ checkFalsy: true })
+        .withMessage("City is required"),
+    check('state')
+        .exists({ checkFalsy: true })
+        .withMessage("State is required"),
+    check('country')
+        .exists({ checkFalsy: true })
+        .withMessage("Country is required"),
+    check('lat')
+        .isFloat({min: -90, max: 90})
+        .withMessage("Latitude is not valid"),
+    check('lng')
+        .isFloat({min: -180, max: 180})
+        .withMessage("Longitude is not valid"),
+    check('name')
+        .exists({ checkFalsy: true })
+        .isLength({ max: 50 })
+        .withMessage("Name must be less than 50 characters"),
+    check('description')
+        .exists({ checkFalsy: true })
+        .withMessage("Description is required"),
+    check('price')
+        .exists({ checkFalsy: true })
+        .isFloat()
+        .withMessage("Price per day is required"),
+    handleValidationErrors
+]
 
 router.get('/current', requireAuth, async (req, res) => {
     const querySpots = await Spot.findAll({
@@ -136,6 +172,13 @@ router.get('/', async (req, res,) => {
     }
 
     return res.json({ Spots: spots });
+});
+
+router.post('/', [requireAuth, validateSpot], async (req, res) => {
+    const newSpot = await Spot.create({...req.body});
+    const retrieved = await Spot.findOne({where: {[Op.and]: {lat: req.body.lat, lng: req.body.lng}}});
+
+    return res.status(201).json(retrieved);
 });
 
 module.exports = router;
