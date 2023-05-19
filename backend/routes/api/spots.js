@@ -2,6 +2,41 @@ const express = require('express');
 const router = express.Router();
 const { setTokenCookie } = require('../../utils/auth');
 const { Spot, Review, SpotImage, User, sequelize } = require('../../db/models');
+const { restoreUser, requireAuth } = require('../../utils/auth');
+
+router.get('/current', [restoreUser, requireAuth], async (req, res) => {
+    const querySpots = await Spot.findAll({
+        where: { id: req.user.id },
+        include: [
+            {
+                model: Review,
+                required: false
+            },
+            {
+                model: SpotImage,
+                where: { preview: true }
+            }
+        ]
+    });
+    let userSpots = [];
+    querySpots.forEach(e => userSpots.push(e.toJSON()));
+
+    userSpots.forEach(spot => {
+        if (spot.SpotImages) {
+            spot.previewImage = spot.SpotImages[0].url;
+            delete spot.SpotImages;
+        } else spot.previewImage = null;
+
+        if (spot.Reviews) {
+            let reviews = spot.Reviews;
+            let totalStars = reviews.reduce((a,c) => a + c.stars, 0);
+            spot.avgRating = totalStars / reviews.length;
+            delete spot.Reviews;
+        } else spot.avgRating = null;
+    });
+
+    res.json({Spots: userSpots});
+});
 
 router.get('/:spotId', async (req, res) => {
     const spotId = req.params.spotId;
