@@ -1,15 +1,59 @@
 const express = require('express');
 const router = express.Router();
 const { setTokenCookie } = require('../../utils/auth');
-const { Spot, Review, SpotImage, sequelize } = require('../../db/models');
+const { Spot, Review, SpotImage, User, sequelize } = require('../../db/models');
+
+router.get('/:spotId', async (req, res) => {
+    const spotId = req.params.spotId;
+    console.log(spotId);
+    // should really be able to check before querying...
+    const spotQuery = await Spot.findOne({
+        attributes: {
+            include: [
+                [sequelize.fn('COUNT', sequelize.col('Reviews.id')), 'numReviews'],
+                [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgStarRating']
+            ]
+        },
+        include: [
+            {
+                model: Review,
+                attributes: [],
+                required: false
+            },
+            {
+                model: SpotImage,
+                attributes: ['id', 'url', 'preview'],
+                required: false
+            }
+        ],
+        where: {
+            id: spotId
+        }
+    });
+    let targetSpotData = spotQuery.toJSON();
+    console.log(targetSpotData);
+
+    if (!targetSpotData.id) res.status(404).json({message: "Spot couldn't be found."});
+
+    if (targetSpotData.ownerId) { // probably something direct you can do with subquerying
+        const ownerQuery = await User.findOne({
+            attributes: ['id', 'firstName','lastName'],
+            where: {
+                id: targetSpotData.ownerId
+            }
+        });
+        const owner = ownerQuery.toJSON();
+        targetSpotData.Owner = owner;
+    }
+
+    await setTokenCookie(res, targetSpotData);
+
+    return res.json(targetSpotData);
+});
 
 router.get('/', async (req, res,) => {
     const data = await Spot.findAll({
-        // attributes: { // there should just be a clean way to get the average for each, but right now it's getting the aggregate of all reviews and only returning one result
-        //     include: [
-        //         [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgRating'],
-        //     ],
-        // },
+        // should just be a clean way to get the average for each
         include: [
             {
                 model: Review,
@@ -57,11 +101,6 @@ router.get('/', async (req, res,) => {
             previewImage
         })
     }
-
-    // const safeUser = { id: user.id, firstName: user.firstName, lastName: user.lastName, email: user.email, username: user.username };
-    // in regular pull: id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updateedAt
-    // avgRating: [avg of review.star]
-    // previewImg: [url] [pull one]
 
     await setTokenCookie(res, spots);
 
