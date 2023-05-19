@@ -42,7 +42,7 @@ const validateSpot = [
 
 router.get('/current', requireAuth, async (req, res) => {
     const querySpots = await Spot.findAll({
-        where: { id: req.user.id },
+        where: { ownerId: req.user.id },
         include: [
             {
                 model: Review,
@@ -50,7 +50,8 @@ router.get('/current', requireAuth, async (req, res) => {
             },
             {
                 model: SpotImage,
-                where: { preview: true }
+                where: { preview: true },
+                required: false
             }
         ]
     });
@@ -58,20 +59,37 @@ router.get('/current', requireAuth, async (req, res) => {
     querySpots.forEach(e => userSpots.push(e.toJSON()));
 
     userSpots.forEach(spot => {
-        if (spot.SpotImages) {
-            spot.previewImage = spot.SpotImages[0].url;
-            delete spot.SpotImages;
-        } else spot.previewImage = null;
+        if (spot.SpotImages.length) spot.previewImage = spot.SpotImages[0].url;
+        else spot.previewImage = null;
+        delete spot.SpotImages;
 
-        if (spot.Reviews) {
+        if (spot.Reviews.length) {
             let reviews = spot.Reviews;
             let totalStars = reviews.reduce((a,c) => a + c.stars, 0);
             spot.avgRating = totalStars / reviews.length;
-            delete spot.Reviews;
         } else spot.avgRating = null;
+        delete spot.Reviews;
     });
 
     return res.json({Spots: userSpots});
+});
+
+router.put('/:spotId', [requireAuth, validateSpot], async (req, res) => {
+    const spotId = req.params.spotId;
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    const userId = req.user.id;
+    const querySpot = await Spot.findOne({ where: {id: spotId} });
+
+    if (querySpot === null) return res.status(404).json({ "message": "Spot couldn't be found" });
+
+    const targetSpot = querySpot.toJSON(); // do you need to convert to JSON here
+
+    if (userId !== targetSpot.ownerId) return res.status(403).json({ message: "Forbidden" });
+
+    querySpot.set({ address: address, city: city, state: state, country: country, lat: lat, lng: lng, name: name, description: description, price: price });
+    querySpot.save();
+
+    return res.json(querySpot);
 });
 
 router.get('/:spotId', async (req, res) => {
@@ -175,8 +193,8 @@ router.get('/', async (req, res,) => {
 });
 
 router.post('/', [requireAuth, validateSpot], async (req, res) => {
-    const newSpot = await Spot.create({...req.body});
-    const retrieved = await Spot.findOne({where: {[Op.and]: {lat: req.body.lat, lng: req.body.lng}}});
+    const newSpot = await Spot.create({...req.body, ownerId: req.user.id});
+    const retrieved = await Spot.findOne({where: {[Op.and]: [{lat: req.body.lat}, {lng: req.body.lng}]}});
 
     return res.status(201).json(retrieved);
 });
