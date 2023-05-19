@@ -74,13 +74,38 @@ router.get('/current', requireAuth, async (req, res) => {
     return res.json({Spots: userSpots});
 });
 
+router.post('/:spotId/images', requireAuth, async (req, res) => {
+    const spotId = req.params.spotId;
+    const { url, preview } = req.body;
+    const userId = req.user.id;
+    const querySpot = await Spot.findByPk(spotId);
+
+    if (!querySpot) return res.status(404).json({ "message": "Spot couldn't be found" });
+    if (userId !== querySpot.ownerId) return res.status(403).json({ message: "Forbidden" });
+
+    await querySpot.createSpotImage({url: url, preview: preview}); // do you need this doubling?
+
+    const record = await SpotImage.findOne({
+        where: {
+            [Op.and]: [
+                {url: url}, {preview: preview}
+            ]
+        },
+        attributes: {
+            exclude: ['spotId', 'createdAt', 'updatedAt']
+        }
+    });
+
+    return res.json(record);
+});
+
 router.put('/:spotId', [requireAuth, validateSpot], async (req, res) => {
     const spotId = req.params.spotId;
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
     const userId = req.user.id;
     const querySpot = await Spot.findOne({ where: {id: spotId} });
 
-    if (querySpot === null) return res.status(404).json({ "message": "Spot couldn't be found" });
+    if (!querySpot) return res.status(404).json({ "message": "Spot couldn't be found" });
 
     if (userId !== targetSpot.ownerId) return res.status(403).json({ message: "Forbidden" });
 
@@ -95,7 +120,7 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
     const userId = req.user.id;
     const querySpot = await Spot.findOne({where: {id: spotId}});
 
-    if (querySpot === null) return res.status(404).json({ "message": "Spot couldn't be found" });
+    if (!querySpot) return res.status(404).json({ "message": "Spot couldn't be found" });
 
     if (userId !== querySpot.ownerId) return res.status(403).json({ message: "Forbidden" });
 
