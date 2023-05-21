@@ -37,7 +37,7 @@ const validateSpot = [
         .isFloat()
         .withMessage("Price per day is required"),
     handleValidationErrors
-]
+];
 
 const validateQuery = [
     check('page')
@@ -73,7 +73,7 @@ const validateQuery = [
         .isFloat({min: 0})
         .withMessage('Maximum price must be greater than or equal to 0'),
     handleValidationErrors
-]
+];
 
 const validateReview = [
     check('review')
@@ -83,7 +83,20 @@ const validateReview = [
         .isInt({min:1, max:5})
         .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
-]
+];
+
+const validateBooking = [
+    check('startDate')
+        .isDate()
+        .withMessage('startDate must be a valid date'),
+    check('endDate')
+        .isDate()
+        .withMessage('endDate must be a valid date'),
+    check('endDate')
+        .custom((endDate, { req }) => endDate > req.body.startDate)
+        .withMessage('endDate cannot be on or before startDate'),
+    handleValidationErrors
+];
 
 router.get('/current', requireAuth, async (req, res) => {
     const querySpots = await Spot.findAll({
@@ -191,6 +204,77 @@ router.get('/:spotId/reviews', async (req, res) => {
     if (!reviews.length) res.json({"message": "No reviews for this spot."})
 
     return res.json({ Reviews: reviews });
+});
+
+router.post('/:spotId/bookings', [requireAuth, validateBooking], async (req, res) => {
+    const userId = req.user.id;
+    const spotId = req.params.spotId;
+    let { startDate, endDate } = req.body;
+    startDate = new Date(startDate);
+    endDate = new Date(endDate);
+
+    const targetSpot = await Spot.findOne({
+        where: {
+            id: spotId
+        }
+    });
+
+    if (!targetSpot) return res.status(404).json({message: "Spot couldn't be found"})
+
+    if (targetSpot.ownerId === userId) return res.status(403).json({ message: "Forbidden" });
+
+    const bookings = await Booking.findAll({ where: { id: spotId } }); // should just eager load?
+
+    if (bookings) {
+        let bookingConflict = false;
+        bookings.forEach(booking => {
+            booking = booking.toJSON();
+
+            if (booking.startDate < endDate && endDate < booking.endDate) {
+                bookingConflict = true;
+                return res.status(403).json({
+                    message: "Sorry, this spot is already booked for the specified dates",
+                    errors: {
+                        endDate: "End date conflicts with an existing booking"
+                    }
+                });
+            } else if (booking.startDate < startDate && startDate < booking.endDate) {
+                bookingConflict = true;
+                return res.status(403).json({
+                    message: "Sorry, this spot is already booked for the specified dates",
+                    errors: {
+                        startDate: "Start date conflicts with an existing booking"
+                    }
+                });
+            } else if (startDate < booking.startDate && booking.endDate < endDate) {
+                bookingConflict = true;
+                return res.status(403).json({
+                    message: "Sorry, this spot is already booked for the specified dates",
+                    errors: {
+                        startDate: "Start date conflicts with an existing booking",
+                        endDate: "End date conflicts with an existing booking"
+                    }
+                });
+            }
+        });
+        if (bookingConflict) return;
+    }
+
+    await Booking.create({
+        spotId: spotId,
+        userId: userId,
+        startDate: startDate,
+        endDate: endDate
+    });
+
+    const createdBooking = await Booking.findOne({
+        where: {
+            startDate: startDate,
+            endDate: endDate
+        }
+    });
+
+    return res.json(createdBooking);
 });
 
 router.get('/:spotId/bookings', requireAuth, async (req, res) => {
