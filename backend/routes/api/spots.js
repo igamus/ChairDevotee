@@ -39,6 +39,42 @@ const validateSpot = [
     handleValidationErrors
 ]
 
+const validateQuery = [
+    check('page')
+        .optional()
+        .isInt({min: 1})
+        .withMessage('Page must be greater than or equal to 1'),
+    check('size')
+        .optional()
+        .isInt({min: 1})
+        .withMessage('Size must be greater than or equal to 1'),
+    check('maxLat')
+        .optional()
+        .isFloat()
+        .withMessage('Maximum latitude is invalid'),
+    check('minLat')
+        .optional()
+        .isFloat()
+        .withMessage('Minimum latitude is invalid'),
+    check('minLng')
+        .optional()
+        .isFloat()
+        .withMessage('Maximum longitude is invalid'),
+    check('maxLng')
+        .optional()
+        .isFloat()
+        .withMessage('Minimum longitude is invalid'),
+    check('minPrice')
+        .optional()
+        .isFloat({min: 0})
+        .withMessage('Minimum price must be greater than or equal to 0'),
+    check('maxPrice')
+        .optional()
+        .isFloat({min: 0})
+        .withMessage('Maximum price must be greater than or equal to 0'),
+    handleValidationErrors
+]
+
 router.get('/current', requireAuth, async (req, res) => {
     const querySpots = await Spot.findAll({
         where: { ownerId: req.user.id },
@@ -174,7 +210,36 @@ router.get('/:spotId', async (req, res) => {
     return res.json(targetSpotData);
 });
 
-router.get('/', async (req, res,) => {
+router.get('/', validateQuery, async (req, res,) => {
+    let { page, size } = req.query;
+    const { minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+
+    if (page === undefined || page < 1 || page > 10) page = 1;
+    else page = parseInt(page);
+
+    if (size === undefined || size < 1 || size > 10) size = 20;
+    else size = parseInt(size);
+
+    const pagination = {
+        offset: (page - 1) * size,
+        limit: size
+    };
+
+    const where = {};
+
+    // deeply repetitive... you can probably refactor
+    if (minLat && maxLat) where.lat = { [Op.between]: [minLat, maxLat] }
+    else if (minLat) where.lat = { [Op.gte]: minLat }
+    else if (maxLat) where.lat = { [Op.lte]: maxLat }
+
+    if (minLng && maxLng) where.lng = { [Op.between]: [minLng, maxLng] }
+    else if (minLng) where.lng = { [Op.gte]: minLng }
+    else if (maxLng) where.lng = { [Op.lte]: maxLng }
+
+    if (minPrice && maxPrice) where.price = { [Op.between]: [minPrice, maxPrice] }
+    else if (minPrice) where.price = { [Op.gte]: minPrice }
+    else if (maxPrice) where.price = { [Op.lte]: maxPrice }
+
     const data = await Spot.findAll({
         // should just be a clean way to get the average for each
         include: [
@@ -190,7 +255,9 @@ router.get('/', async (req, res,) => {
                 limit: 1,
                 required: false
             }
-        ]
+        ],
+        ...pagination,
+        where
     });
 
     const spots = []; // shouldn't have to use js to format and crunch numbers...
@@ -225,7 +292,11 @@ router.get('/', async (req, res,) => {
         })
     }
 
-    return res.json({ Spots: spots });
+    return res.json({
+        Spots: spots,
+        page,
+        size: spots.length
+    });
 });
 
 router.post('/', [requireAuth, validateSpot], async (req, res) => {
