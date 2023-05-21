@@ -232,7 +232,7 @@ router.post('/:spotId/bookings', [requireAuth, validateBooking], async (req, res
 
             if (booking.startDate < endDate && endDate < booking.endDate) {
                 bookingConflict = true;
-                return res.status(403).json({
+                return res.status(403).json({ // refactor into validator?
                     message: "Sorry, this spot is already booked for the specified dates",
                     errors: {
                         endDate: "End date conflicts with an existing booking"

@@ -13,6 +13,16 @@ const validateUrl = [
     handleValidationErrors
 ];
 
+const validateReviewUpdate = [
+    check('review')
+        .exists({checkFalsy: true})
+        .withMessage('Review text is required'),
+    check('stars')
+        .isInt({min: 1, max: 5})
+        .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+];
+
 
 router.get('/current', requireAuth, async (req, res) => {
     const reviews = await Review.findAll({
@@ -69,6 +79,24 @@ router.post('/:reviewId/images', [requireAuth, validateUrl], async (req, res) =>
     });
 
     return res.json(postedReviewImage);
+});
+
+router.put('/:reviewId', [requireAuth, validateReviewUpdate], async (req, res) => {
+    const userId = req.user.id;
+    const reviewId = req.params.reviewId;
+    const { review, stars } = req.body;
+
+    const queryReview = await Review.findByPk(reviewId);
+
+    if (!queryReview) return res.status(404).json({message: "Review couldn't be found"});
+
+    if (queryReview.userId !== userId) return res.status(403).json({message: 'Forbidden'});
+
+    await queryReview.update({review: review, stars: stars});
+
+    const updatedReview = await Review.findByPk(reviewId);
+
+    return res.json(updatedReview);
 });
 
 module.exports = router;
