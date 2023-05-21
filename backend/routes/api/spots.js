@@ -75,6 +75,16 @@ const validateQuery = [
     handleValidationErrors
 ]
 
+const validateReview = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .withMessage('Review text is required'),
+    check('stars')
+        .isInt({min:1, max:5})
+        .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+]
+
 router.get('/current', requireAuth, async (req, res) => {
     const querySpots = await Spot.findAll({
         where: { ownerId: req.user.id },
@@ -107,6 +117,50 @@ router.get('/current', requireAuth, async (req, res) => {
     });
 
     return res.json({Spots: userSpots});
+});
+
+router.post('/:spotId/reviews', [requireAuth, validateReview], async (req, res) => {
+    const spotId = req.params.spotId;
+    const userId = req.user.id;
+    const { review, stars } = req.body;
+    const spot = await Spot.findOne({
+        where: {id: spotId},
+        include: [
+            {
+                model: Review,
+                attributes: ['userId'],
+                where: { userId: userId },
+                required: false
+            }
+        ]
+    });
+
+    if (!spot) return res.status(404).json({message: "Spot couldn't be found"});
+
+                                                // 500(doc) or 403(kanban)?
+    if (spot.Reviews.length) return res.status(500).json({message: 'User already has a review for this spot'});
+
+    await Review.create({
+        userId: userId,
+        spotId: spotId,
+        review: review,
+        stars: stars
+    });
+
+    const postedReview = await Review.findOne({
+        where: {
+            [Op.and]: [
+                {
+                    userId: userId
+                },
+                {
+                    spotId: spotId
+                }
+            ]
+        }
+    })
+
+    return res.status(201).json(postedReview);
 });
 
 router.get('/:spotId/reviews', async (req, res) => {
@@ -144,10 +198,6 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     const userId = req.user.id;
     const spot = await Spot.findByPk(spotId);
     if (!spot) res.status(404).json({"message": "Spot couldn't be found"});
-
-    console.log('id:', spot.ownerId);
-
-    // const bookings = await Booking.scope({ method: ['isOwner', userId] }).findAll({ where: { spotId: spotId } });    // if (spot.ownerId === userId) bookings = bookings = await Booking.scope('isOwner').findAll();
 
     let bookings;
     if (userId === spot.ownerId) {
