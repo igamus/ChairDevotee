@@ -364,15 +364,16 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
 
 router.get('/:spotId', async (req, res) => {
     const spotId = req.params.spotId;
-    console.log(spotId);
+
     // should really be able to check before querying...
     const spotQuery = await Spot.findOne({
         attributes: {
             include: [
                 [sequelize.fn('COUNT', sequelize.col('Reviews.id')), 'numReviews'],
                 [sequelize.fn('AVG', sequelize.col('Reviews.stars')), 'avgStarRating']
-            ]
+            ],
         },
+        group: ['Spot.id'],
         include: [
             {
                 model: Review,
