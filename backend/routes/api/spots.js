@@ -339,12 +339,13 @@ router.put('/:spotId', [requireAuth, validateSpot], async (req, res) => {
 
     if (!querySpot) return res.status(404).json({ "message": "Spot couldn't be found" });
 
-    if (userId !== targetSpot.ownerId) return res.status(403).json({ message: "Forbidden" });
+    if (userId !== querySpot.ownerId) return res.status(403).json({ message: "Forbidden" });
 
-    querySpot.set({ address: address, city: city, state: state, country: country, lat: lat, lng: lng, name: name, description: description, price: price });
-    querySpot.save();
+    await querySpot.update({ address: address, city: city, state: state, country: country, lat: lat, lng: lng, name: name, description: description, price: price });
 
-    return res.json(querySpot);
+    const updatedSpot = await Spot.findByPk(spotId);
+
+    return res.json(updatedSpot);
 });
 
 router.delete('/:spotId', requireAuth, async (req, res) => {
