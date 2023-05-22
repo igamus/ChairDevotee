@@ -150,7 +150,6 @@ router.post('/:spotId/reviews', [requireAuth, validateReview], async (req, res) 
 
     if (!spot) return res.status(404).json({message: "Spot couldn't be found"});
 
-                                                // 500(doc) or 403(kanban)?
     if (spot.Reviews.length) return res.status(500).json({message: 'User already has a review for this spot'});
 
     await Review.create({
