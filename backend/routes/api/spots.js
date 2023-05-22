@@ -222,7 +222,7 @@ router.post('/:spotId/bookings', [requireAuth, validateBooking], async (req, res
 
     if (targetSpot.ownerId === userId) return res.status(403).json({ message: "Forbidden" });
 
-    const bookings = await Booking.findAll({ where: { id: spotId } }); // should just eager load?
+    const bookings = await Booking.findAll({ where: { spotId: spotId } }); // should just eager load?
 
     if (bookings) {
         let bookingConflict = false;

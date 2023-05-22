@@ -15,7 +15,7 @@ const validateBookingUpdate = [
 router.get('/current', requireAuth, async (req, res) => {
     const userId = req.user.id;
     const bookingsData = await Booking.findAll({
-        where: { id: userId },
+        where: { userId: userId },
         include: [
             {
                 model: Spot,
