@@ -8,7 +8,7 @@ const bookingsRouter = require('./bookings');
 const reviewImagesRouter = require('./reviewImages');
 const { restoreUser } = require('../../utils/auth');
 
-router.use(restoreUser); // Connect restoreUser middleware to the API router to set req.user
+router.use(restoreUser);
 
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
@@ -18,9 +18,6 @@ router.use('/spot-images', spotImagesRouter);
 router.use('/bookings', bookingsRouter);
 router.use('/review-images', reviewImagesRouter);
 
-router.post('/test', (req, res) => res.json({ requestBody: req.body }));
-
-// Add a XSRF-TOKEN cookie (let devs reset the CSRF token cookie)
 router.get('/csrf/restore', (req, res) => {
     const csrfToken = req.csrfToken();
     res.cookie('XSRF-TOKEN', csrfToken);
