@@ -75,6 +75,74 @@ module.exports = {
           description: 'Perfect for tool storage',
           price: 12.99,
       },
+      {
+        ownerId: 3,
+        address: '67 Bridge St',
+        city: 'London',
+        country: 'England',
+        name: 'Big Ben',
+        description: 'Spend an evening of whimsey on the grounds of this landmark tower',
+        price: 1299.99,
+      },
+      {
+        ownerId: 6,
+        address: '64 Alvord Ln',
+        city: 'Stamford',
+        state: 'Connecticut',
+        country: 'USA',
+        name: '3 bedrooms + 2.5 bathrooms',
+        description: 'Our home is your home!',
+        price: 89.99,
+      },
+      {
+        ownerId: 1,
+        address: '1300 Walt Whitman Rd NY 11747',
+        city: 'Melville',
+        state: 'New York',
+        country: 'USA',
+        name: 'Studio Mid-Rise',
+        description: 'Perfect for tool storage',
+        price: 45.00,
+      },
+      {
+        ownerId: 3,
+        address: '558 Hillgreen Dr',
+        city: 'Beverley Hills',
+        state: 'California',
+        country: 'USA',
+        name: 'LA Villa',
+        description: 'Live like Weezer in Beverley Hills',
+        price: 512.99,
+      },
+      {
+        ownerId: 3,
+        address: 'Otopark 379 A',
+        city: 'Izmir',
+        country: 'Turkey',
+        name: 'Seaside flat',
+        description: 'By ocean, very pretty',
+        price: 78.68,
+      },
+      {
+        ownerId: 4,
+        address: '525 S Forest Ave',
+        city: 'Tempe',
+        state: 'Arizona',
+        country: 'USA',
+        name: 'tempe apt',
+        description: 'in walking distanc eof Mill ave!',
+        price: 75.99,
+      },
+      {
+        ownerId: 1,
+        address: '418 Seventh Ave',
+        city: 'Pittsburgh',
+        state: 'Pennsylvania',
+        country: 'USA',
+        name: '2br+1bth',
+        description: 'Stay a while and enjoy downtown Pittsburgh!',
+        price: 50.00,
+      },
     ], {});
   },
 
@@ -88,7 +156,20 @@ module.exports = {
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      name: { [Op.in]: ['Chez Moi', 'Brooklyn Bridge', 'QUT Basketball and Netball Courts', 'Ole MeePops Basement', 'Shed'] }
+      name: { [Op.in]: [
+        'Chez Moi',
+        'Brooklyn Bridge',
+        'QUT Basketball and Netball Courts',
+        'Ole MeePops Basement',
+        'Shed',
+        'Big Ben',
+        '3 bedrooms + 2.5 bathrooms',
+        'Studio Mid-Rise',
+        'LA Villa',
+        'Seaside flat',
+        'tempe apt',
+        '2br+1bth'
+      ] }
     }, {});
   }
 };
