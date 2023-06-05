@@ -48,6 +48,12 @@ module.exports = {
           review: 'flowers near the shed, happiness near my head',
           stars: 5
       },
+      {
+        spotId: 9,
+        userId: 6,
+        review: 'We had a beautiful 4th of July weekend there! Outstanding accommodations!!',
+        stars: 5
+      }
     ], {});
   },
 
