@@ -5,7 +5,7 @@
     - css
 */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import * as sessionActions from '../../store/session';
@@ -20,12 +20,26 @@ function SignupFormModal() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState({});
-    const [hasSubmitted, setHasSubmitted] = useState(false);
+    const [disabled, setDisabled] = useState(true);
     const { closeModal } = useModal();
+
+    useEffect(() => {
+        if (
+            firstName.length &&
+            lastName.length &&
+            email.length &&
+            username.length &&
+            password.length &&
+            confirmPassword.length
+        ) {
+            setDisabled(false);
+        } else {
+            setDisabled(true);
+        }
+    }, [firstName, lastName, email, username, password, confirmPassword]) // there's probably a better way that takes advantage of our existing listeners
 
     const handleSubmit = e => {
         e.preventDefault();
-        setHasSubmitted(true);
         if (password !== confirmPassword) return setErrors({confirmPassword: 'Passwords must match!'})
         setErrors({});
         return dispatch(sessionActions.signup({ firstName, lastName, email, username, password }))
@@ -33,7 +47,11 @@ function SignupFormModal() {
         .catch(
             async res => {
                 const data = await res.json(); // is this superfluous and handled in the thunk?
-                if (data && data.errors) setErrors(data.errors);
+                if (data && data.errors) {
+                    // console.log('data:', data);
+                    setErrors(data.errors);
+                }
+                console.log('errors:', errors);
             }
         );
     };
@@ -42,7 +60,15 @@ function SignupFormModal() {
         <div className='signup'>
             <h1>Sign Up</h1>
             <form onSubmit={handleSubmit}>
-                {hasSubmitted && errors.confirmPassword && <p className='error'>{errors.confirmPassword}</p>}
+                <p className='error'>
+                    {errors.confirmPassword}
+                    {errors.undefined}
+                    {/* {errors.confirmPassword}
+                    {errors.email}
+                    {errors.username}
+                    {errors.firstName}
+                    {errors.lastName} */}
+                </p>
                 <label>
                     First Name
                     <input
@@ -65,7 +91,7 @@ function SignupFormModal() {
                     Email
                     <input
                         type='email'
-                        value={email}
+                        value={email} // for stylistic consistency it may be better to hardcode this error rather than let it be caught by HTTP
                         onChange={e => setEmail(e.target.value)}
                         required
                     />
@@ -97,7 +123,7 @@ function SignupFormModal() {
                         required
                     />
                 </label>
-                <button type='submit'>Sign Up</button>
+                <button type='submit' disabled={disabled}>Sign Up</button>
             </form>
         </div>
     );

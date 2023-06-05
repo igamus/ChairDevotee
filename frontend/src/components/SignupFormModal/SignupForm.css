@@ -12,4 +12,9 @@ form {
 
 .error {
     color: red;
+    height: 20px;
+}
+
+button:disabled {
+    background-color: lightgray;
 }
