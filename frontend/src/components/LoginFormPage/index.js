@@ -18,7 +18,6 @@ function LoginFormPage() {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState('');
 
-    console.log('sessionUser:', sessionUser);
     if (sessionUser) return <Redirect to='/' />;
 
     const handleSubmit = e => {
@@ -26,7 +25,7 @@ function LoginFormPage() {
         setErrors({});
         return dispatch(sessionActions.login({ credential, password })).catch(
             async res => {
-                const data = await res.json();
+                const data = await res.json(); // is this superfluous and handled in the thunk?
                 if (data && data.errors) setErrors(data.errors);
             }
         );
@@ -48,7 +47,7 @@ function LoginFormPage() {
                 <label>
                     Password
                     <input
-                        type="password"
+                        type='password'
                         value={password}
                         onChange={e => setPassword(e.target.value)}
                         required
