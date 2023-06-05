@@ -46,6 +46,20 @@ function LoginFormModal() {
         );
     };
 
+    const onDemoClick = e => {
+        e.preventDefault();
+        return dispatch(sessionActions.login({
+            credential: "el_poeta",
+            password: "password5"
+        }))
+        .then(closeModal)
+        .catch(
+            async res => {
+                setErrors({credential: 'Error logging in the demo user'})
+            }
+        )
+    }
+
     return (
         <div className='login'>
             <h1>Log In</h1>
@@ -69,7 +83,8 @@ function LoginFormModal() {
                         required
                     />
                 </label>
-                <button type='submit' disabled={disabled}>Log In</button>
+                <button className='login-button' type='submit' disabled={disabled}>Log In</button>
+                <button className='demo-button' type='button' onClick={onDemoClick}>Demo User</button>
             </form>
         </div>
     )
