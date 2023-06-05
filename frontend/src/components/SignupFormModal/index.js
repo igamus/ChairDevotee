@@ -20,10 +20,12 @@ function SignupFormModal() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errors, setErrors] = useState({});
+    const [hasSubmitted, setHasSubmitted] = useState(false);
     const { closeModal } = useModal();
 
     const handleSubmit = e => {
         e.preventDefault();
+        setHasSubmitted(true);
         if (password !== confirmPassword) return setErrors({confirmPassword: 'Passwords must match!'})
         setErrors({});
         return dispatch(sessionActions.signup({ firstName, lastName, email, username, password }))
@@ -37,9 +39,10 @@ function SignupFormModal() {
     };
 
     return (
-        <>
+        <div className='signup'>
             <h1>Sign Up</h1>
             <form onSubmit={handleSubmit}>
+                {hasSubmitted && errors.confirmPassword && <p className='error'>{errors.confirmPassword}</p>}
                 <label>
                     First Name
                     <input
@@ -61,7 +64,7 @@ function SignupFormModal() {
                 <label>
                     Email
                     <input
-                        type='text'
+                        type='email'
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                         required
@@ -94,10 +97,9 @@ function SignupFormModal() {
                         required
                     />
                 </label>
-                {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
                 <button type='submit'>Sign Up</button>
             </form>
-        </>
+        </div>
     );
 }
 

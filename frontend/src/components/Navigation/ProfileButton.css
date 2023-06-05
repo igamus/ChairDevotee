@@ -2,3 +2,11 @@
 .hidden {
     display: none;
 }
+
+.profile-dropdown{
+    list-style-type: none;
+}
+
+.fa-solid {
+    margin: 5px;
+}

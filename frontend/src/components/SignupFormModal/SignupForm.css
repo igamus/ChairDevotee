@@ -1,1 +1,15 @@
 /* TODO: Add styling */
+.signup {
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.error {
+    color: red;
+}
