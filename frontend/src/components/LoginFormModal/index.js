@@ -7,23 +7,23 @@
 
 import { useState } from 'react';
 import * as sessionActions from '../../store/session';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useModal } from '../../context/Modal';
 import './LoginForm.css';
 
-function LoginFormPage() {
+function LoginFormModal() {
     const dispatch = useDispatch();
-    const sessionUser = useSelector(state => state.session.user);
     const [credential, setCredential] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState('');
-
-    if (sessionUser) return <Redirect to='/' />;
+    const { closeModal } = useModal();
 
     const handleSubmit = e => {
         e.preventDefault();
         setErrors({});
-        return dispatch(sessionActions.login({ credential, password })).catch(
+        return dispatch(sessionActions.login({ credential, password }))
+        .then(closeModal)
+        .catch(
             async res => {
                 const data = await res.json(); // is this superfluous and handled in the thunk?
                 if (data && data.errors) setErrors(data.errors);
@@ -60,4 +60,4 @@ function LoginFormPage() {
     )
 }
 
-export default LoginFormPage;
+export default LoginFormModal;
