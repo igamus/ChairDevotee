@@ -2,27 +2,25 @@ import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import './ProfileButton.css';
+import OpenModalMenuItem from '../OpenModalMenuItem';
+import LoginFormModal from '../LoginFormModal';
+import SignupFormModal from '../SignupFormModal';
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
-    const ulRef = useRef();
+    const divRef = useRef();
 
     const openMenu = () => {
         if (showMenu) return;
         setShowMenu(true);
     };
 
-    const logout = e => {
-        e.preventDefault();
-        dispatch(sessionActions.logout());
-    };
-
     useEffect(() => {
         if (!showMenu) return;
 
         const closeMenu = e => {
-            if (!ulRef.current.contains(e.target)) {
+            if (!divRef.current.contains(e.target)) {
                 setShowMenu(false);
             }
         };
@@ -30,25 +28,52 @@ function ProfileButton({ user }) {
         document.addEventListener('click', closeMenu);
 
         return () => document.removeEventListener('click', closeMenu);
-    }, [showMenu])
+    }, [showMenu]);
 
-    const ulClassName = 'profile-dropdown' + (showMenu ? "" : " hidden");
+    const closeMenu = () => setShowMenu(false);
+
+    const logout = e => {
+        e.preventDefault();
+        dispatch(sessionActions.logout());
+        closeMenu();
+    };
+
+    const divClassName = 'profile-dropdown' + (showMenu ? "" : " hidden");
 
     return (
-        <>
-        <button onClick={openMenu}>
-            <i className="fa-solid fa-user"></i>
-        </button>
-        <ul className={ulClassName} ref={ulRef}>
-            <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-            <li>
-                <button onClick={logout}>Log Out</button>
-            </li>
-        </ul>
-
-        </>
+        <div>
+            <button onClick={openMenu}>
+                <i className='fa-solid fa-bars'></i>
+                <i className="fa-solid fa-user"></i>
+            </button>
+            <div className={divClassName} ref={divRef}>
+                {
+                    user ? (
+                        <>
+                        Hello, {user.firstName}<br/>
+                        {user.email}<br/>
+                        <hr />
+                        <a>Manage Spots</a>
+                        <hr />
+                        <button className='profile-logout' onClick={logout}>Log Out</button>
+                        </>
+                    ) : (
+                        <>
+                            <OpenModalMenuItem
+                                itemText='Log in'
+                                onButtonClick={closeMenu}
+                                modalComponent={<LoginFormModal />}
+                            />
+                            <OpenModalMenuItem
+                                itemText='Sign up'
+                                onButtonClick={closeMenu}
+                                modalComponent={<SignupFormModal />}
+                            />
+                        </>
+                    )
+                }
+            </div>
+        </div>
     )
 }
 

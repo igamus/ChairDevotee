@@ -10,10 +10,7 @@ function OpenModalButton({ modalComponent, buttonText, onButtonClick, onModalClo
         setModalContent(modalComponent);
     }
 
-
     return <button onClick={onClick}>{buttonText}</button>;
-
-
 };
 
 export default OpenModalButton;

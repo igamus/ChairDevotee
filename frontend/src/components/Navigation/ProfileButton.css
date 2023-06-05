@@ -2,3 +2,16 @@
 .hidden {
     display: none;
 }
+
+.fa-solid {
+    margin: 5px;
+}
+
+.profile-dropdown {
+    border: 1px solid black;
+    position: fixed;
+}
+
+.profile-logout {
+    border-radius: 25px;
+}
