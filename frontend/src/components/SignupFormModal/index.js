@@ -70,8 +70,8 @@ function SignupFormModal() {
                     {errors.lastName} */}
                 </p>
                 <label>
-                    First Name
                     <input
+                        placeholder='First Name'
                         type='text'
                         value={firstName}
                         onChange={e => setFirstName(e.target.value)}
@@ -79,8 +79,8 @@ function SignupFormModal() {
                     />
                 </label>
                 <label>
-                    Last Name
                     <input
+                        placeholder='Last Name'
                         type='text'
                         value={lastName}
                         onChange={e => setLastName(e.target.value)}
@@ -88,8 +88,8 @@ function SignupFormModal() {
                     />
                 </label>
                 <label>
-                    Email
                     <input
+                        placeholder='Email'
                         type='email'
                         value={email} // for stylistic consistency it may be better to hardcode this error rather than let it be caught by HTTP
                         onChange={e => setEmail(e.target.value)}
@@ -97,8 +97,8 @@ function SignupFormModal() {
                     />
                 </label>
                 <label>
-                    Username
                     <input
+                        placeholder='Username'
                         type='text'
                         value={username}
                         onChange={e => setUsername(e.target.value)}
@@ -106,8 +106,8 @@ function SignupFormModal() {
                     />
                 </label>
                 <label>
-                    Password
                     <input
+                        placeholder='Password'
                         type='password'
                         value={password}
                         onChange={e => setPassword(e.target.value)}
@@ -115,8 +115,8 @@ function SignupFormModal() {
                     />
                 </label>
                 <label>
-                    Confirm Password
                     <input
+                        placeholder='Confirm Password'
                         type='password'
                         value={confirmPassword}
                         onChange={e => setConfirmPassword(e.target.value)}
