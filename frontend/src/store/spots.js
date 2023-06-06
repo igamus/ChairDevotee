@@ -17,11 +17,9 @@ export const loadAllSpotsThunk = () => async dispatch => {
 
     if (res.ok) {
         const data = await res.json();
-        console.log('data in the thunk:', data);
         return dispatch(loadAllSpotsAction(data));
     } else {
         const errors = await res.json();
-        console.log('we hit an error:', errors);
         return errors;
     }
 
