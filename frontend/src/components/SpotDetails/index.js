@@ -2,19 +2,21 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadSpotThunk } from '../../store/spots'
+import { loadAllReviewsForSpotThunk } from '../../store/reviews';
+import ReviewCard from '../ReviewCard';
 
 function SpotDetails() {
     const { spotId } = useParams();
     const dispatch = useDispatch();
 
-    console.log('spotId:', spotId)
-
     useEffect(() => {
         dispatch(loadSpotThunk(spotId));
+        dispatch(loadAllReviewsForSpotThunk(spotId));
     }, [dispatch])
 
-    const spot = useSelector(state => state.spots.singleSpot);
-    console.log('spot object', spot);
+    const spot = useSelector(state => state.spots.singleSpot)
+    const reviewsObj = useSelector(state => state.reviews.spot);
+    const reviews = Object.values(reviewsObj);
 
     return (
         <div className='spot-details-card'>
@@ -28,7 +30,7 @@ function SpotDetails() {
             </div>
             <div className='spot-details-card.about'>
                 <div className='spot-details-card.about#blurb'>
-                    <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
+                    <h2>Hosted by {spot.Owner ? <span>{spot.Owner.firstName} {spot.Owner.lastName}</span> : null}</h2>
                     <p>{spot.description}</p>
                 </div>
                 <div className='spot-details-card.about#card'>
@@ -42,11 +44,7 @@ function SpotDetails() {
             <hr></hr>
             <div className='spot-details-card.reviews'>
                 <h2>{spot.avgStarRating ? <span><i className='fa-solid fa-star' /> {spot.avgStarRating} | {spot.numReviews} {spot.numReviews > 1 ? 'reviews' :'review'}</span> : 'Be the first to review!'}</h2>
-                {/*
-                I don't get all of the reviews??
-                I HAVE TO PULL REVIEWS FROM THUNK??
-                AND CREATE A CARD COMPONENT??
-                AND MAP IT??*/}
+                {reviews.map(review => ( <ReviewCard review={review} />))}
             </div>
         </div>
     );
