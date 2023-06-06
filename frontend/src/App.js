@@ -7,6 +7,7 @@ import Custom404 from './components/Custom404';
 import * as sessionActions from './store/session';
 import SpotsIndex from './components/SpotsIndex';
 import SpotDetails from './components/SpotDetails';
+import CreateSpotForm from './components/CreateSpotForm';
 
 function App() {
   const dispatch = useDispatch();
@@ -19,11 +20,10 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      {/* {isLoaded && <Switch>
-      </Switch>} */}
       <Switch>
         <Route exact path='/' component={SpotsIndex} />
-        <Route path ='/spots/:spotId' component={SpotDetails} />
+        <Route exact path='/spots/create' component={CreateSpotForm} />
+        <Route exact path ='/spots/:spotId' component={SpotDetails} />
         <Custom404 />
       </Switch>
     </>

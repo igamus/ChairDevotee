@@ -5,3 +5,10 @@ nav {
     /* border: 1px solid red; */
     position: top;
 }
+
+.nav-right {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
