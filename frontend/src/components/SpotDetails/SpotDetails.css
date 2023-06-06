@@ -1,0 +1,44 @@
+/* TODO: Add style */
+.spot-details-card {
+
+}
+
+.spot-details-card.header {
+
+}
+
+.image-collage {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 5px;
+    height: 200px;
+    margin: 10px;
+}
+
+.preview-image {
+
+}
+
+.spot-details-card.about {
+
+}
+
+.spot-details-card.reserve-button {
+    
+}
+
+.spot-details-card.about#blurb {
+
+}
+
+.spot-details-card.about#card {
+
+}
+
+.spot-details-card.about#card-data {
+
+}
+
+.spot-details-card.reviews {
+
+}
