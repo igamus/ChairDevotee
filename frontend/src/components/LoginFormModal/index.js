@@ -49,8 +49,8 @@ function LoginFormModal() {
     const onDemoClick = e => {
         e.preventDefault();
         return dispatch(sessionActions.login({
-            credential: "el_poeta",
-            password: "password5"
+            credential: 'foobarbaz',
+            password: 'password6'
         }))
         .then(closeModal)
         .catch(
