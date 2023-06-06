@@ -1,0 +1,26 @@
+/* TODO: Add style */
+
+.spot-index-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.spot-index-card:hover {
+    cursor: pointer;
+}
+
+.spot-image {
+    height: 250px;
+    width: 250px;
+    align-self: center;
+}
+
+.line-1 {
+    border: 0.5px dashed red;
+}
+
+.line-2 {
+    border: 0.5px dashed blue;
+}

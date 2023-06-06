@@ -1,0 +1,6 @@
+/* TODO: Add style */
+.spot-index {
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* Not remotely where you need to be on positioning */
+}
