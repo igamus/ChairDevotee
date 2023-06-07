@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
+import { receiveSpotThunk, receiveSpotImageThunk } from '../../store/spots';
 import './CreateSpotForm.css';
 
 function isValidFileEnding(fileName) {
@@ -13,6 +14,7 @@ function isValidFileEnding(fileName) {
 
 function CreateSpotForm() {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [errors, setErrors] = useState({});
@@ -33,13 +35,11 @@ function CreateSpotForm() {
         dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
     }, [dispatch]);
 
-    useEffect(() => console.log('img2len:', image2.length), [image2])
-
     const sessionUser = useSelector(state => state.session.user);
 
-    if (isLoaded && sessionUser === null) return (<Redirect to='/' />)
+    if (isLoaded && sessionUser === null) return history.push('/');
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
         const submission = {
             address,
@@ -49,8 +49,7 @@ function CreateSpotForm() {
             name,
             description,
             price,
-            lat: 1,
-            lng: 1
+            otherImages: []
         };
 
         const updatedErrors = {};
@@ -58,16 +57,29 @@ function CreateSpotForm() {
         if (!address.length) updatedErrors.address = 'Address is required';
         if (!city.length) updatedErrors.city = 'City is required';
         if (!state.length) updatedErrors.state = 'State is required';
-        if (description.length <= 30) updatedErrors.description = 'Description needs a minimum of 30 characters';
+        if (description.length < 30) updatedErrors.description = 'Description needs a minimum of 30 characters';
         if (!name.length) updatedErrors.name = 'Name is required';
         if (!price.length) updatedErrors.price = 'Price is required';
         else if (isNaN(price)) updatedErrors.price = 'Price must be a number'
         if (!image1.length) updatedErrors.image1 = 'Preview Image is required';
         else if (!isValidFileEnding(image1)) updatedErrors.image1 = 'Image URL must end in .png, .jpg, or .jpeg';
-        if (image2.length && !isValidFileEnding(image2)) updatedErrors.image2 = 'Image URL must end in .png, .jpg, or .jpeg';
-        if (image3.length && !isValidFileEnding(image3)) updatedErrors.image3 = 'Image URL must end in .png, .jpg, or .jpeg';
-        if (image4.length && !isValidFileEnding(image4)) updatedErrors.image4 = 'Image URL must end in .png, .jpg, or .jpeg';
-        if (image5.length && !isValidFileEnding(image5)) updatedErrors.image5 = 'Image URL must end in .png, .jpg, or .jpeg';
+        else submission.previewImage = image1;
+        if (image2.length) {
+            if (isValidFileEnding(image2)) submission.otherImages.push(image2);
+            else updatedErrors.image2 = 'Image URL must end in .png, .jpg, or .jpeg';
+        }
+        if (image3.length) {
+            if (isValidFileEnding(image3)) submission.otherImages.push(image3);
+            else updatedErrors.image3 = 'Image URL must end in .png, .jpg, or .jpeg';
+        }
+        if (image4.length) {
+            if (isValidFileEnding(image4)) submission.otherImages.push(image4);
+            else updatedErrors.image4 = 'Image URL must end in .png, .jpg, or .jpeg';
+        }
+        if (image5.length) {
+            if (isValidFileEnding(image5)) submission.otherImages.push(image5);
+            else updatedErrors.image5 = 'Image URL must end in .png, .jpg, or .jpeg';
+        }
 
         setErrors(updatedErrors);
 
@@ -75,8 +87,31 @@ function CreateSpotForm() {
         // catch errors
         if (Object.values(updatedErrors).length) return; // I feel like there's a more elegant solution
         console.log('submission:',submission);
-        alert(`${submission.name} sent`);
-        return (<Redirect to={`/`} />); // that redirect is not working, will redirect to /spot/${newSpot.id}
+        try {
+            const newSpotData = await dispatch(receiveSpotThunk(submission))
+            console.log('newSpotData:', newSpotData);
+            const newSpotId = newSpotData.id
+            console.log(`so redirect might be: /spots/${newSpotId}`);
+
+            const newSpotImage = await dispatch(receiveSpotImageThunk(submission, newSpotData))
+                .catch(async res => {
+                    console.log('ERROR IN IMAGES');
+                })
+                // maybe try catch with a delete
+            return alert(`${submission.name} sent`);
+            // return (history.push(`/`)); // that redirect is not working, will redirect to /spot/${newSpot.id}
+        } catch (e) {
+            console.log('ERROR\n\ne:', e);
+                // if (data && data.errors) {
+                //     setErrors(data.errors);
+                // } else if (data && data.message) {
+                //     setErrors(data.message);
+                // } else {
+                //     setErrors({undefined: 'Somethin\' happened'})
+                // }
+                // console.log('new spot data (in component):', newSpotData);
+            // });
+        }
     }
 
     return (
@@ -93,7 +128,6 @@ function CreateSpotForm() {
                             type='text'
                             value={country}
                             onChange={e => setCountry(e.target.value)}
-
                         />
                     </label>
                     <label className='csf-label'>
@@ -103,7 +137,6 @@ function CreateSpotForm() {
                             type='text'
                             value={address}
                             onChange={e => setAddress(e.target.value)}
-
                         />
                     </label>
                     <span>
@@ -114,7 +147,6 @@ function CreateSpotForm() {
                                 type='text'
                                 value={city}
                                 onChange={e => setCity(e.target.value)}
-
                             />,
                         </label>
                         <label className='csf-label'>
@@ -124,7 +156,6 @@ function CreateSpotForm() {
                                 type='text'
                                 value={state}
                                 onChange={e => setState(e.target.value)}
-
                             />
                         </label>
                     </span>
@@ -137,7 +168,6 @@ function CreateSpotForm() {
                         placeholder='Description'
                         value={description}
                         onChange={e => setDescription(e.target.value)}
-
                     />
                     <p className='csf-error'>{errors.description}</p>
                 </section>
@@ -149,7 +179,6 @@ function CreateSpotForm() {
                         type='text'
                         value={name}
                         onChange={e => setName(e.target.value)}
-
                     />
                     <p className='csf-error'>{errors.name}</p>
                 </section>
@@ -161,7 +190,6 @@ function CreateSpotForm() {
                         type='text'
                         value={price}
                         onChange={e => setPrice(e.target.value)}
-
                     />
                     <p className='csf-error'>{errors.price}</p>
                 </section>
@@ -173,7 +201,6 @@ function CreateSpotForm() {
                         type='text'
                         value={image1}
                         onChange={e => setImage1(e.target.value)}
-
                     />
                     <p className='csf-error'>{errors.image1}</p>
                     <input
@@ -205,6 +232,7 @@ function CreateSpotForm() {
                     />
                     <p className='csf-error'>{errors.image5}</p>
                 </section>
+                <p className='csf-error'>{errors.undefined ? <span className='csf-error-span'>Misc. Error: {errors.undefined}</span> : ''}</p>
                 <button type='submit'>Create Spot</button>
             </form>
         </div>

@@ -500,9 +500,9 @@ router.get('/', validateQuery, async (req, res,) => {
 
 router.post('/', [requireAuth, validateSpot], async (req, res) => {
     const newSpot = await Spot.create({...req.body, ownerId: req.user.id});
-    const retrieved = await Spot.findOne({where: {[Op.and]: [{lat: req.body.lat}, {lng: req.body.lng}]}});
+    // const retrieved = await Spot.findOne({where: {[Op.and]: [{lat: req.body.lat}, {lng: req.body.lng}]}});
 
-    return res.status(201).json(retrieved);
+    return res.status(201).json(newSpot);
 });
 
 module.exports = router;
