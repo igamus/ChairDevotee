@@ -14,6 +14,7 @@ function SpotsIndex() {
     const spotsObj = useSelector(state => state.spots.allSpots);
     const spots = Object.values(spotsObj); // is this or forEach more performant?
 
+    console.log('spots:', spots)
     return (
         <section className='spot-index'>
             {spots.map(spot => spot.previewImage ? <SpotsIndexCard key={`spot-card-${spot.id}`} spot={spot} /> : null)}

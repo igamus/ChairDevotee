@@ -8,7 +8,7 @@ function SpotsIndexCard({spot}) {
             <img className='spot-image' src={spot.previewImage} />
             <div className='line-1'>
                 {spot.city}, {spot.state ? spot.state : spot.country}
-                {spot.avgRating ? (<span><i className='fa-solid fa-star' />{spot.avgRating}</span>) : null}
+                {<span><i className='fa-solid fa-star' />{spot.avgRating ? spot.avgRating : 'New'}</span>}
             </div>
             <div className='line-2'>
                 ${spot.price} night

@@ -36,15 +36,16 @@ function SpotDetails() {
                 <div className='spot-details-card.about#card'>
                     <div className='spot-details-card.about#card-data'>
                         <span>${spot.price}</span>
-                        <span>{spot.avgStarRating ? <span><i className='fa-solid fa-star' /> {spot.avgStarRating} | {spot.numReviews} {spot.numReviews > 1 ? 'reviews' :'review'}</span> : 'Be the first to review!'}</span>
+                        <span><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{spot.avgStarRating} | {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</span>
+                        {/* {spot.avgStarRating ? <span>{spot.avgStarRating} | {spot.numReviews} {spot.numReviews > 1 ? 'reviews' :'review'}</span> : 'New'} */}
                     </div>
                     <button className='spot-details-card.reserve-button' onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
                 </div>
             </div>
             <hr></hr>
             <div className='spot-details-card.reviews'>
-                <h2>{spot.avgStarRating ? <span><i className='fa-solid fa-star' /> {spot.avgStarRating} | {spot.numReviews} {spot.numReviews > 1 ? 'reviews' :'review'}</span> : 'Be the first to review!'}</h2>
-                {reviews.map(review => ( <ReviewCard review={review} />))}
+                <h2><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{spot.avgStarRating} | {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</h2>
+                {reviews.map(review => ( <ReviewCard review={review} key={`review-${review.id}`} />))}
             </div>
         </div>
     );
