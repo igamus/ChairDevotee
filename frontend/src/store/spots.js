@@ -98,6 +98,20 @@ export const receiveSpotImageThunk = (formData, spotData) => async dispatch => {
         spotData.avgRating = 0;
         spotData.previewImage = imageCreateData.url;
         console.log('spotData:', spotData);
+
+        if (formData.otherImages.length) {
+            formData.otherImages.forEach(async img => {
+                await csrfFetch(`/api/spots/${spotCreateData.id}/images`, {
+                    method: 'POST',
+                    headers: {'Content-Type':'application/json'},
+                    body: JSON.stringify({
+                        url: img,
+                        preview: false
+                    })
+                })
+            })
+        }
+
         dispatch(receiveSpotAction(spotData));
     } else {
     console.log('in receivespotimagethunk res.NOT.ok');
@@ -108,17 +122,7 @@ export const receiveSpotImageThunk = (formData, spotData) => async dispatch => {
 
 
     //         if (formData.otherImages) {
-    //             formData.otherImages.forEach(async img => {
-    //                 await csrfFetch(`/api/spots/${spotCreateData.id}/images`, {
-    //                     method: 'POST',
-    //                     headers: {'Content-Type':'application/json'},
-    //                     body: JSON.stringify({
-    //                         url: img,
-    //                         preview: false
-    //                     })
-    //                 })
-    //             })
-    //         }
+    //                 //         }
 
     //         return spotCreateData.id;
     //     } else {
@@ -184,7 +188,7 @@ const spotsReducer = (state = initialState, action) => {
             newState = {
                 ...state,
                 allSpots: {...state.allSpots},
-                // allSpots[action.spots.]
+                // allSpots[action.spots.] --- GET THE STATE WORKING
             }
             return newState;
         default:

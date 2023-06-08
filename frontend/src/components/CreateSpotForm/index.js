@@ -90,16 +90,19 @@ function CreateSpotForm() {
         try {
             const newSpotData = await dispatch(receiveSpotThunk(submission))
             console.log('newSpotData:', newSpotData);
-            const newSpotId = newSpotData.id
+            const newSpotId = newSpotData.id;
             console.log(`so redirect might be: /spots/${newSpotId}`);
 
             const newSpotImage = await dispatch(receiveSpotImageThunk(submission, newSpotData))
-                .catch(async res => {
-                    console.log('ERROR IN IMAGES');
-                })
-                // maybe try catch with a delete
-            return alert(`${submission.name} sent`);
-            // return (history.push(`/`)); // that redirect is not working, will redirect to /spot/${newSpot.id}
+
+            if (submission.) {
+                for (const img of submission.otherImages) {
+                    await dispatch();
+                }
+
+            }
+
+            return (history.push(`/spots/${newSpotId}`));
         } catch (e) {
             console.log('ERROR\n\ne:', e);
                 // if (data && data.errors) {

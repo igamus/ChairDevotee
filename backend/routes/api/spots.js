@@ -117,7 +117,7 @@ router.get('/current', requireAuth, async (req, res) => {
     querySpots.forEach(e => userSpots.push(e.toJSON()));
 
     userSpots.forEach(spot => {
-        if (spot.SpotImages.length) spot.previewImage = spot.SpotImages[0].url;
+        if (spot.SpotImages.length) spot.previewImage = spot.SpotImages.find(img => img.preview === true).url;
         else spot.previewImage = null;
         delete spot.SpotImages;
 
@@ -391,7 +391,6 @@ router.get('/:spotId', async (req, res) => {
         }
     });
     let targetSpotData = spotQuery.toJSON();
-    console.log(targetSpotData);
 
     if (!targetSpotData.id) res.status(404).json({message: "Spot couldn't be found."});
 

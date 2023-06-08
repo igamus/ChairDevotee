@@ -36,12 +36,12 @@ module.exports = {
       {
           spotId: 4,
           url: 'https://images.unsplash.com/photo-1603792907191-89e55f70099a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
-          preview: false
+          preview: true
       },
       {
           spotId: 2,
           url: 'https://images.pexels.com/photos/1387170/pexels-photo-1387170.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-          preview: true
+          preview: false
       },
       {
         spotId: 6,
