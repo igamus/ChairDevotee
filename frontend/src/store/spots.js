@@ -4,6 +4,7 @@ import { csrfFetch } from "./csrf";
 const LOAD_SPOTS = 'spots/LOAD_SPOTS';
 const LOAD_SPOT = 'spots/LOAD_SPOT';
 const RECEIVE_SPOT = 'spots/RECEIVE_SPOT';
+const REMOVE_SPOT = 'spots/REMOVE_SPOT';
 
 // Action Creators
 const loadAllSpotsAction = spots => {
@@ -27,6 +28,13 @@ const receiveSpotAction = spot => {
     }
 };
 
+const removeSpotAction = spotId => {
+    return {
+        type: REMOVE_SPOT,
+        spotId
+    }
+}
+
 // Thunk Action Creators
 export const loadAllSpotsThunk = () => async dispatch => {
     const res = await csrfFetch('/api/spots');
@@ -47,11 +55,6 @@ export const loadSpotThunk = spotId => async dispatch => {
 }
 
 export const receiveSpotThunk = formData => async dispatch => {
-    // try to submit as just 'all'
-    // does seem to be an auth issue... send the user into the thunk??
-    // nope we have to somehow know...
-    console.log('in receivespotthunk');
-    console.log('data in rst:', formData);
     const spotRes = await csrfFetch(`/api/spots/`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -69,7 +72,6 @@ export const receiveSpotThunk = formData => async dispatch => {
     })
 
     if (spotRes.ok) {
-    console.log('in receivespotthunk res.ok');
         const spotCreateData = await spotRes.json();
         return spotCreateData;
     } else {
@@ -80,8 +82,6 @@ export const receiveSpotThunk = formData => async dispatch => {
 };
 
 export const receiveSpotImageThunk = (formData, spotData) => async dispatch => {
-    console.log('in receivespotimagethunk');
-    console.log('form data as received in rsit:', formData);
     const res = await csrfFetch(`/api/spots/${spotData.id}/images`, {
         method: 'POST',
         headers: {'Content-Type':'application/json'},
@@ -91,13 +91,10 @@ export const receiveSpotImageThunk = (formData, spotData) => async dispatch => {
         })
     })
 
-    if (res.ok) { // FORBIDDEN 403, NO AUTH
-    console.log('in receivespotimagethunk res.ok');
+    if (res.ok) {
         const imageCreateData = res.json();
-        console.log('image create res:', imageCreateData);
         spotData.avgRating = 0;
         spotData.previewImage = imageCreateData.url;
-        console.log('spotData:', spotData);
 
         if (formData.otherImages.length) {
             formData.otherImages.forEach(async img => {
@@ -114,54 +111,21 @@ export const receiveSpotImageThunk = (formData, spotData) => async dispatch => {
 
         dispatch(receiveSpotAction(spotData));
     } else {
-    console.log('in receivespotimagethunk res.NOT.ok');
         const errors = res.json();
         return errors;
     }
 };
 
-
-    //         if (formData.otherImages) {
-    //                 //         }
-
-    //         return spotCreateData.id;
-    //     } else {
-    //         const deleteRes = await csrfFetch(`/api/spots/${spotCreateData.id}`, {method: 'DELETE'})
-    //         const deleteData = await deleteRes.json();
-    //         console.log('deleteData:', deleteRes);
-    //         const prevImgErrRes = {errors: {image1: 'There was an issue submitting your Preview Image'}};
-    //         return prevImgErrRes;
-    //     }
-    // } else {
-    //     const errors = await spotRes.json();
-    //     return errors;
-    // }
-// };
-
-/*
-export const thunkCreateImagesForThing = (spotData, imageData) => async (dispatch, getState) => {
-    const res = await fetch(`/api/spots/${spotData.id}/images`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(imageData)
-    })
+export const removeSpotThunk = spotId => async dispatch => {
+    const res = await csrfFetch(`/spots/${spotId}`, {method: 'DELETE'})
 
     if (res.ok) {
-        const returnedData = await res.json();
-
-        // transform into something you can use for your cards
-        spotData.previewImage = returnedData.url;
-
-        // dispatch to reducer
-        disdpatch(actionCreateThing(spotData));
-
-        return spotData
+        dispatch(removeSpotAction(spotId));
     } else {
-        const errorData = await res.json();
-        return errorData;
+        const error = await res.json();
+        return error;
     }
-}
-*/
+};
 
 // Reducer
 const initialState = { allSpots: {}, singleSpot: {} };
@@ -184,7 +148,6 @@ const spotsReducer = (state = initialState, action) => {
             };
             return newState;
         case RECEIVE_SPOT:
-            console.log('reducer data (action.spot):', action.spot);
             newState = {
                 ...state,
                 allSpots: {
@@ -192,6 +155,10 @@ const spotsReducer = (state = initialState, action) => {
                     [action.spot.id]: {...action.spot}
                 },
             }
+            return newState;
+        case REMOVE_SPOT:
+            newState = {...state};
+            delete newState[action.spotId];
             return newState;
         default:
             return state;

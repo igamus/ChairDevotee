@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import './ProfileButton.css';
@@ -53,7 +54,7 @@ function ProfileButton({ user }) {
                         Hello, {user.firstName}<br/>
                         {user.email}<br/>
                         <hr />
-                        <a>Manage Spots</a>
+                        <Link to='/spots/current'>Manage Spots</Link>
                         <hr />
                         <button className='profile-logout' onClick={logout}>Log Out</button>
                         </>

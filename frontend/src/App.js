@@ -8,6 +8,7 @@ import * as sessionActions from './store/session';
 import SpotsIndex from './components/SpotsIndex';
 import SpotDetails from './components/SpotDetails';
 import CreateSpotForm from './components/CreateSpotForm';
+import ManageSpots from './components/ManageSpots';
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       <Switch>
         <Route exact path='/' component={SpotsIndex} />
+        <Route exact path='/spots/current' component={ManageSpots} />
         <Route exact path='/spots/create' component={CreateSpotForm} />
         <Route exact path ='/spots/:spotId' component={SpotDetails} />
         <Custom404 />
