@@ -101,7 +101,7 @@ export const receiveSpotImageThunk = (formData, spotData) => async dispatch => {
 
         if (formData.otherImages.length) {
             formData.otherImages.forEach(async img => {
-                await csrfFetch(`/api/spots/${spotCreateData.id}/images`, {
+                await csrfFetch(`/api/spots/${spotData.id}/images`, {
                     method: 'POST',
                     headers: {'Content-Type':'application/json'},
                     body: JSON.stringify({
@@ -184,11 +184,13 @@ const spotsReducer = (state = initialState, action) => {
             };
             return newState;
         case RECEIVE_SPOT:
-            console.log('reducer data (action):', action);
+            console.log('reducer data (action.spot):', action.spot);
             newState = {
                 ...state,
-                allSpots: {...state.allSpots},
-                // allSpots[action.spots.] --- GET THE STATE WORKING
+                allSpots: {
+                    ...state.allSpots,
+                    [action.spot.id]: {...action.spot}
+                },
             }
             return newState;
         default:

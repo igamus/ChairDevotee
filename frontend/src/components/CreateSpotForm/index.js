@@ -93,14 +93,7 @@ function CreateSpotForm() {
             const newSpotId = newSpotData.id;
             console.log(`so redirect might be: /spots/${newSpotId}`);
 
-            const newSpotImage = await dispatch(receiveSpotImageThunk(submission, newSpotData))
-
-            if (submission.) {
-                for (const img of submission.otherImages) {
-                    await dispatch();
-                }
-
-            }
+            await dispatch(receiveSpotImageThunk(submission, newSpotData));
 
             return (history.push(`/spots/${newSpotId}`));
         } catch (e) {
