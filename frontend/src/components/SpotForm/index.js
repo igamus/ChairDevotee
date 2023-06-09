@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
-import { receiveSpotThunk, receiveSpotImageThunk } from '../../store/spots';
+import { receiveSpotThunk, receiveSpotImageThunk, updateSpotThunk } from '../../store/spots';
 import './SpotForm.css';
 
 function isValidFileEnding(fileName) {
@@ -59,11 +59,13 @@ function SpotForm({ initialFormData, formType}) {
         if (!state.length) updatedErrors.state = 'State is required';
         if (description.length < 30) updatedErrors.description = 'Description needs a minimum of 30 characters';
         if (!name.length) updatedErrors.name = 'Name is required';
-        if (!price.length) updatedErrors.price = 'Price is required';
+        if (!price.toString().length) updatedErrors.price = 'Price is required'; // but it's a num, so we've got issues.........
         else if (isNaN(price)) updatedErrors.price = 'Price must be a number'
-        if (!image1.length) updatedErrors.image1 = 'Preview Image is required';
-        else if (!isValidFileEnding(image1)) updatedErrors.image1 = 'Image URL must end in .png, .jpg, or .jpeg';
-        else submission.previewImage = image1;
+        if (formType === 'create') {
+            if (!image1.length) updatedErrors.image1 = 'Preview Image is required';
+            else if (!isValidFileEnding(image1)) updatedErrors.image1 = 'Image URL must end in .png, .jpg, or .jpeg';
+            else submission.previewImage = image1;
+        }
         if (image2.length) {
             if (isValidFileEnding(image2)) submission.otherImages.push(image2);
             else updatedErrors.image2 = 'Image URL must end in .png, .jpg, or .jpeg';
@@ -83,19 +85,20 @@ function SpotForm({ initialFormData, formType}) {
 
         setErrors(updatedErrors);
 
-        // if no errors, dispatch sign up and navigate to new page
-        // catch errors
         if (Object.values(updatedErrors).length) return; // I feel like there's a more elegant solution
-        console.log('submission:',submission);
         try {
-            const newSpotData = await dispatch(receiveSpotThunk(submission))
-            console.log('newSpotData:', newSpotData);
-            const newSpotId = newSpotData.id;
-            console.log(`so redirect might be: /spots/${newSpotId}`);
+            if (formType === 'create') {
+                const newSpotData = await dispatch(receiveSpotThunk(submission))
+                const newSpotId = newSpotData.id;
 
-            await dispatch(receiveSpotImageThunk(submission, newSpotData));
+                await dispatch(receiveSpotImageThunk(submission, newSpotData));
 
-            return (history.push(`/spots/${newSpotId}`));
+                return (history.push(`/spots/${newSpotId}`));
+            } else {
+                submission.id = initialFormData.id;
+                await dispatch(updateSpotThunk(submission));
+                return (history.push(`/spots/${initialFormData.id}`))
+            }
         } catch (e) {
             console.log('ERROR\n\ne:', e);
                 // if (data && data.errors) {
@@ -112,7 +115,7 @@ function SpotForm({ initialFormData, formType}) {
 
     return (
         <div className='csf'>
-            <h1>Create a new Spot</h1>
+            {formType === 'create' ? <h1>Create a new Spot</h1> : <h1>Update your Spot</h1>}
             <form id='csf' onSubmit={handleSubmit}>
                 <section className='csf-1'>
                     <h2>Where's your place located?</h2>
@@ -189,45 +192,51 @@ function SpotForm({ initialFormData, formType}) {
                     />
                     <p className='csf-error'>{errors.price}</p>
                 </section>
-                <section className='csf-5'>
-                    <h2>Liven up your spot with photos</h2>
-                    <p>Submit a link to at least one photo to publish your spot.</p>
-                    <input
-                        placeholder='Preview Image URL'
-                        type='text'
-                        value={image1}
-                        onChange={e => setImage1(e.target.value)}
-                    />
-                    <p className='csf-error'>{errors.image1}</p>
-                    <input
-                        placeholder='Image URL'
-                        type='text'
-                        value={image2}
-                        onChange={e => setImage2(e.target.value)}
-                    />
-                    <p className='csf-error'>{errors.image2}</p>
-                    <input
-                        placeholder='Image URL'
-                        type='text'
-                        value={image3}
-                        onChange={e => setImage3(e.target.value)}
-                    />
-                    <p className='csf-error'>{errors.image3}</p>
-                    <input
-                        placeholder='Image URL'
-                        type='text'
-                        value={image4}
-                        onChange={e => setImage4(e.target.value)}
-                    />
-                    <p className='csf-error'>{errors.image4}</p>
-                    <input
-                        placeholder='Image URL'
-                        type='text'
-                        value={image5}
-                        onChange={e => setImage5(e.target.value)}
-                    />
-                    <p className='csf-error'>{errors.image5}</p>
-                </section>
+                {
+                    formType === 'create'
+                        ?
+                    <section className='csf-5'>
+                        <h2>Liven up your spot with photos</h2>
+                        <p>Submit a link to at least one photo to publish your spot.</p>
+                        <input
+                            placeholder='Preview Image URL'
+                            type='text'
+                            value={image1}
+                            onChange={e => setImage1(e.target.value)}
+                        />
+                        <p className='csf-error'>{errors.image1}</p>
+                        <input
+                            placeholder='Image URL'
+                            type='text'
+                            value={image2}
+                            onChange={e => setImage2(e.target.value)}
+                        />
+                        <p className='csf-error'>{errors.image2}</p>
+                        <input
+                            placeholder='Image URL'
+                            type='text'
+                            value={image3}
+                            onChange={e => setImage3(e.target.value)}
+                        />
+                        <p className='csf-error'>{errors.image3}</p>
+                        <input
+                            placeholder='Image URL'
+                            type='text'
+                            value={image4}
+                            onChange={e => setImage4(e.target.value)}
+                        />
+                        <p className='csf-error'>{errors.image4}</p>
+                        <input
+                            placeholder='Image URL'
+                            type='text'
+                            value={image5}
+                            onChange={e => setImage5(e.target.value)}
+                        />
+                        <p className='csf-error'>{errors.image5}</p>
+                    </section>
+                        :
+                    null
+                }
                 <p className='csf-error'>{errors.undefined ? <span className='csf-error-span'>Misc. Error: {errors.undefined}</span> : ''}</p>
                 <button type='submit'>Create Spot</button>
             </form>

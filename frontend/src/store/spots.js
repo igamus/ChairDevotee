@@ -41,7 +41,7 @@ const removeSpotAction = spotId => {
         type: REMOVE_SPOT,
         spotId
     }
-}
+};
 
 // Thunk Action Creators
 export const loadAllSpotsThunk = () => async dispatch => {
@@ -123,7 +123,7 @@ export const receiveSpotImageThunk = (formData, spotData) => async dispatch => {
             })
         }
 
-        dispatch(receiveSpotAction(spotData));
+        return dispatch(receiveSpotAction(spotData));
     } else {
         const errors = res.json();
         return errors;
@@ -134,12 +134,38 @@ export const removeSpotThunk = spotId => async dispatch => {
     const res = await csrfFetch(`/api/spots/${spotId}`, {method: 'DELETE'})
 
     if (res.ok) {
-        dispatch(removeSpotAction(spotId));
+        return dispatch(removeSpotAction(spotId));
     } else {
         const error = await res.json();
         return error;
     }
 };
+
+export const updateSpotThunk = formData => async dispatch => {
+    const res = await csrfFetch(`/api/spots/${formData.id}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            address: formData.address,
+            city: formData.city,
+            state: formData.state,
+            country: formData.country,
+            name: formData.name,
+            description: formData.description,
+            price: formData.price,
+            lat: 1,
+            lng: 1
+        })
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        return dispatch(receiveSpotAction(data));
+    } else {
+        const error = await res.json();
+        return error;
+    }
+}
 
 // Reducer
 const initialState = { allSpots: {}, singleSpot: {} };

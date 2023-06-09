@@ -25,6 +25,7 @@ function UpdateSpotForm() {
         description: spot.description,
         name: spot.name,
         price: spot.price,
+        id: spotId
     }; // we'll skip the update images
 
     return <SpotForm initialFormData={initialFormData} formType={'update'}/>;
