@@ -33,7 +33,7 @@ function SpotForm({ initialFormData, formType}) {
 
     useEffect(() => {
         dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-    }, [dispatch]);
+    }, [dispatch]); // don't know if you need this -- in fact, pretty sure you don't, but we'll save that for testing -- I think I wrote it to handle forcing people out
 
     const sessionUser = useSelector(state => state.session.user);
 

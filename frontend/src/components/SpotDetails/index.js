@@ -3,7 +3,9 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadSpotThunk } from '../../store/spots'
 import { loadAllReviewsForSpotThunk } from '../../store/reviews';
+import PostReviewModal from '../PostReviewModal';
 import ReviewCard from '../ReviewCard';
+import OpenModalButton from '../OpenModalButton';
 
 function SpotDetails() {
     const { spotId } = useParams();
@@ -19,20 +21,20 @@ function SpotDetails() {
     const reviewsObj = useSelector(state => state.reviews.spot);
     const reviews = Object.values(reviewsObj);
 
-    const [showPostReviewButton, setShowPostReviewButton] = useState(user && user.id !== spot.ownerId);
+    // logic not working right on showing the button & posting results in error throw for new cards, etc. (though it didn't in create spot...)
+    const [showPostReviewModal, setShowPostReviewModal] = useState(true);
 
-    useEffect(() => {
-        for (const review of reviews) {
-            if (review.id === user?.id) setShowPostReviewButton(false);
-        }
-    }, [reviews]);
+    // useEffect(() => {
+    //     for (const review of reviews) {
+    //         console.log(`${review.id}:`, review);
+    //         if (review.userId === user?.id) setShowPostReviewModal(false);
+    //     }
+    // }, [reviews]);
 
-    useEffect(() => {
-        if (!user) setShowPostReviewButton(false)
-        else if (user && user?.id !== spot.ownerId) setShowPostReviewButton(true)
-    }, [user]);
-
-    useEffect(() => console.log('show button?', showPostReviewButton), [showPostReviewButton])
+    // useEffect(() => {
+    //     if (!user) setShowPostReviewModal(false)
+    //     else if (user && user?.id !== spot.ownerId) setShowPostReviewModal(true)
+    // }, [user]);
 
     return (
         <div className='spot-details-card'>
@@ -62,9 +64,14 @@ function SpotDetails() {
             <div className='spot-details-card.reviews'>
                 <h2><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{spot.avgStarRating} | {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</h2>
                 <div className='spot-details-car.reviews#button-parent'>
-                    {/* must be logged in and not owner without having a review to post */}
-
-                    {showPostReviewButton ? <button>Future Review</button> : null}
+                    {showPostReviewModal
+                        ?
+                    <OpenModalButton
+                        modalComponent={<PostReviewModal spotid={spot.id} />}
+                        buttonText={'Post Your Review'}
+                    />
+                        :
+                    null}
                 </div>
                 <div className='spot-details-card.reviews#index'>
                     {reviews.map(review => ( <ReviewCard review={review} key={`review-${review.id}`} />))}

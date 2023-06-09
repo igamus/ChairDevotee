@@ -20,7 +20,7 @@ function LoginFormModal() {
     const { closeModal } = useModal();
 
     useEffect(() => {
-        setErrors(errors)
+        setErrors(errors);
     }, [errors])
 
     useEffect(() => {
