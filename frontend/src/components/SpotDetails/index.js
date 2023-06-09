@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadSpotThunk } from '../../store/spots'
@@ -14,9 +14,25 @@ function SpotDetails() {
         dispatch(loadAllReviewsForSpotThunk(spotId));
     }, [dispatch])
 
-    const spot = useSelector(state => state.spots.singleSpot)
+    const user = useSelector(state => state.session.user);
+    const spot = useSelector(state => state.spots.singleSpot);
     const reviewsObj = useSelector(state => state.reviews.spot);
     const reviews = Object.values(reviewsObj);
+
+    const [showPostReviewButton, setShowPostReviewButton] = useState(user && user.id !== spot.ownerId);
+
+    useEffect(() => {
+        for (const review of reviews) {
+            if (review.id === user?.id) setShowPostReviewButton(false);
+        }
+    }, [reviews]);
+
+    useEffect(() => {
+        if (!user) setShowPostReviewButton(false)
+        else if (user && user?.id !== spot.ownerId) setShowPostReviewButton(true)
+    }, [user]);
+
+    useEffect(() => console.log('show button?', showPostReviewButton), [showPostReviewButton])
 
     return (
         <div className='spot-details-card'>
@@ -45,7 +61,14 @@ function SpotDetails() {
             <hr></hr>
             <div className='spot-details-card.reviews'>
                 <h2><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{spot.avgStarRating} | {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</h2>
-                {reviews.map(review => ( <ReviewCard review={review} key={`review-${review.id}`} />))}
+                <div className='spot-details-car.reviews#button-parent'>
+                    {/* must be logged in and not owner without having a review to post */}
+
+                    {showPostReviewButton ? <button>Future Review</button> : null}
+                </div>
+                <div className='spot-details-card.reviews#index'>
+                    {reviews.map(review => ( <ReviewCard review={review} key={`review-${review.id}`} />))}
+                </div>
             </div>
         </div>
     );
