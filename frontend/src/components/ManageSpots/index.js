@@ -1,5 +1,5 @@
 import './ManageSpots.css';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import * as spotActions from '../../store/spots';
@@ -23,10 +23,11 @@ function ManageSpots() {
         history.push('/spots/create');
     };
 
-    const updateClick = e => {
-        e.preventDefault();
-        alert(`Update pushed`);
-    };
+    // const updateClick = e => {
+    //     e.preventDefault();
+    //     console.log(object);
+    //     history.push(`/spots/${spotid}/edit`)
+    // };
 
     return (
         <div className='manage-spots'>
@@ -39,7 +40,8 @@ function ManageSpots() {
                     <div key={`spot-index-card-${spot.id}`} className='spot-index-card'>
                         <SpotsIndexCard key={`spot-card-${spot.id}`} spot={spot} />
                         <span>
-                            <button onClick={updateClick} spotid={spot.id}>Update</button>
+                            <button><Link to={`/spots/${spot.id}/edit`}>Update</Link></button>
+                            {/* <button onClick={updateClick}><Link exact to=''>Update</Link></button> */}
                             <OpenModalButton
                                 modalComponent={<DeleteSpotModal spotid={spot.id} />}
                                 buttonText={'Delete'}

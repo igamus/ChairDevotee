@@ -1,0 +1,37 @@
+/* TODO: Add styling */
+.csf {
+
+}
+
+.csf-1 {
+
+}
+
+.csf-2 {
+
+}
+
+.csf-3 {
+
+}
+
+.csf-4 {
+
+}
+
+.csf-5 {
+
+}
+
+.csf-label {
+    display: flex;
+    direction: column;
+}
+
+.csf-error {
+    color: red;
+}
+
+.csf-error-span {
+    color: red;
+}
