@@ -4,18 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import * as spotActions from '../../store/spots';
 import SpotsIndexCard from '../SpotsIndexCard';
+import OpenModalButton from '../OpenModalButton';
+import DeleteSpotModal from '../DeleteSpotModal';
 
 function ManageSpots() {
     const dispatch = useDispatch();
     const history = useHistory();
 
     useEffect(() => {
-        dispatch(spotActions.loadAllSpotsThunk());
+        dispatch(spotActions.loadUserSpotsThunk());
     }, [dispatch]);
 
-    const userId = useSelector(state => state.session.user ? state.session.user.id : null); // best way to field this error?
     const spotsObj = useSelector(state => state.spots.allSpots);
-    const spots = Object.values(spotsObj).filter(spot => spot.ownerId === userId); // or would you use a call to /api/spots/current in the backend or make a fetch req with this component as async?
+    const spots = Object.values(spotsObj);
 
     const onClick = e => {
         e.preventDefault();
@@ -25,14 +26,7 @@ function ManageSpots() {
     const updateClick = e => {
         e.preventDefault();
         alert(`Update pushed`);
-    }
-
-    const deleteClick = async e => {
-        e.preventDefault();
-        const spotId = e.target.getAttribute('spotId');
-        // await dispatch(spotActions.removeSpotThunk(spotId))
-        // alert(`Delete pushed`);
-    }
+    };
 
     return (
         <div className='manage-spots'>
@@ -44,7 +38,13 @@ function ManageSpots() {
                         ?
                     <div key={`spot-index-card-${spot.id}`} className='spot-index-card'>
                         <SpotsIndexCard key={`spot-card-${spot.id}`} spot={spot} />
-                        <span><button onClick={updateClick} spotId={spot.id}>Update</button><button onClick={deleteClick} spotId={spot.id}>Delete</button></span>
+                        <span>
+                            <button onClick={updateClick} spotid={spot.id}>Update</button>
+                            <OpenModalButton
+                                modalComponent={<DeleteSpotModal spotid={spot.id} />}
+                                buttonText={'Delete'}
+                            />
+                        </span>
                     </div>
                         :
                     null
