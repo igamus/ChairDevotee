@@ -3,7 +3,7 @@ import './SpotsIndexCard.css';
 
 function SpotsIndexCard({spot}) {
     return (
-        <div className='spot-index-card'>
+        <div className='spot-index-card' title={spot.name}>
         <Link to={`/spots/${spot.id}`}>
             <img className='spot-image' src={spot.previewImage} />
             <div className='line-1'>
