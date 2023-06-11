@@ -24,6 +24,7 @@ function SpotDetails() {
     // logic not working right on showing the button & posting results in error throw for new cards, etc. (though it didn't in create spot...)
     const [showPostReviewModal, setShowPostReviewModal] = useState(true);
 
+
     // useEffect(() => {
     //     for (const review of reviews) {
     //         console.log(`${review.id}:`, review);
@@ -55,7 +56,6 @@ function SpotDetails() {
                     <div className='spot-details-card.about#card-data'>
                         <span>${spot.price}</span>
                         <span><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{spot.avgStarRating} | {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</span>
-                        {/* {spot.avgStarRating ? <span>{spot.avgStarRating} | {spot.numReviews} {spot.numReviews > 1 ? 'reviews' :'review'}</span> : 'New'} */}
                     </div>
                     <button className='spot-details-card.reserve-button' onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
                 </div>
@@ -67,14 +67,14 @@ function SpotDetails() {
                     {showPostReviewModal
                         ?
                     <OpenModalButton
-                        modalComponent={<PostReviewModal spotid={spot.id} />}
+                        modalComponent={<PostReviewModal spotid={spot.id} user={user} />}
                         buttonText={'Post Your Review'}
                     />
                         :
                     null}
                 </div>
                 <div className='spot-details-card.reviews#index'>
-                    {reviews.map(review => ( <ReviewCard review={review} key={`review-${review.id}`} />))}
+                    {reviews.map(review => (review?.stars ? <ReviewCard review={review} key={`review-${review.id}`} /> : null))}
                 </div>
             </div>
         </div>

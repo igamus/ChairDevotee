@@ -23,14 +23,18 @@ const createReviewAction = spot => {
 
 export const loadAllReviewsForSpotThunk = spotId => async dispatch => {
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`);
-    const data = await res.json();
-    return dispatch(loadAllReviewsForSpotAction(data));
+    if (res.ok) {
+        const data = await res.json();
+        return dispatch(loadAllReviewsForSpotAction(data));
+    }
+    else {
+        console.log('ERROR FETCHING REVIEWS');
+    }
 };
 
 export const createReviewThunk = formData => async dispatch => {
-    console.log('form data in thunk:', formData);
+    const user = formData.user;
     const body = {review: formData.review, stars: parseInt(formData.stars)};
-    console.log('body:', body);
     const res = await csrfFetch(`/api/spots/${formData.spotid}/reviews`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -39,11 +43,16 @@ export const createReviewThunk = formData => async dispatch => {
 
     if (res.ok) {
         const data = await res.json();
-        console.log('data from the back:', data);
+        data.RevewImages = [];
+        data.User = {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName
+        }
+
         return dispatch(createReviewAction(data))
     } else {
         const errors = await res.json();
-        console.log('errors from the back:', errors);
         return errors;
     }
 };
@@ -65,12 +74,13 @@ const reviewsReducer = (state = initialState, action) => {
             }
             return newState;
         case CREATE_SPOT_REVIEW:
-            console.log('action in reducer:', action);
             newState = {
                 ...state,
                 spot: {
                     ...state.spot,
-                    [action.spot.id]: {...action.spot}
+                    [action.spot.id]: {
+                        ...action.spot
+                    }
                 },
             }
             return newState;

@@ -5,7 +5,7 @@ import { createReviewThunk } from '../../store/reviews';
 import './PostReviewModal.css';
 
 
-function PostReviewModal({spotid}){
+function PostReviewModal({spotid, user}){
     const { closeModal } = useModal();
     const [disabled, setDisabled] = useState(true);
     const [errors, setErrors] = useState({});
@@ -13,7 +13,6 @@ function PostReviewModal({spotid}){
     const [stars, setStars] = useState('');
     const dispatch = useDispatch();
 
-    // error updating/handling... ?
     useEffect(() => {
         setErrors(errors);
         console.log(errors);
@@ -24,17 +23,16 @@ function PostReviewModal({spotid}){
         else setDisabled(false);
     }, [review, stars])
 
-    // fn to handle post
     const handleSubmit = async e => {
         e.preventDefault();
         const submission = {
             review,
             stars,
-            spotid
+            spotid,
+            user
         };
 
         try {
-            // push to backend
             await dispatch(createReviewThunk(submission));
             closeModal();
         } catch(e) {
@@ -47,7 +45,7 @@ function PostReviewModal({spotid}){
         <div className='post-review-modal-interior'>
             <h1>How was your stay?</h1>
             <form id='prf' onSubmit={handleSubmit}>
-                <p className='rm-er'>{errors.message} {/* Backend errors */}</p>
+                <p className='rm-er'>{errors.message}</p>
                 <textarea
                     form='prf'
                     placeholder='Leave your review here...'

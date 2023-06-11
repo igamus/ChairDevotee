@@ -200,7 +200,7 @@ router.get('/:spotId/reviews', async (req, res) => {
         ]
     })
 
-    if (!reviews.length) res.json({"message": "No reviews for this spot."})
+    if (!reviews.length) return res.json({"message": "No reviews for this spot."})
 
     return res.json({ Reviews: reviews });
 });
