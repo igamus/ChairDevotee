@@ -66,19 +66,19 @@ router.post('/:reviewId/images', [requireAuth, validateUrl], async (req, res) =>
 
     if (queryReview.ReviewImages.length >= 10) return res.status(403).json({message: 'Maximum number of images for this resource was reached'});
 
-    await ReviewImage.create({
+    const newReviewImage = await ReviewImage.create({
         reviewId: reviewId,
         url: url
     });
 
-    const postedReviewImage = await ReviewImage.findOne({
-        where: {
-            [Op.and]: [{reviewId: reviewId, url: url}]
-        },
-        attributes: ['id','url']
-    });
+    // const postedReviewImage = await ReviewImage.findOne({
+    //     where: {
+    //         [Op.and]: [{reviewId: reviewId, url: url}]
+    //     },
+    //     attributes: ['id','url']
+    // });
 
-    return res.json(postedReviewImage);
+    return res.json(newReviewImage);
 });
 
 router.put('/:reviewId', [requireAuth, validateReviewUpdate], async (req, res) => {

@@ -2,6 +2,8 @@ import { csrfFetch } from "./csrf";
 
 // Action Types
 const LOAD_SPOT_REVIEWS = 'reviews/LOAD_SPOT_REVIEWS';
+const CREATE_SPOT_REVIEW = 'reviews/CREATE_SPOT_REVIEW';
+const DELETE_SPOT_REVIEW = 'reviews/DELETE_SPOT_REVIEW';
 
 // Action Creators
 const loadAllReviewsForSpotAction = spot => {
@@ -11,12 +13,67 @@ const loadAllReviewsForSpotAction = spot => {
     }
 };
 
+const createReviewAction = spot => {
+    return {
+        type: CREATE_SPOT_REVIEW,
+        spot
+    }
+}
+
+const deleteSpotReviewAction = reviewId => {
+    return {
+        type: DELETE_SPOT_REVIEW,
+        reviewId
+    }
+}
+
 // Thunk Action Creators
 
 export const loadAllReviewsForSpotThunk = spotId => async dispatch => {
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`);
-    const data = await res.json();
-    return dispatch(loadAllReviewsForSpotAction(data));
+    if (res.ok) {
+        const data = await res.json();
+        return dispatch(loadAllReviewsForSpotAction(data));
+    }
+    else {
+        console.log('ERROR FETCHING REVIEWS');
+    }
+};
+
+export const createReviewThunk = formData => async dispatch => {
+    const user = formData.user;
+    const body = {review: formData.review, stars: parseInt(formData.stars)};
+    const res = await csrfFetch(`/api/spots/${formData.spotid}/reviews`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(body)
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        data.RevewImages = [];
+        data.User = {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName
+        }
+
+        return dispatch(createReviewAction(data))
+    } else {
+        const errors = await res.json();
+        return errors;
+    }
+};
+
+export const deleteReviewThunk = reviewId => async dispatch => {
+    const res = await csrfFetch(`/api/reviews/${reviewId}`, {method: 'DELETE'})
+
+    if (res.ok) {
+        return dispatch(deleteSpotReviewAction(reviewId));
+    } else {
+        const error = await res.json();
+        return error;
+    }
 };
 
 // Reducer
@@ -28,13 +85,30 @@ const reviewsReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case LOAD_SPOT_REVIEWS:
-            console.log('action in reducer:', action)
             newState = {...state, spot: {}};
             if (action.spot.Reviews) {
                 action.spot.Reviews.forEach(
                     review => newState.spot[review.id] = review
                 );
             }
+            return newState;
+        case CREATE_SPOT_REVIEW:
+            newState = {
+                ...state,
+                spot: {
+                    ...state.spot,
+                    [action.spot.id]: {
+                        ...action.spot
+                    }
+                },
+            }
+            return newState;
+        case DELETE_SPOT_REVIEW:
+            newState = {
+                ...state,
+                spot: {...state.spot}
+            }
+            delete newState.spot[action.reviewId];
             return newState;
         default:
             return state;

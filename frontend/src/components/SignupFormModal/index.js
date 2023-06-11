@@ -48,10 +48,8 @@ function SignupFormModal() {
             async res => {
                 const data = await res.json(); // is this superfluous and handled in the thunk?
                 if (data && data.errors) {
-                    // console.log('data:', data);
                     setErrors(data.errors);
                 }
-                console.log('errors:', errors);
             }
         );
     };

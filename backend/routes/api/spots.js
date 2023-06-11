@@ -117,7 +117,7 @@ router.get('/current', requireAuth, async (req, res) => {
     querySpots.forEach(e => userSpots.push(e.toJSON()));
 
     userSpots.forEach(spot => {
-        if (spot.SpotImages.length) spot.previewImage = spot.SpotImages[0].url;
+        if (spot.SpotImages.length) spot.previewImage = spot.SpotImages.find(img => img.preview === true).url;
         else spot.previewImage = null;
         delete spot.SpotImages;
 
@@ -152,25 +152,25 @@ router.post('/:spotId/reviews', [requireAuth, validateReview], async (req, res) 
 
     if (spot.Reviews.length) return res.status(500).json({message: 'User already has a review for this spot'});
 
-    await Review.create({
+    const postedReview = await Review.create({
         userId: userId,
         spotId: spotId,
         review: review,
         stars: stars
     });
 
-    const postedReview = await Review.findOne({
-        where: {
-            [Op.and]: [
-                {
-                    userId: userId
-                },
-                {
-                    spotId: spotId
-                }
-            ]
-        }
-    })
+    // const postedReview = await Review.findOne({
+    //     where: {
+    //         [Op.and]: [
+    //             {
+    //                 userId: userId
+    //             },
+    //             {
+    //                 spotId: spotId
+    //             }
+    //         ]
+    //     }
+    // })
 
     return res.status(201).json(postedReview);
 });
@@ -200,7 +200,7 @@ router.get('/:spotId/reviews', async (req, res) => {
         ]
     })
 
-    if (!reviews.length) res.json({"message": "No reviews for this spot."})
+    if (!reviews.length) return res.json({"message": "No reviews for this spot."})
 
     return res.json({ Reviews: reviews });
 });
@@ -259,19 +259,19 @@ router.post('/:spotId/bookings', [requireAuth, validateBooking], async (req, res
         if (bookingConflict) return;
     }
 
-    await Booking.create({
+    const createdBooking = await Booking.create({
         spotId: spotId,
         userId: userId,
         startDate: startDate,
         endDate: endDate
     });
 
-    const createdBooking = await Booking.findOne({
-        where: {
-            startDate: startDate,
-            endDate: endDate
-        }
-    });
+    // const createdBooking = await Booking.findOne({
+    //     where: {
+    //         startDate: startDate,
+    //         endDate: endDate
+    //     }
+    // });
 
     return res.json(createdBooking);
 });
@@ -315,20 +315,20 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     if (!querySpot) return res.status(404).json({ "message": "Spot couldn't be found" });
     if (userId !== querySpot.ownerId) return res.status(403).json({ message: "Forbidden" });
 
-    await querySpot.createSpotImage({url: url, preview: preview}); // do you need this doubling?
+    const newSpotImage = await querySpot.createSpotImage({url: url, preview: preview}); // do you need this doubling?
 
-    const record = await SpotImage.findOne({
-        where: {
-            [Op.and]: [
-                {url: url}, {preview: preview}
-            ]
-        },
-        attributes: {
-            exclude: ['spotId', 'createdAt', 'updatedAt']
-        }
-    });
+    // const record = await SpotImage.findOne({
+    //     where: {
+    //         [Op.and]: [
+    //             {url: url}, {preview: preview}
+    //         ]
+    //     },
+    //     attributes: {
+    //         exclude: ['spotId', 'createdAt', 'updatedAt']
+    //     }
+    // });
 
-    return res.json(record);
+    return res.json(newSpotImage);
 });
 
 router.put('/:spotId', [requireAuth, validateSpot], async (req, res) => {
@@ -391,7 +391,6 @@ router.get('/:spotId', async (req, res) => {
         }
     });
     let targetSpotData = spotQuery.toJSON();
-    console.log(targetSpotData);
 
     if (!targetSpotData.id) res.status(404).json({message: "Spot couldn't be found."});
 
@@ -500,9 +499,9 @@ router.get('/', validateQuery, async (req, res,) => {
 
 router.post('/', [requireAuth, validateSpot], async (req, res) => {
     const newSpot = await Spot.create({...req.body, ownerId: req.user.id});
-    const retrieved = await Spot.findOne({where: {[Op.and]: [{lat: req.body.lat}, {lng: req.body.lng}]}});
+    // const retrieved = await Spot.findOne({where: {[Op.and]: [{lat: req.body.lat}, {lng: req.body.lng}]}});
 
-    return res.status(201).json(retrieved);
+    return res.status(201).json(newSpot);
 });
 
 module.exports = router;
