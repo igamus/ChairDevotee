@@ -8,14 +8,12 @@ import { loadSpotThunk } from '../../store/spots';
 function UpdateSpotForm() {
     const dispatch = useDispatch();
     const { spotId } = useParams();
-    console.log('spotId:', spotId);
 
     useEffect(() => {
         dispatch(loadSpotThunk(spotId));
     }, [dispatch]);
 
     const spot = useSelector(state => state.spots.singleSpot);
-    console.log('spot data:', spot)
 
     const initialFormData = {
         country: spot.country,

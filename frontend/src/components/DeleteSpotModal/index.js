@@ -8,7 +8,7 @@ function DeleteSpotModal({spotid}) {
     const dispatch = useDispatch();
     const yesClick = e => {
         e.preventDefault();
-        dispatch(removeSpotThunk(spotid)).then(closeModal); // should just refresh after state updates, but it's not doing so and not removing the old spot... // ... maybe with a useEffect hook? // tryin to force a refresh doesn't work either...
+        dispatch(removeSpotThunk(spotid)).then(closeModal);
     };
 
     return (

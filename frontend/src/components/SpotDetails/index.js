@@ -25,7 +25,6 @@ function SpotDetails() {
     useEffect(() => {
         let hasNotReviewed = true;
         for (const review of reviews) {
-            console.log(`${review.id}:`, review);
             if (review.userId === user?.id) hasNotReviewed = false;
         }
         if (user && user.id !== spot.ownerId && hasNotReviewed) setShowPostReviewModal(true);
@@ -69,7 +68,7 @@ function SpotDetails() {
                     null}
                 </div>
                 <div className='spot-details-card.reviews#index'>
-                    {reviews.map(review => (review?.stars ? <ReviewCard review={review} key={`review-${review.id}`} /> : null))}
+                    {reviews.map(review => (review?.stars ? <ReviewCard review={review} user={user} key={`review-${review.id}`} /> : null))}
                 </div>
             </div>
         </div>

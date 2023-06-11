@@ -16,7 +16,6 @@ function PostReviewModal({spotid, user}){
 
     useEffect(() => {
         setErrors(errors);
-        console.log(errors);
     }, [errors]);
 
     useEffect(() => {

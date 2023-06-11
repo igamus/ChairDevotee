@@ -72,7 +72,6 @@ export const restoreUser = () => async dispatch => {
 
 export const signup = payload => async dispatch => {
     const { firstName, lastName, email, username, password } = payload;
-    console.log('initial payload:', payload);
     const res = await csrfFetch('/api/users', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -87,8 +86,6 @@ export const signup = payload => async dispatch => {
 
     if (res.ok) {
         const data = await res.json();
-        console.log('data:',data);
-        console.log('data.payload:', data.user);
         dispatch(setUser(data.user));
         return res;
     } else {

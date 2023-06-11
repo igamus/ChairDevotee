@@ -89,7 +89,6 @@ export const receiveSpotThunk = formData => async dispatch => {
         const spotCreateData = await spotRes.json();
         return spotCreateData;
     } else {
-    console.log('in receivespotthunk res.NOT.ok');
         const errors = await spotRes.json();
         return errors;
     }
