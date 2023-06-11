@@ -36,7 +36,8 @@ export const loadAllReviewsForSpotThunk = spotId => async dispatch => {
         return dispatch(loadAllReviewsForSpotAction(data));
     }
     else {
-        console.log('ERROR FETCHING REVIEWS');
+        const errors = await res.json();
+        return errors;
     }
 };
 

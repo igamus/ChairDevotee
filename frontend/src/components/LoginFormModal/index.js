@@ -1,7 +1,4 @@
 /* TODO:
-    - input validation
-    - prevent button press when errors exist
-    - add display for that
     - css
 */
 
@@ -71,7 +68,6 @@ function LoginFormModal() {
                         type='text'
                         value={credential}
                         onChange={e => setCredential(e.target.value)}
-                        required
                     />
                 </label>
                 <label>
@@ -80,7 +76,6 @@ function LoginFormModal() {
                         type='password'
                         value={password}
                         onChange={e => setPassword(e.target.value)}
-                        required
                     />
                 </label>
                 <button className='login-button' type='submit' disabled={disabled}>Log In</button>
