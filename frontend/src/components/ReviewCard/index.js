@@ -2,7 +2,7 @@ import './ReviewCard.css';
 import DeleteReviewModal from '../DeleteReviewModal';
 import OpenModalButton from '../OpenModalButton';
 
-function ReviewCard({ review, user }) {
+function ReviewCard({ review, user, spotid }) {
     return (
             <div className='reviewCard'>
                 <h3>{review?.User.firstName}</h3>
@@ -12,7 +12,7 @@ function ReviewCard({ review, user }) {
                     user?.id === review.User.id
                         ?
                     <OpenModalButton
-                        modalComponent={<DeleteReviewModal reviewid={review?.id} />}
+                        modalComponent={<DeleteReviewModal reviewid={review?.id} spotid={spotid} />}
                         buttonText={'Delete'}
                     />
                         :

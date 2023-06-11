@@ -14,7 +14,7 @@ function SpotDetails() {
     useEffect(() => {
         dispatch(loadSpotThunk(spotId));
         dispatch(loadAllReviewsForSpotThunk(spotId));
-    }, [dispatch])
+    }, [dispatch]);
 
     const user = useSelector(state => state.session.user);
     const spot = useSelector(state => state.spots.singleSpot);
@@ -68,7 +68,7 @@ function SpotDetails() {
                     null}
                 </div>
                 <div className='spot-details-card.reviews#index'>
-                    {reviews.map(review => (review?.stars ? <ReviewCard review={review} user={user} key={`review-${review.id}`} /> : null))}
+                    {reviews.map(review => (review?.stars ? <ReviewCard review={review} user={user} spotid={spot.id} key={`review-${review.id}`} /> : null))}
                 </div>
             </div>
         </div>

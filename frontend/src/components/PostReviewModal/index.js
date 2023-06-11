@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { createReviewThunk } from '../../store/reviews';
 import StarRatingInput from './StarRatingInput';
 import './PostReviewModal.css';
+import { loadSpotThunk } from '../../store/spots';
 
 
 function PostReviewModal({spotid, user}){
@@ -35,6 +36,7 @@ function PostReviewModal({spotid, user}){
         try {
             await dispatch(createReviewThunk(submission));
             closeModal();
+            await dispatch(loadSpotThunk(spotid)); // this isn't how you trigger the re-render, but time is short
         } catch(e) {
             const errors = await e.json();
             setErrors({message: errors.message});

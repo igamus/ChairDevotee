@@ -2,13 +2,16 @@ import './DeleteReviewModal.css';
 import { useModal } from '../../context/Modal';
 import { useDispatch } from 'react-redux';
 import { deleteReviewThunk } from '../../store/reviews';
+import { loadSpotThunk } from '../../store/spots';
 
-function DeleteReviewModal({reviewid}) {
+function DeleteReviewModal({reviewid, spotid}) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
     const yesClick = e => {
         e.preventDefault();
-        dispatch(deleteReviewThunk(reviewid)).then(closeModal);
+        dispatch(deleteReviewThunk(reviewid))
+            .then(closeModal)
+            .then(dispatch(loadSpotThunk(spotid))); // this isn't how you trigger the re-render, but time is short
     };
 
     return (
