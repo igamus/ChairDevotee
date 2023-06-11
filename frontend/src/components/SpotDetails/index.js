@@ -21,21 +21,16 @@ function SpotDetails() {
     const reviewsObj = useSelector(state => state.reviews.spot);
     const reviews = Object.values(reviewsObj);
 
-    // logic not working right on showing the button & posting results in error throw for new cards, etc. (though it didn't in create spot...)
-    const [showPostReviewModal, setShowPostReviewModal] = useState(true);
-
-
-    // useEffect(() => {
-    //     for (const review of reviews) {
-    //         console.log(`${review.id}:`, review);
-    //         if (review.userId === user?.id) setShowPostReviewModal(false);
-    //     }
-    // }, [reviews]);
-
-    // useEffect(() => {
-    //     if (!user) setShowPostReviewModal(false)
-    //     else if (user && user?.id !== spot.ownerId) setShowPostReviewModal(true)
-    // }, [user]);
+    const [showPostReviewModal, setShowPostReviewModal] = useState(false);
+    useEffect(() => {
+        let hasNotReviewed = true;
+        for (const review of reviews) {
+            console.log(`${review.id}:`, review);
+            if (review.userId === user?.id) hasNotReviewed = false;
+        }
+        if (user && user.id !== spot.ownerId && hasNotReviewed) setShowPostReviewModal(true);
+        else setShowPostReviewModal(false);
+    }, [user, reviews])
 
     return (
         <div className='spot-details-card'>
