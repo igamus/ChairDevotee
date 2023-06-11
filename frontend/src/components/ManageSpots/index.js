@@ -23,12 +23,6 @@ function ManageSpots() {
         history.push('/spots/create');
     };
 
-    // const updateClick = e => {
-    //     e.preventDefault();
-    //     console.log(object);
-    //     history.push(`/spots/${spotid}/edit`)
-    // };
-
     return (
         <div className='manage-spots'>
             <h1>Manage Your Spots</h1>

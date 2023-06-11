@@ -59,7 +59,7 @@ function SpotForm({ initialFormData, formType}) {
         if (!state.length) updatedErrors.state = 'State is required';
         if (description.length < 30) updatedErrors.description = 'Description needs a minimum of 30 characters';
         if (!name.length) updatedErrors.name = 'Name is required';
-        if (!price.toString().length) updatedErrors.price = 'Price is required'; // but it's a num, so we've got issues.........
+        if (!price.toString().length) updatedErrors.price = 'Price is required';
         else if (isNaN(price)) updatedErrors.price = 'Price must be a number'
         if (formType === 'create') {
             if (!image1.length) updatedErrors.image1 = 'Preview Image is required';
@@ -101,15 +101,6 @@ function SpotForm({ initialFormData, formType}) {
             }
         } catch (e) {
             console.log('ERROR\n\ne:', e);
-                // if (data && data.errors) {
-                //     setErrors(data.errors);
-                // } else if (data && data.message) {
-                //     setErrors(data.message);
-                // } else {
-                //     setErrors({undefined: 'Somethin\' happened'})
-                // }
-                // console.log('new spot data (in component):', newSpotData);
-            // });
         }
     }
 

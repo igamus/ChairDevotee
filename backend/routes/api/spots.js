@@ -178,7 +178,7 @@ router.post('/:spotId/reviews', [requireAuth, validateReview], async (req, res) 
 router.get('/:spotId/reviews', async (req, res) => {
     const spotId = req.params.spotId;
     const spot = await Spot.findByPk(spotId);
-    if (!spot) res.status(404).json({"message": "Spot couldn't be found"})
+    if (!spot) return res.status(404).json({"message": "Spot couldn't be found"})
 
     const reviews = await Review.findAll({
         where: { spotId: spotId },
@@ -390,9 +390,9 @@ router.get('/:spotId', async (req, res) => {
             id: spotId
         }
     });
-    let targetSpotData = spotQuery.toJSON();
+    let targetSpotData = spotQuery?.toJSON();
 
-    if (!targetSpotData.id) res.status(404).json({message: "Spot couldn't be found."});
+    if (!targetSpotData?.id) return res.status(404).json({message: "Spot couldn't be found."});
 
     if (targetSpotData.ownerId) { // probably something direct you can do with subquerying
         const ownerQuery = await User.findOne({

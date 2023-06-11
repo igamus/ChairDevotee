@@ -59,13 +59,8 @@ function SignupFormModal() {
             <h1>Sign Up</h1>
             <form onSubmit={handleSubmit}>
                 <p className='error'>
-                    {errors.confirmPassword}
-                    {errors.undefined}
-                    {/* {errors.confirmPassword}
-                    {errors.email}
-                    {errors.username}
-                    {errors.firstName}
-                    {errors.lastName} */}
+                    {/* Sizing is off but works */}
+                    {Object.values(errors).map(e => (<div>{e}</div>))}
                 </p>
                 <label>
                     <input
@@ -73,7 +68,6 @@ function SignupFormModal() {
                         type='text'
                         value={firstName}
                         onChange={e => setFirstName(e.target.value)}
-                        required
                     />
                 </label>
                 <label>
@@ -82,7 +76,6 @@ function SignupFormModal() {
                         type='text'
                         value={lastName}
                         onChange={e => setLastName(e.target.value)}
-                        required
                     />
                 </label>
                 <label>
@@ -91,7 +84,6 @@ function SignupFormModal() {
                         type='email'
                         value={email} // for stylistic consistency it may be better to hardcode this error rather than let it be caught by HTTP
                         onChange={e => setEmail(e.target.value)}
-                        required
                     />
                 </label>
                 <label>
@@ -100,7 +92,6 @@ function SignupFormModal() {
                         type='text'
                         value={username}
                         onChange={e => setUsername(e.target.value)}
-                        required
                     />
                 </label>
                 <label>
@@ -109,7 +100,6 @@ function SignupFormModal() {
                         type='password'
                         value={password}
                         onChange={e => setPassword(e.target.value)}
-                        required
                     />
                 </label>
                 <label>
@@ -118,7 +108,6 @@ function SignupFormModal() {
                         type='password'
                         value={confirmPassword}
                         onChange={e => setConfirmPassword(e.target.value)}
-                        required
                     />
                 </label>
                 <button type='submit' disabled={disabled}>Sign Up</button>

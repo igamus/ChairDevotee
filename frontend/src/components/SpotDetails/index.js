@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadSpotThunk } from '../../store/spots'
 import { loadAllReviewsForSpotThunk } from '../../store/reviews';
@@ -10,10 +10,12 @@ import OpenModalButton from '../OpenModalButton';
 function SpotDetails() {
     const { spotId } = useParams();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     useEffect(() => {
-        dispatch(loadSpotThunk(spotId));
-        dispatch(loadAllReviewsForSpotThunk(spotId));
+        dispatch(loadSpotThunk(spotId)).then(() =>
+            dispatch(loadAllReviewsForSpotThunk(spotId))
+        ).catch(e => history.push('/404'));
     }, [dispatch]);
 
     const user = useSelector(state => state.session.user);
@@ -30,6 +32,7 @@ function SpotDetails() {
         if (user && user.id !== spot.ownerId && hasNotReviewed) setShowPostReviewModal(true);
         else setShowPostReviewModal(false);
     }, [user, reviews])
+
 
     return (
         <div className='spot-details-card'>

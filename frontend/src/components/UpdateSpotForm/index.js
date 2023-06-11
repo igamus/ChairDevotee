@@ -23,10 +23,15 @@ function UpdateSpotForm() {
         description: spot.description,
         name: spot.name,
         price: spot.price,
-        id: spotId
+        id: spot.id
     }; // we'll skip the update images
 
-    return <SpotForm initialFormData={initialFormData} formType={'update'}/>;
+    return (
+        initialFormData?.id === parseInt(spotId)
+            ?
+        <SpotForm initialFormData={initialFormData} formType={'update'}/>
+            :
+        null);
 };
 
 export default UpdateSpotForm;
