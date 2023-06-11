@@ -2,6 +2,7 @@ import { useModal } from '../../context/Modal';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createReviewThunk } from '../../store/reviews';
+import StarRatingInput from './StarRatingInput';
 import './PostReviewModal.css';
 
 
@@ -21,7 +22,7 @@ function PostReviewModal({spotid, user}){
     useEffect(() => {
         if (review.length < 10 || !(Number(stars) > 0)) setDisabled(true);
         else setDisabled(false);
-    }, [review, stars])
+    }, [review, stars]);
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -52,13 +53,7 @@ function PostReviewModal({spotid, user}){
                     value={review}
                     onChange={e => setReview(e.target.value)}
                 />
-                <span>
-                    <input
-                        placeholder='star-placeholder'
-                        value={stars}
-                        onChange={e => setStars(e.target.value)}
-                    /> Stars
-                </span>
+                <StarRatingInput stars={stars} onChange={number => setStars(parseInt(number))} />
                 <button type='submit' disabled={disabled}>Submit your review</button>
             </form>
         </div>
