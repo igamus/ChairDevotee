@@ -1,4 +1,8 @@
 /* TODO: Add styling */
 .modalMenuItem {
-    border: 0.5px dashed black;
+    margin: 5px;
+}
+
+.modalMenuItem:hover {
+    cursor: pointer;
 }

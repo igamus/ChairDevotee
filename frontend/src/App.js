@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import SignupFormPage from './components/SignupFormModal';
 import Navigation from './components/Navigation';
 import Custom404 from './components/Custom404';
 import * as sessionActions from './store/session';

@@ -8,11 +8,11 @@ function Navigation({ isLoaded }) {
 
     return (
         <nav>
-            <NavLink exact to='/' className='logo'><i className='fa-brands fa-airbnb' />Share VIP</NavLink>
+            <NavLink exact to='/' className='logo'><i className='fa-solid fa-chair' />ShareVIP</NavLink>
 
             <div className='nav-right'>
                 {sessionUser && (
-                    <NavLink to='/spots/create'>Create a New Spot</NavLink>
+                    <NavLink className='create-link' to='/spots/create'>Create a New Spot</NavLink>
                 )}
 
                 {isLoaded && (

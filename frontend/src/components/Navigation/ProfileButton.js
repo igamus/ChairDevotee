@@ -42,8 +42,8 @@ function ProfileButton({ user }) {
     const divClassName = 'profile-dropdown' + (showMenu ? "" : " hidden");
 
     return (
-        <div>
-            <button onClick={openMenu}>
+        <div className='profile-button'>
+            <button onClick={openMenu} className='pb-button'>
                 <i className='fa-solid fa-bars' />
                 <i className="fa-solid fa-user" />
             </button>
@@ -61,14 +61,14 @@ function ProfileButton({ user }) {
                     ) : (
                         <>
                             <OpenModalMenuItem
-                                itemText='Log in'
-                                onButtonClick={closeMenu}
-                                modalComponent={<LoginFormModal />}
-                            />
-                            <OpenModalMenuItem
                                 itemText='Sign up'
                                 onButtonClick={closeMenu}
                                 modalComponent={<SignupFormModal />}
+                            />
+                            <OpenModalMenuItem
+                                itemText='Log in'
+                                onButtonClick={closeMenu}
+                                modalComponent={<LoginFormModal />}
                             />
                         </>
                     )

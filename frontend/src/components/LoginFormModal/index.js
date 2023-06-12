@@ -1,7 +1,3 @@
-/* TODO:
-    - css
-*/
-
 import { useState, useEffect } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
@@ -60,26 +56,30 @@ function LoginFormModal() {
     return (
         <div className='login'>
             <h1>Log In</h1>
-            <form onSubmit={handleSubmit}>
+            <form className='login-form' onSubmit={handleSubmit}>
                 <p className='error'>{errors.credential}</p>
-                <label>
-                    <input
-                        placeholder='Username or Email'
-                        type='text'
-                        value={credential}
-                        onChange={e => setCredential(e.target.value)}
-                    />
-                </label>
-                <label>
-                    <input
-                        placeholder='Password'
-                        type='password'
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                    />
-                </label>
-                <button className='login-button' type='submit' disabled={disabled}>Log In</button>
-                <button className='demo-button' type='button' onClick={onDemoClick}>Demo User</button>
+                <div className='login-labels'>
+                    <label>
+                        <input
+                            placeholder='Username or Email'
+                            type='text'
+                            value={credential}
+                            onChange={e => setCredential(e.target.value)}
+                        />
+                    </label>
+                    <label>
+                        <input
+                            placeholder='Password'
+                            type='password'
+                            value={password}
+                            onChange={e => setPassword(e.target.value)}
+                        />
+                    </label>
+                </div>
+                <div className='login-buttons'>
+                    <button className='login-button' type='submit' disabled={disabled}>Log In</button>
+                    <button className='demo-button' type='button' onClick={onDemoClick}>Demo User</button>
+                </div>
             </form>
         </div>
     )
