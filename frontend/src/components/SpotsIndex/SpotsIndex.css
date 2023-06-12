@@ -1,6 +1,5 @@
 .spot-index {
-    margin: 2em;
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 1em;
