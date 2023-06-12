@@ -30,6 +30,8 @@ On ShareVIP, you can peruse a variety of listings (spots) and see what people th
 
 ### 1. User accounts
 
+![Screenshot of user login modal, featuring the demo user button.](./frontend/public/ShareVIP-screenshot.jpg)
+
 ShareVIP uses JWT tokens as cookies and verifies user passwords saved in hashes, allowing for users to register and securely sign into accounts on ShareVIP. Users without an account can see spot listings, but users with accounts gain access to more features on the site, gaining the ability to create, delete, and edit spots and reviews.
 
 ### 2. Spots

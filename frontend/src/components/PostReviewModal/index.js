@@ -55,7 +55,7 @@ function PostReviewModal({spotid, user}){
                     onChange={e => setReview(e.target.value)}
                 />
                 <StarRatingInput stars={stars} onChange={number => setStars(parseInt(number))} />
-                <button type='submit' disabled={disabled}>Submit your review</button>
+                <button className='prf-b' type='submit' disabled={disabled}>Submit your review</button>
             </form>
         </div>
     );

@@ -111,49 +111,58 @@ function SpotForm({ initialFormData, formType}) {
                 <section className='csf-1'>
                     <h2>Where's your place located?</h2>
                     <p>Guests will only get your exact address once they booked a reservation.</p>
-                    <label className='csf-label'>
+                    <label className='csf-label' for='country'>
                         Country <span className='csf-error-span'>{errors.country}</span>
+                        </label>
                         <input
+                            id='country'
                             placeholder='Country'
                             type='text'
                             value={country}
                             onChange={e => setCountry(e.target.value)}
                         />
-                    </label>
-                    <label className='csf-label'>
+                    <label className='csf-label' for='address'>
                         Address <span className='csf-error-span'>{errors.address}</span>
+                    </label>
                         <input
+                            id='address'
                             placeholder='Address'
                             type='text'
                             value={address}
                             onChange={e => setAddress(e.target.value)}
                         />
-                    </label>
-                    <span>
-                        <label className='csf-label'>
-                            City <span className='csf-error-span'>{errors.city}</span>
+                    <span className='csf-labels'>
+                        <label id='city-label' className='csf-label' for='city'>
+                            City
+                            <span className='csf-error-span'>{errors.city}</span>
+                        </label>
+                        <label className='csf-label' for='state'>
+                            State <span className='csf-error-span'>{errors.state}</span>
+                        </label>
+                        </span>
+                        <span className='csf-inputs'>
                             <input
+                                id='city'
                                 placeholder='City'
                                 type='text'
                                 value={city}
                                 onChange={e => setCity(e.target.value)}
-                            />,
-                        </label>
-                        <label className='csf-label'>
-                            State <span className='csf-error-span'>{errors.state}</span>
+                            /> ,
                             <input
-                                placeholder='State'
+                                placeholder='STATE'
                                 type='text'
                                 value={state}
                                 onChange={e => setState(e.target.value)}
                             />
-                        </label>
-                    </span>
+                        </span>
                 </section>
+                <hr />
                 <section className='csf-2'>
                     <h2>Describe your place to guests</h2>
                     <p>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</p>
                     <textarea
+                        id='description'
+                        rows={5}
                         form='csf'
                         placeholder='Description'
                         value={description}
@@ -161,6 +170,7 @@ function SpotForm({ initialFormData, formType}) {
                     />
                     <p className='csf-error'>{errors.description}</p>
                 </section>
+                <hr />
                 <section className='csf-3'>
                     <h2>Create a title for your spot</h2>
                     <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>
@@ -172,20 +182,25 @@ function SpotForm({ initialFormData, formType}) {
                     />
                     <p className='csf-error'>{errors.name}</p>
                 </section>
+                <hr />
                 <section className='csf-4'>
                     <h2>Set a base price for your spot</h2>
                     <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
+                    <span className='csf-price'>
                     $ <input
+                        id='price'
                         placeholder='Price per night (USD)'
                         type='text'
                         value={price}
                         onChange={e => setPrice(e.target.value)}
                     />
+                    </span>
                     <p className='csf-error'>{errors.price}</p>
                 </section>
                 {
                     formType === 'create'
                         ?
+                    <><hr/>
                     <section className='csf-5'>
                         <h2>Liven up your spot with photos</h2>
                         <p>Submit a link to at least one photo to publish your spot.</p>
@@ -224,12 +239,12 @@ function SpotForm({ initialFormData, formType}) {
                             onChange={e => setImage5(e.target.value)}
                         />
                         <p className='csf-error'>{errors.image5}</p>
-                    </section>
+                    </section></>
                         :
                     null
                 }
                 <p className='csf-error'>{errors.undefined ? <span className='csf-error-span'>Misc. Error: {errors.undefined}</span> : ''}</p>
-                <button type='submit'>Create Spot</button>
+                <button className='csf-button' type='submit'>Create Spot</button>
             </form>
         </div>
     );

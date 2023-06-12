@@ -1,7 +1,7 @@
 import './OpenModalButton.css';
 import { useModal } from '../../context/Modal';
 
-function OpenModalButton({ modalComponent, buttonText, onButtonClick, onModalClose}) {
+function OpenModalButton({ modalComponent, buttonText, onButtonClick, onModalClose, className}) {
     const { setModalContent, setOnModalClose } = useModal();
 
     const onClick = () => {
@@ -10,7 +10,7 @@ function OpenModalButton({ modalComponent, buttonText, onButtonClick, onModalClo
         setModalContent(modalComponent);
     }
 
-    return <button onClick={onClick}>{buttonText}</button>;
+    return <button onClick={onClick} className={className}>{buttonText}</button>;
 };
 
 export default OpenModalButton;

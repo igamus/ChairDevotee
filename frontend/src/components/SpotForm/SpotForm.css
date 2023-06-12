@@ -1,14 +1,62 @@
-/* TODO: Add styling */
 .csf {
+    margin: 0 20em;
+    display: flex;
+    flex-direction: column;
+}
 
+.csf input {
+    background-color: #92b7e84f;
+    border: 3px solid black;
+    width: fill;
+    height: 2em;
+    margin: .5em 0;
 }
 
 .csf-1 {
-
+    display: flex;
+    flex-direction: column;
 }
 
 .csf-2 {
 
+}
+
+.csf-labels {
+    display: flex;
+    direction: row;
+}
+
+.csf-inputs {
+    display: flex;
+    direction: row;
+    justify-content: space-between;
+}
+
+#city-label {
+    margin-right: 9em
+}
+
+#city {
+    width: 40%;
+}
+
+#state {
+    width: 10%
+}
+
+#description {
+    background-color: #92b7e84f;
+    border: 3px solid black;
+    width: fill;
+    height: 8em;
+    margin: .5em 0;
+}
+
+.csf-price{
+    display: flex;
+    direction: row;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .csf-3 {
@@ -34,4 +82,19 @@
 
 .csf-error-span {
     color: #ff385c;
+}
+
+.csf-button {
+    box-shadow: 5px 4px black;
+    border: 2.5px solid black;
+    color: white;
+    margin: 0 10em;
+    background: #ff385c;
+    padding: 0.75em;
+    width: 35%;
+    height: 5%;
+}
+
+.csf label {
+    margin-right: 5em;
 }

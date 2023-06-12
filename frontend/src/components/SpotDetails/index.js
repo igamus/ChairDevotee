@@ -59,7 +59,7 @@ function SpotDetails() {
                 </div>
                 <div className='spot-details-card-about-card'>
                     <div className='spot-details-card-about-card-data'>
-                        <span>${spot.price}</span>
+                        <span>${spot.price} / night</span>
                         <span><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{spot.avgStarRating.toFixed(1)} · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</span>
                     </div>
                     <button className='spot-details-card-reserve' onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
@@ -74,6 +74,7 @@ function SpotDetails() {
                     <OpenModalButton
                         modalComponent={<PostReviewModal spotid={spot.id} user={user} />}
                         buttonText={'Post Your Review'}
+                        className='post-review-modal'
                     />
                         :
                     null}
