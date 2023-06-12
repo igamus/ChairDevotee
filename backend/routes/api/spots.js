@@ -379,11 +379,11 @@ router.get('/:spotId', async (req, res) => {
                 attributes: [],
                 required: false
             },
-            // {
-            //     model: SpotImage,
-            //     attributes: ['id', 'url', 'preview'],
-            //     required: false
-            // }
+            {
+                model: SpotImage,
+                attributes: [],
+                required: false
+            }
         ],
         where: {
             id: spotId
