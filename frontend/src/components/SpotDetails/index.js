@@ -6,6 +6,7 @@ import { loadAllReviewsForSpotThunk } from '../../store/reviews';
 import PostReviewModal from '../PostReviewModal';
 import ReviewCard from '../ReviewCard';
 import OpenModalButton from '../OpenModalButton';
+import './SpotDetails.css';
 
 function SpotDetails() {
     const { spotId } = useParams();
@@ -33,38 +34,39 @@ function SpotDetails() {
         else setShowPostReviewModal(false);
     }, [user, reviews])
 
-    // let previewImage = 'https://images.pexels.com/photos/2762247/pexels-photo-2762247.jpeg?auto=compress&cs=tinysrgb&w=250&h=250&dpr=1';
-    // if (spot?.SpotImages) {
-    //     for (const img of spot?.SpotImages) {
-    //         if (img.preview) previewImage = img.url;
-    //     };
-    // }; // the timing for this is very off
-
+    console.log(spot);
     return (
         <div className='spot-details-card'>
-            <div className='spot-details-card.header'>
+            <div className='spot-details-card-header'>
                 <h1>{spot.name}</h1>
                 <h3>{spot.city}, {spot.state ? spot.state + ', ' : null}{spot.country}</h3>
             </div>
-            <div className='image-collage'>
+            <div className='image-row'>
                 <img className='preview-image' src={spot?.SpotImages ? spot.SpotImages.filter(img => img.preview)[0]?.url : 'https://images.pexels.com/photos/2762247/pexels-photo-2762247.jpeg?auto=compress&cs=tinysrgb&w=250&h=250&dpr=1'} alt='primary image' />
-                {/* for 4 images of the rest of the images, you want that one... */}
+                <div className='image-collage'>
+                    {spot?.SpotImages?.filter(img => !img.preview).length ? spot.SpotImages.filter(img => !img.preview).map(img => (<img className='collage-img' src={img.url} />)) :
+                    <><img className='collage-img' src={'https://images.pexels.com/photos/2762247/pexels-photo-2762247.jpeg?auto=compress&cs=tinysrgb&w=250&h=250&dpr=1'} />
+                    <img className='collage-img' src={'https://images.pexels.com/photos/2762247/pexels-photo-2762247.jpeg?auto=compress&cs=tinysrgb&w=250&h=250&dpr=1'} />
+                    <img className='collage-img' src={'https://images.pexels.com/photos/2762247/pexels-photo-2762247.jpeg?auto=compress&cs=tinysrgb&w=250&h=250&dpr=1'} />
+                    <img className='collage-img' src={'https://images.pexels.com/photos/2762247/pexels-photo-2762247.jpeg?auto=compress&cs=tinysrgb&w=250&h=250&dpr=1'} /></>
+                    }
+                </div>
             </div>
-            <div className='spot-details-card.about'>
-                <div className='spot-details-card.about#blurb'>
+            <div className='spot-details-card-about'>
+                <div className='spot-details-card-about-blurb'>
                     <h2>Hosted by {spot.Owner ? <span>{spot.Owner.firstName} {spot.Owner.lastName}</span> : null}</h2>
                     <p>{spot.description}</p>
                 </div>
-                <div className='spot-details-card.about#card'>
-                    <div className='spot-details-card.about#card-data'>
+                <div className='spot-details-card-about-card'>
+                    <div className='spot-details-card-about-card-data'>
                         <span>${spot.price}</span>
                         <span><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{spot.avgStarRating.toFixed(1)} · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</span>
                     </div>
-                    <button className='spot-details-card.reserve-button' onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
+                    <button className='spot-details-card-reserve' onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
                 </div>
             </div>
             <hr></hr>
-            <div className='spot-details-card.reviews'>
+            <div className='spot-details-card-reviews'>
                 <h2><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{spot.avgStarRating.toFixed(1)} · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</h2>
                 <div className='spot-details-car.reviews#button-parent'>
                     {showPostReviewModal

@@ -1,4 +1,9 @@
 /* TODO: Add style */
 .spot-index {
-    margin: 10px;
+    margin: 2em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1em;
+    max-width: 1000px;
 }

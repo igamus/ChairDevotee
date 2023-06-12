@@ -11,6 +11,7 @@ nav {
     border-bottom: 2px solid lightgrey;
     font-size: 1.2em;
     font-weight: bold;
+    /* max-width: 1000px; */
 }
 
 .nav-right {
