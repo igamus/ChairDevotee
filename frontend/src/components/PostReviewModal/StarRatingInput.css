@@ -1,8 +1,11 @@
-/* TODO: Add styling */
-.empty {
-    color: gray;
+#empty {
+    background-color: white;
 }
 
-.filled {
-    color: purple;
+#filled {
+    background-color: black;
+}
+
+.star:hover{
+    cursor: pointer;
 }

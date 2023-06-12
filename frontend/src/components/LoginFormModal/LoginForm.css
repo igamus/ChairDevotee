@@ -1,20 +1,89 @@
-/* TODO: Add styling */
-.login {
+#modal-content {
+    border-radius: 20px;
+    height: 42%;
+    box-sizing: border-box;
     display: flex;
-    align-content: center;
-    flex-direction: column;
 }
 
-form {
+.login {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    height: 20em;
+    width: 28em;
+    gap: 3em;
+}
+
+.login input {
+    background-color: #92b7e84f;
+    border: 3px solid black;
+    width: fill;
+    height: 2em;
+    margin: .5em 0;
+}
+
+.login h1 {
+    margin: 20px;
+}
+
+.login button {
+    width: 25em;
+    height: 4em;
+}
+
+.login-button {
+    box-shadow: 5px 4px black;
+    border: 2.5px solid black;
+    color: white;
+    margin-top: 1em;
+    background: #ff385c;
+}
+
+.demo-button {
+    color: teal;
+    text-decoration: underline;
+    border: none;
+    background: none;
+    font-weight: bold;
+}
+
+.demo-button:hover {
+    background: none;
+    border: none;
+    color: teal;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 10em;
+    gap: .1rem;
+}
+
+.login p {
+    height: 2em;
 }
 
 .error {
-    color: red;
-    height: 20px;
+    color: #ff385c;
+    height: 2em;
+    margin: 15px 0px 20px 0px;
+    width: stretch;
 }
 
-button:disabled {
-    background-color: lightgray;
+.login-button:disabled {
+    background: white;
+    color: darkgrey;
+    box-shadow: 5px 4px darkgray;
+    border: 2.5px solid darkgray;
+}
+
+.login-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-inputs {
+    gap: 2em;
 }

@@ -33,12 +33,15 @@ function ManageSpots() {
                         ?
                     <div key={`spot-index-card-${spot.id}`} className='spot-index-card'>
                         <SpotsIndexCard key={`spot-card-${spot.id}`} spot={spot} />
-                        <span>
-                            <button><Link to={`/spots/${spot.id}/edit`}>Update</Link></button>
-                            {/* <button onClick={updateClick}><Link exact to=''>Update</Link></button> */}
+                        <span className='spot-card-buttons'>
+                            <button className='update-button' onClick={e => {
+                                e.preventDefault();
+                                history.push(`/spots/${spot.id}/edit`);
+                            }}>Update</button>
                             <OpenModalButton
                                 modalComponent={<DeleteSpotModal spotid={spot.id} />}
                                 buttonText={'Delete'}
+                                className='delete-button'
                             />
                         </span>
                     </div>

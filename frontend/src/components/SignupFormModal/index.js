@@ -1,10 +1,3 @@
-/* TODO:
-    - input validation
-    - prevent button press when errors exist
-    - add display for that
-    - css
-*/
-
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
@@ -57,11 +50,10 @@ function SignupFormModal() {
     return (
         <div className='signup'>
             <h1>Sign Up</h1>
-            <form onSubmit={handleSubmit}>
-                <p className='error'>
-                    {/* Sizing is off but works */}
-                    {Object.values(errors).map(e => (<div>{e}</div>))}
-                </p>
+            <form className='signup-form' onSubmit={handleSubmit}>
+                <>
+                    {Object.values(errors).map(e => (<div className='su-error'>{e}</div>))}
+                </>
                 <label>
                     <input
                         placeholder='First Name'

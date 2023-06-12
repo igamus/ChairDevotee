@@ -16,7 +16,7 @@ function SpotsIndex() {
 
     return (
         <section className='spot-index'>
-            {spots.map(spot => spot.previewImage ? <SpotsIndexCard key={`spot-card-${spot.id}`} spot={spot} /> : null)}
+            {spots.map(spot => <SpotsIndexCard key={`spot-card-${spot.id}`} spot={spot} />)}
         </section>
     );
 };

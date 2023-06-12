@@ -1,1 +1,67 @@
-/* TODO: Add style */
+.manage-spots {
+    display: flex;
+    flex-direction: column;
+}
+
+.manage-spots h1 {
+    margin-left: 15px;
+}
+
+.manage-spots-index {
+    margin: 2em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1em;
+    max-width: 1000px;
+}
+
+.create-spot-button {
+    box-shadow: 5px 4px black;
+    border: 2.5px solid black;
+    color: white;
+    margin-left: 1em;
+    margin-bottom: 1em;
+    background: darkgrey;
+    width: 14%;
+}
+
+.update-button, .delete-button {
+    box-shadow: 5px 4px black;
+    border: 2.5px solid black;
+    color: white;
+    margin-left: 1em;
+    margin-bottom: 1em;
+    background: darkgrey;
+}
+
+.manage-spots .spot-index-card:hover {
+    cursor: pointer;
+}
+
+.manage-spots .spot-index-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border-radius: 10px;
+    flex: 1 0 25%;
+    max-width: 23%;
+    min-width: 15%;
+    height: 20em;
+    box-sizing: border-box;
+}
+
+.manage-spots .spot-image {
+    display: flex;
+    flex-basis: 25%;
+    border-radius: 20px;
+    height: 15em;
+    width: stretch;
+}
+
+.manage-spots .line-1 {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+}

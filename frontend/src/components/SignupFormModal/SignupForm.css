@@ -1,20 +1,46 @@
-/* TODO: Add styling */
+#modal-content {
+    height: 62%;
+}
+
 .signup {
     display: flex;
-    align-content: center;
+    align-items: center;
     flex-direction: column;
+    height: 20em;
+    width: 28em;
+}
+
+.signup input {
+    background-color: #92b7e84f;
+    border: 3px solid black;
+    width: fill;
+    height: 2em;
+    margin: .5em 0;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
+    width: 90%;
 }
 
-.error {
-    color: red;
-    height: 20px;
+.su-error {
+    color: #ff385c;
+    height: 1em;
+    margin: 5px;
 }
 
-button:disabled {
-    background-color: lightgray;
+.signup button {
+    box-shadow: 5px 4px black;
+    border: 2.5px solid black;
+    color: white;
+    margin-top: 1em;
+    background: #ff385c;
+    width: stretch;
+    padding: 1.25em;
+}
+
+.signup button:disabled {
+    background: white;
+    color: darkgrey;
+    box-shadow: 5px 4px darkgray;
+    border: 2.5px solid darkgray;
 }

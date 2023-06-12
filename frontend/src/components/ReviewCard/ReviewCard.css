@@ -1,1 +1,7 @@
-/* TODO: Add style */
+.drb {
+    box-shadow: 5px 4px black;
+    border: 2.5px solid black;
+    color: white;
+    margin-bottom: 1em;
+    background: darkgrey;
+}

@@ -26,9 +26,6 @@ router.get('/current', requireAuth, async (req, res) => {
                     { // can define alias in models but it's nested incorrectly
                         model: SpotImage,
                         attributes: ['url'],
-                        where: {
-                            preview: true
-                        },
                         limit: 1,
                         required: false
                     }

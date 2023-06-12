@@ -6,18 +6,20 @@ function StarRatingInput({stars, onChange}) {
 
     useEffect(() => {
         setActiveStar(stars);
+        console.log(activeStar)
     }, [stars]);
 
     const star = number => {
         return (
             <span
                 key={number}
-                className={activeStar >= number ? 'filled' : 'empty'}
+                id={activeStar >= number ? 'filled' : 'empty'}
+                className='star'
                 onMouseEnter={() => setActiveStar(number)}
                 onMouseLeave={() => setActiveStar(stars)}
                 onClick={() => onChange(number)}
             >
-                <i className='fa fa-star' />
+                <i className='fa-regular fa-star' />
             </span>
         )
     }
