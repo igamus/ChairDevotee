@@ -49,12 +49,15 @@ function PostReviewModal({spotid, user}){
             <form id='prf' onSubmit={handleSubmit}>
                 <p className='rm-er'>{errors.message}</p>
                 <textarea
+                    className='prf-ta'
                     form='prf'
                     placeholder='Leave your review here...'
                     value={review}
                     onChange={e => setReview(e.target.value)}
                 />
-                <StarRatingInput stars={stars} onChange={number => setStars(parseInt(number))} />
+                <div className='star-input-div'>
+                    <StarRatingInput stars={stars} onChange={number => setStars(parseInt(number))} />
+                </div>
                 <button className='prf-b' type='submit' disabled={disabled}>Submit your review</button>
             </form>
         </div>
