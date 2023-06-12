@@ -1,5 +1,6 @@
 /* TODO: Add style */
 .spot-details-card {
+    width: 1000px;
 
 }
 
@@ -24,7 +25,7 @@
 }
 
 .spot-details-card.reserve-button {
-    
+
 }
 
 .spot-details-card.about#blurb {

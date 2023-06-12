@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import * as sessionActions from '../../store/session';
 import './ProfileButton.css';
@@ -11,6 +11,7 @@ function ProfileButton({ user }) {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const divRef = useRef();
+    const history = useHistory();
 
     const openMenu = () => {
         if (showMenu) return;
@@ -36,7 +37,8 @@ function ProfileButton({ user }) {
     const logout = e => {
         e.preventDefault();
         dispatch(sessionActions.logout());
-        closeMenu();
+        closeMenu()
+        history.push('/');
     };
 
     const divClassName = 'profile-dropdown' + (showMenu ? "" : " hidden");

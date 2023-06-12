@@ -108,7 +108,6 @@ router.get('/current', requireAuth, async (req, res) => {
             },
             {
                 model: SpotImage,
-                where: { preview: true },
                 required: false
             }
         ]
@@ -380,11 +379,11 @@ router.get('/:spotId', async (req, res) => {
                 attributes: [],
                 required: false
             },
-            {
-                model: SpotImage,
-                attributes: ['id', 'url', 'preview'],
-                required: false
-            }
+            // {
+            //     model: SpotImage,
+            //     attributes: ['id', 'url', 'preview'],
+            //     required: false
+            // }
         ],
         where: {
             id: spotId
@@ -404,6 +403,13 @@ router.get('/:spotId', async (req, res) => {
         const owner = ownerQuery.toJSON();
         targetSpotData.Owner = owner;
     }
+
+    let SpotImages = await SpotImage.findAll({
+        where: {spotId: spotId},
+        attributes: ['id', 'url', 'preview']
+    });
+
+    targetSpotData.SpotImages = SpotImages;
 
     return res.json(targetSpotData);
 });
@@ -449,7 +455,6 @@ router.get('/', validateQuery, async (req, res,) => {
             {
                 model: SpotImage,
                 attributes: ['url'],
-                where: {preview: true},
                 limit: 1,
                 required: false
             }

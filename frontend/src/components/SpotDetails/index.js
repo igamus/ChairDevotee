@@ -33,6 +33,12 @@ function SpotDetails() {
         else setShowPostReviewModal(false);
     }, [user, reviews])
 
+    // let previewImage = 'https://images.pexels.com/photos/2762247/pexels-photo-2762247.jpeg?auto=compress&cs=tinysrgb&w=250&h=250&dpr=1';
+    // if (spot?.SpotImages) {
+    //     for (const img of spot?.SpotImages) {
+    //         if (img.preview) previewImage = img.url;
+    //     };
+    // }; // the timing for this is very off
 
     return (
         <div className='spot-details-card'>
@@ -41,7 +47,7 @@ function SpotDetails() {
                 <h3>{spot.city}, {spot.state ? spot.state + ', ' : null}{spot.country}</h3>
             </div>
             <div className='image-collage'>
-                <img className='preview-image' src={spot.SpotImages ? spot.SpotImages[0].url : ''} alt='primary image' />
+                <img className='preview-image' src={spot?.SpotImages ? spot.SpotImages.filter(img => img.preview)[0]?.url : 'https://images.pexels.com/photos/2762247/pexels-photo-2762247.jpeg?auto=compress&cs=tinysrgb&w=250&h=250&dpr=1'} alt='primary image' />
                 {/* for 4 images of the rest of the images, you want that one... */}
             </div>
             <div className='spot-details-card.about'>
@@ -52,14 +58,14 @@ function SpotDetails() {
                 <div className='spot-details-card.about#card'>
                     <div className='spot-details-card.about#card-data'>
                         <span>${spot.price}</span>
-                        <span><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{spot.avgStarRating} | {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</span>
+                        <span><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{spot.avgStarRating.toFixed(1)} · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</span>
                     </div>
                     <button className='spot-details-card.reserve-button' onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
                 </div>
             </div>
             <hr></hr>
             <div className='spot-details-card.reviews'>
-                <h2><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{spot.avgStarRating} | {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</h2>
+                <h2><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{spot.avgStarRating.toFixed(1)} · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</h2>
                 <div className='spot-details-car.reviews#button-parent'>
                     {showPostReviewModal
                         ?
@@ -70,9 +76,14 @@ function SpotDetails() {
                         :
                     null}
                 </div>
+                {reviews.length
+                        ?
                 <div className='spot-details-card.reviews#index'>
                     {reviews.map(review => (review?.stars ? <ReviewCard review={review} user={user} spotid={spot.id} key={`review-${review.id}`} /> : null))}
                 </div>
+                    :
+                    <>{showPostReviewModal ? (<h2 className='alt-text'>Be the first to post a review!</h2>) : (<h2 className='alt-text'>No reviews yet!</h2>)}</>
+                }
             </div>
         </div>
     );
