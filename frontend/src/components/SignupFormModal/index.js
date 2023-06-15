@@ -21,9 +21,9 @@ function SignupFormModal() {
             firstName.length &&
             lastName.length &&
             email.length &&
-            username.length &&
-            password.length &&
-            confirmPassword.length
+            username.length >= 4 &&
+            password.length >= 6 &&
+            confirmPassword.length >= 6
         ) {
             setDisabled(false);
         } else {

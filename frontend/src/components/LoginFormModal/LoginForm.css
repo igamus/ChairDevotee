@@ -1,6 +1,6 @@
 #modal-content {
     border-radius: 20px;
-    height: 42%;
+    /* height: 42%; */
     box-sizing: border-box;
     display: flex;
 }
