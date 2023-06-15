@@ -36,7 +36,7 @@ function PostReviewModal({spotid, user}){
         try {
             await dispatch(createReviewThunk(submission));
             closeModal();
-            await dispatch(loadSpotThunk(spotid)); // this isn't how you trigger the re-render, but time is short
+            await dispatch(loadSpotThunk(spotid)); // this isn't how you trigger the re-render, but time is short // avg isn't float
         } catch(e) {
             const errors = await e.json();
             setErrors({message: errors.message});
