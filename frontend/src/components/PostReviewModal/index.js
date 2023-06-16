@@ -44,21 +44,21 @@ function PostReviewModal({spotid, user}){
     };
 
     return (
-        <div className='post-review-modal-interior'>
+        <div className='modal-interior' id='post-review-modal-interior'>
             <h1>How was your stay?</h1>
             <form id='prf' onSubmit={handleSubmit}>
-                <p className='rm-er'>{errors.message}</p>
+                <p className='error' id='rm-er'>{errors.message}</p>
                 <textarea
-                    className='prf-ta'
+                    id='prf-ta'
                     form='prf'
                     placeholder='Leave your review here...'
                     value={review}
                     onChange={e => setReview(e.target.value)}
                 />
-                <div className='star-input-div'>
+                <div id='star-input-div'>
                     <StarRatingInput stars={stars} onChange={number => setStars(parseInt(number))} />
                 </div>
-                <button className='prf-b' type='submit' disabled={disabled}>Submit your review</button>
+                <button className='primary-button' id='prf-b' type='submit' disabled={disabled}>Submit your review</button>
             </form>
         </div>
     );

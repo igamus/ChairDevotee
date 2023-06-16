@@ -41,7 +41,7 @@
     max-width: 249px;
 }
 
-.line-1 {
+.spot-card#line-1 {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;

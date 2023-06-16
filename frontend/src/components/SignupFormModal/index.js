@@ -48,11 +48,11 @@ function SignupFormModal() {
     };
 
     return (
-        <div className='signup'>
+        <div className='modal-interior' id='signup'>
             <h1>Sign Up</h1>
-            <form className='signup-form' onSubmit={handleSubmit}>
+            <form id='signup-form' onSubmit={handleSubmit}>
                 <>
-                    {Object.values(errors).map(e => (<div className='su-error'>{e}</div>))}
+                    {Object.values(errors).map(e => (<div className='error su-error'>{e}</div>))}
                 </>
                 <label>
                     <input
@@ -102,7 +102,7 @@ function SignupFormModal() {
                         onChange={e => setConfirmPassword(e.target.value)}
                     />
                 </label>
-                <button type='submit' disabled={disabled}>Sign Up</button>
+                <button className='primary-button' type='submit' disabled={disabled}>Sign Up</button>
             </form>
         </div>
     );

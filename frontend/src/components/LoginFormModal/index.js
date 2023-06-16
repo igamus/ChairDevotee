@@ -54,11 +54,11 @@ function LoginFormModal() {
     }
 
     return (
-        <div className='login'>
+        <div className='modal-interior' id='login'>
             <h1>Log In</h1>
-            <form className='login-form' onSubmit={handleSubmit}>
-                <p className='error'>{errors.credential}</p>
-                <div className='login-labels'>
+            <form id='login-form' onSubmit={handleSubmit}>
+                <p className='error' id='error'>{errors.credential}</p>
+                <div id='login-labels'>
                     <label>
                         <input
                             placeholder='Username or Email'
@@ -76,9 +76,9 @@ function LoginFormModal() {
                         />
                     </label>
                 </div>
-                <div className='login-buttons'>
-                    <button className='login-button' type='submit' disabled={disabled}>Log In</button>
-                    <button className='demo-button' type='button' onClick={onDemoClick}>Demo User</button>
+                <div id='login-buttons'>
+                    <button className='primary-button' id='login-button' type='submit' disabled={disabled}>Log In</button>
+                    <button className='secondary-button' id='demo-button' type='button' onClick={onDemoClick}>Demo User</button>
                 </div>
             </form>
         </div>

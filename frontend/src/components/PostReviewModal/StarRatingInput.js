@@ -13,8 +13,7 @@ function StarRatingInput({stars, onChange}) {
         return (
             <span
                 key={number}
-                id={activeStar >= number ? 'filled' : 'empty'}
-                className='star'
+                className={activeStar >= number ? 'star filled' : 'star empty'}
                 onMouseEnter={() => setActiveStar(number)}
                 onMouseLeave={() => setActiveStar(stars)}
                 onClick={() => onChange(number)}

@@ -34,7 +34,6 @@ function SpotDetails() {
         else setShowPostReviewModal(false);
     }, [user, reviews])
 
-    console.log(spot);
     return (
         <div className='spot-details-card'>
             <div className='spot-details-card-header'>
@@ -74,7 +73,8 @@ function SpotDetails() {
                     <OpenModalButton
                         modalComponent={<PostReviewModal spotid={spot.id} user={user} />}
                         buttonText={'Post Your Review'}
-                        className='post-review-modal'
+                        className={'secondary-button'}
+                        id='post-review-modal'
                     />
                         :
                     null}

@@ -14,7 +14,7 @@ nav {
     /* max-width: 1000px; */
 }
 
-.nav-right {
+#nav-right {
     display: flex;
     flex-direction: row;
     gap: 20px;
@@ -22,7 +22,7 @@ nav {
     color: #222222;
 }
 
-.nav-right .create-link {
+#nav-right #create-spot-link {
     color: #00525e
 }
 
@@ -30,7 +30,7 @@ a:any-link {
     text-decoration: none;
 }
 
-.logo {
+#logo {
     align-self: center;
     color: #ff385c;
     font-family: 'Familjen Grotesk', sans-serif;

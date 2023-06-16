@@ -10,11 +10,11 @@ function SpotsIndexCard({spot}) {
                 <img className='spot-image' src={spot.previewImage} alt="image of spot" />
                     :
                 <img className='spot-image' src={'https://images.pexels.com/photos/2762247/pexels-photo-2762247.jpeg?auto=compress&cs=tinysrgb&w=250&h=250&dpr=1'} alt='placeholder image of spot' />}
-                <div className='line-1'>
+                <div className='spot-card#line-1'>
                     {spot.city}, {spot.state ? spot.state : spot.country}
                     {<span><i className='fa-solid fa-star' />{spot.avgRating ? spot.avgRating.toFixed(1) : 'New'}</span>}
                 </div>
-                <div className='line-2' style={{textDecoration: 'underline'}}>
+                <div className='spot-card#line-2' style={{textDecoration: 'underline'}}>
                     <b>${spot.price}</b> / night
                 </div>
             </Link>

@@ -8,15 +8,15 @@ function Navigation({ isLoaded }) {
 
     return (
         <nav>
-            <NavLink exact to='/' className='logo'><i className='fa-solid fa-chair' />ShareVIP</NavLink>
+            <NavLink exact to='/' id='logo'><i className='fa-solid fa-chair' />ShareVIP</NavLink>
 
-            <div className='nav-right'>
+            <div id='nav-right'>
                 {sessionUser && (
-                    <NavLink className='create-link' to='/spots/create'>Create a New Spot</NavLink>
+                    <NavLink id='create-spot-link' to='/spots/create'>Create a New Spot</NavLink>
                 )}
 
                 {isLoaded && (
-                    <ProfileButton user={sessionUser} className='profile' />
+                    <ProfileButton user={sessionUser} id='profile-dropdown-button' />
                 )}
             </div>
         </nav>

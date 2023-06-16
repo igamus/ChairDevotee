@@ -1,8 +1,8 @@
-.rm-er {
+#rm-er {
     color: #ff385c;
 }
 
-.prf-b {
+#prf-b {
     box-shadow: 5px 4px black;
     border: 2.5px solid black;
     color: white;
@@ -11,26 +11,26 @@
     align-self: center;
 }
 
-.prf-b:disabled {
+#prf-b:disabled {
     background: white;
     color: darkgrey;
     box-shadow: 5px 4px darkgray;
     border: 2.5px solid darkgray;
 }
 
-.post-review-modal-interior {
+#post-review-modal-interior {
     display: flex;
     flex-direction: column;
     padding: 2em;
     margin: 0 20px
 }
 
-.prf {
+#prf {
     display: flex;
-    width: stretch
+    width: stretch;
 }
 
-.prf-ta {
+#prf-ta {
     background-color: #92b7e84f;
     width: stretch;
 }

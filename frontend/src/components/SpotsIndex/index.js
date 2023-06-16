@@ -15,7 +15,7 @@ function SpotsIndex() {
     const spots = Object.values(spotsObj); // is this or forEach more performant?
 
     return (
-        <section className='spot-index'>
+        <section id='spot-index'>
             {spots.map(spot => <SpotsIndexCard key={`spot-card-${spot.id}`} spot={spot} />)}
         </section>
     );

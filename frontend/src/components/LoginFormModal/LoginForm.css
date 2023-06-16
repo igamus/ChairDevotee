@@ -5,7 +5,7 @@
     display: flex;
 }
 
-.login {
+#login {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,7 +14,7 @@
     gap: 3em;
 }
 
-.login input {
+#login input {
     background-color: #92b7e84f;
     border: 3px solid black;
     width: fill;
@@ -22,16 +22,16 @@
     margin: .5em 0;
 }
 
-.login h1 {
+#login h1 {
     margin: 20px;
 }
 
-.login button {
+#login button {
     width: 25em;
     height: 4em;
 }
 
-.login-button {
+#login-button {
     box-shadow: 5px 4px black;
     border: 2.5px solid black;
     color: white;
@@ -39,7 +39,7 @@
     background: #ff385c;
 }
 
-.demo-button {
+#demo-button {
     color: teal;
     text-decoration: underline;
     border: none;
@@ -47,13 +47,13 @@
     font-weight: bold;
 }
 
-.demo-button:hover {
+#demo-button:hover {
     background: none;
     border: none;
     color: teal;
 }
 
-.login-form {
+#login-form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -61,29 +61,29 @@
     gap: .1rem;
 }
 
-.login p {
+#login p {
     height: 2em;
 }
 
-.error {
+#error {
     color: #ff385c;
     height: 2em;
     margin: 15px 0px 20px 0px;
     width: stretch;
 }
 
-.login-button:disabled {
+#login-button:disabled {
     background: white;
     color: darkgrey;
     box-shadow: 5px 4px darkgray;
     border: 2.5px solid darkgray;
 }
 
-.login-buttons {
+#login-buttons {
     display: flex;
     flex-direction: column;
 }
 
-.login-inputs {
+#login-inputs {
     gap: 2em;
 }

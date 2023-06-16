@@ -1,13 +1,13 @@
-.manage-spots {
+#manage-spots {
     display: flex;
     flex-direction: column;
 }
 
-.manage-spots h1 {
+#manage-spots h1 {
     margin-left: 15px;
 }
 
-.manage-spots-index {
+#manage-spots-index {
     margin: 2em;
     display: flex;
     flex-direction: row;
@@ -16,7 +16,7 @@
     max-width: 1000px;
 }
 
-.create-spot-button {
+#create-spot-button {
     box-shadow: 5px 4px black;
     border: 2.5px solid black;
     color: white;
@@ -35,11 +35,11 @@
     background: darkgrey;
 }
 
-.manage-spots .spot-index-card:hover {
+#manage-spots #spot-index-card:hover {
     cursor: pointer;
 }
 
-.manage-spots .spot-index-card {
+#manage-spots #spot-index-card {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -51,7 +51,7 @@
     box-sizing: border-box;
 }
 
-.manage-spots .spot-image {
+#manage-spots .spot-image {
     display: flex;
     flex-basis: 25%;
     border-radius: 20px;
@@ -59,7 +59,7 @@
     width: stretch;
 }
 
-.manage-spots .line-1 {
+#manage-spots .spot-card#line-1 {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;

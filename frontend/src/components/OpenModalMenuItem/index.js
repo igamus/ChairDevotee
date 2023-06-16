@@ -1,7 +1,7 @@
 import { useModal } from '../../context/Modal';
 import './OpenModalMenuItem.css';
 
-function OpenModalMenuItem ({ modalComponent, itemText, onItemClick, onModalClose, className }) {
+function OpenModalMenuItem ({ modalComponent, itemText, onItemClick, onModalClose, className, id }) {
     const { setModalContent, setOnModalClose } = useModal();
 
     const onClick = () => {
@@ -11,7 +11,7 @@ function OpenModalMenuItem ({ modalComponent, itemText, onItemClick, onModalClos
     };
 
     return (
-        <div className={'modalMenuItem'+` ${className}`} onClick={onClick}>{itemText}</div>
+        <div className={'modalMenuItem'+` ${className}`} id={`${id}`} onClick={onClick}>{itemText}</div>
     );
 };
 

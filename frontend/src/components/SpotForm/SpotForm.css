@@ -1,10 +1,10 @@
-.csf {
+#csf-div {
     margin: 0 20em;
     display: flex;
     flex-direction: column;
 }
 
-.csf input {
+#csf-div input {
     background-color: #92b7e84f;
     border: 3px solid black;
     width: fill;
@@ -12,13 +12,9 @@
     margin: .5em 0;
 }
 
-.csf-1 {
+#csf-1 {
     display: flex;
     flex-direction: column;
-}
-
-.csf-2 {
-
 }
 
 .csf-labels {
@@ -52,23 +48,11 @@
     margin: .5em 0;
 }
 
-.csf-price{
+#csf-price{
     display: flex;
     direction: row;
     align-items: center;
     justify-content: space-between;
-}
-
-.csf-3 {
-
-}
-
-.csf-4 {
-
-}
-
-.csf-5 {
-
 }
 
 .csf-label {
@@ -84,7 +68,7 @@
     color: #ff385c;
 }
 
-.csf-button {
+#csf-button {
     box-shadow: 5px 4px black;
     border: 2.5px solid black;
     color: white;
@@ -95,6 +79,6 @@
     height: 5%;
 }
 
-.csf label {
+#csf-div label {
     margin-right: 5em;
 }

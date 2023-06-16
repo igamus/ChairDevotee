@@ -76,7 +76,7 @@
 
 }
 
-.post-review-modal {
+#post-review-modal {
     box-shadow: 5px 4px black;
     border: 2.5px solid black;
     color: white;
