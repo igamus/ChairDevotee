@@ -1,0 +1,20 @@
+#demo-button {
+    color: #00525E;
+    text-decoration: underline;
+    border: none;
+    background: none;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#demo-button a {
+    background-color: red
+}
+
+#demo-button:hover {
+    background: none;
+}
+
+#error.error {
+    width: 20em;
+}

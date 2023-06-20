@@ -1,0 +1,35 @@
+.spot-index-card {
+    flex: 1 1 220px;
+    width: 220px;
+    max-width: 220px;
+    margin: 10px;
+}
+
+.spot-index-card:hover {
+    cursor: pointer;
+}
+
+.spot-image {
+    border-radius: 20px;
+    height: 10em;
+    width: 220px;
+    max-width: 220px;
+}
+
+.spot-card-line-1 {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.spot-rating {
+    flex-direction: row;
+}
+
+.spot-card-line-2{
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 10px;
+}

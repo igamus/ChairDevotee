@@ -76,10 +76,8 @@ function LoginFormModal() {
                         />
                     </label>
                 </div>
-                <div id='login-buttons'>
-                    <button className='primary-button' id='login-button' type='submit' disabled={disabled}>Log In</button>
-                    <button className='secondary-button' id='demo-button' type='button' onClick={onDemoClick}>Demo User</button>
-                </div>
+                <button className='primary-button' id='login-button' type='submit' disabled={disabled}>Log In</button>
+                <button id='demo-button' type='button' onClick={onDemoClick}>Demo User</button> {/* TODO: Make text only clickable part of the button */}
             </form>
         </div>
     )

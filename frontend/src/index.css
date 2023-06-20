@@ -1,0 +1,88 @@
+* {
+    font-family: 'Roboto', 'sans-serif';
+    font-size: 14pt;
+    color: black;
+    box-sizing: border-box;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+title, style {
+    display: none;
+}
+
+h1 {
+    font-size: 24pt;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 18pt;
+    font-weight: bold;
+}
+
+button {
+    font-size: medium;
+    justify-content: center;
+    align-content: center;
+    background-color: white;
+    color: black;
+    border: 1px solid lightgray;
+}
+
+button:hover {
+    font-size: medium;
+    justify-content: center;
+    align-content: center;
+    background-color: darkgray;
+    color: white;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+button:disabled {
+    background: white;
+    color: darkgray;
+    box-shadow: 5px 4px darkgray;
+    border: 2.5px solid darkgray;
+}
+
+.primary-button {
+    box-shadow: 5px 4px black;
+    border: 2.5px solid black;
+    color: white;
+    background: #ff385c;
+}
+
+.primary-button:hover {
+    box-shadow: 5px 4px black;
+    border: 2.5px solid black;
+    color: black
+}
+
+
+.secondary-button {
+    box-shadow: 5px 4px black;
+    border: 2.5px solid black;
+    color: white;
+    margin-bottom: 1em;
+    background: darkgrey;
+}
+
+.secondary-button:hover {
+    box-shadow: 5px 4px black;
+    border: 2.5px solid black;
+    color: black;
+    background: white;
+}
+
+.error {
+    color: red;
+    margin: 10px;
+}
+
+#root{
+    display: flex;
+}

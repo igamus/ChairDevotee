@@ -21,4 +21,18 @@
 #modal-content {
     position: absolute;
     background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+#modal-content input {
+    background-color: #E8F0FE;
+    margin: 10px;
+    width: 20em;
+}
+
+#modal-content button {
+    margin: 10px;
+    width: 95%;
+    padding: 5% 0;
 }

@@ -74,7 +74,7 @@ function SignupFormModal() {
                     <input
                         placeholder='Email'
                         type='email'
-                        value={email} // for stylistic consistency it may be better to hardcode this error rather than let it be caught by HTTP
+                        value={email}
                         onChange={e => setEmail(e.target.value)}
                     />
                 </label>

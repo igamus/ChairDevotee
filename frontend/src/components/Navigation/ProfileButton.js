@@ -53,15 +53,17 @@ function ProfileButton({ user }) {
                 {
                     user ? (
                         <>
-                        Hello, {user.firstName}<br/>
-                        {user.email}<br/>
-                        <hr />
-                        <Link to='/spots/current' onClick={closeMenu}>Manage Spots</Link>
-                        <hr />
+                        <div id='dropdown-text'>
+                            Hello, {user.firstName}<br/>
+                            {user.email}<br/>
+                            <hr />
+                            <Link to='/spots/current' onClick={closeMenu}>Manage Spots</Link>
+                            <hr />
+                        </div>
                         <button className='logout-button' id='profile-logout-button' onClick={logout}>Log Out</button>
                         </>
                     ) : (
-                        <>
+                        <div id='dropdown-text'>
                             <OpenModalMenuItem
                                 id='signup-modal-button'
                                 itemText='Sign up'
@@ -74,7 +76,7 @@ function ProfileButton({ user }) {
                                 onButtonClick={closeMenu}
                                 modalComponent={<LoginFormModal />}
                             />
-                        </>
+                        </div>
                     )
                 }
             </div>

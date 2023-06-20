@@ -61,7 +61,7 @@ function SpotDetails() {
                         <span>${spot.price} / night</span>
                         <span><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{parseFloat(spot.avgStarRating).toFixed(1)} · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</span>
                     </div>
-                    <button className='spot-details-card-reserve' onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
+                    <button className='primary-button' id='spot-details-card-reserve' onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
                 </div>
             </div>
             <hr></hr>

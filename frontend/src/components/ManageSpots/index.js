@@ -25,8 +25,8 @@ function ManageSpots() {
 
     return (
         <div id='manage-spots'>
-            <h1>Manage Your Spots</h1>
-            <button className='secondary button' id='create-spot-button' onClick={onClick}>Create a New Spot</button>
+            <h1 id='manage-spots-header'>Manage Your Spots</h1>
+            <button className='secondary-button' id='create-spot-button' onClick={onClick}>Create a New Spot</button>
             <div id='manage-spots-index'>
                 {spots.map(spot =>
                     spot.previewImage
