@@ -1,8 +1,7 @@
 .spot-index-card {
-    flex: 1 1 220px;
-    width: 220px;
-    max-width: 220px;
+    flex: 0 0 20vw;
     margin: 10px;
+    margin-bottom: 0;
 }
 
 .spot-index-card:hover {
@@ -11,9 +10,11 @@
 
 .spot-image {
     border-radius: 20px;
-    height: 10em;
-    width: 220px;
-    max-width: 220px;
+    min-height: 10em;
+    max-height: 15vh;
+    width: 20vw;
+    min-width: 175px;
+    max-width: 20vw;
 }
 
 .spot-card-line-1 {
@@ -28,8 +29,11 @@
     flex-direction: row;
 }
 
-.spot-card-line-2{
+.spot-card-line-2 {
     flex-direction: row;
     width: 100%;
-    margin-bottom: 10px;
+}
+
+.spot-location {
+    overflow: hidden;
 }

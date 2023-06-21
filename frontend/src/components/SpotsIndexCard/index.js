@@ -4,7 +4,7 @@ import './SpotsIndexCard.css';
 function SpotsIndexCard({spot}) {
     return (
         <div className='spot-index-card' title={spot.name}>
-            <Link to={`/spots/${spot.id}`}>
+            <Link className='spot-link' to={`/spots/${spot.id}`}>
                 {spot.previewImage
                     ?
                 <img className='spot-image' src={spot.previewImage} alt="image of spot" />

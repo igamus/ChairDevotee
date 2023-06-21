@@ -82,7 +82,3 @@ button:disabled {
     color: red;
     margin: 10px;
 }
-
-#root{
-    display: flex;
-}

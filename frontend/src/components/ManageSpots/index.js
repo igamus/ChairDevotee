@@ -31,7 +31,7 @@ function ManageSpots() {
                 {spots.map(spot =>
                     spot.previewImage
                         ?
-                    <div key={`spot-index-card-${spot.id}`} className='spot-index-card'>
+                    <div key={`spot-index-card-${spot.id}`} className='spot-index-card-container'>
                         <SpotsIndexCard key={`spot-card-${spot.id}`} spot={spot} />
                         <span className='spot-card-buttons'>
                             <button className='secondary-button manage-button update-button' onClick={e => {
