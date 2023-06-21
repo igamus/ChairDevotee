@@ -9,7 +9,7 @@ function SpotsIndexCard({spot}) {
                     ?
                 <img className='spot-image' src={spot.previewImage} alt="image of spot" />
                     :
-                <img className='spot-image' src={'https://images.pexels.com/photos/2762247/pexels-photo-2762247.jpeg?auto=compress&cs=tinysrgb&w=250&h=250&dpr=1'} alt='placeholder image of spot' />}
+                <img className='spot-image' src={'https://cdn.pixabay.com/photo/2017/08/26/13/44/armchair-2683081_1280.png'} alt='placeholder image of spot' />}
                 <div className='spot-card-line-1'>
                     <span className='spot-location'>{spot.city}, {spot.state ? spot.state : spot.country}</span>
                     <span className='spot-rating'><i className='fa-solid fa-star' />{spot.avgRating ? parseFloat(spot.avgRating).toFixed(1) : 'New'}</span>

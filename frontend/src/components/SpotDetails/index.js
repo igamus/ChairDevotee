@@ -41,14 +41,12 @@ function SpotDetails() {
                 <h3>{spot.city}, {spot.state ? spot.state + ', ' : null}{spot.country}</h3>
             </div>
             <div className='image-row'>
-                <img className='preview-image' src={spot?.SpotImages ? spot.SpotImages.filter(img => img.preview)[0]?.url : 'https://images.pexels.com/photos/2762247/pexels-photo-2762247.jpeg?auto=compress&cs=tinysrgb&w=250&h=250&dpr=1'} alt='primary image' />
+                <img className='preview-image' src={(spot?.SpotImages && !!spot?.SpotImages[0]) ? spot.SpotImages.filter(img => img.preview)[0]?.url : 'https://cdn.pixabay.com/photo/2017/08/26/13/44/armchair-2683081_1280.png'} alt='primary image' />
                 <div className='image-collage'>
-                    {spot?.SpotImages?.filter(img => !img.preview).length ? spot.SpotImages.filter(img => !img.preview).map(img => (<img className='collage-img' src={img.url} />)) :
-                    <><img className='collage-img' src={'https://images.pexels.com/photos/2762247/pexels-photo-2762247.jpeg?auto=compress&cs=tinysrgb&w=250&h=250&dpr=1'} />
-                    <img className='collage-img' src={'https://images.pexels.com/photos/2762247/pexels-photo-2762247.jpeg?auto=compress&cs=tinysrgb&w=250&h=250&dpr=1'} />
-                    <img className='collage-img' src={'https://images.pexels.com/photos/2762247/pexels-photo-2762247.jpeg?auto=compress&cs=tinysrgb&w=250&h=250&dpr=1'} />
-                    <img className='collage-img' src={'https://images.pexels.com/photos/2762247/pexels-photo-2762247.jpeg?auto=compress&cs=tinysrgb&w=250&h=250&dpr=1'} /></>
-                    }
+                    {!!spot?.SpotImages?.filter(img => !img.preview)[0] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[0].url} alt={`additional image of ${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', height: '250px', width: '250px', fontSize: '250px', display: 'flex', justifyContent: 'center'}} />}
+                    {!!spot?.SpotImages?.filter(img => !img.preview)[1] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[1].url} alt={`additional image of ${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', height: '250px', width: '250px', fontSize: '250px', display: 'flex', justifyContent: 'center'}} />}
+                    {!!spot?.SpotImages?.filter(img => !img.preview)[2] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[2].url} alt={`additional image of ${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', height: '250px', width: '250px', fontSize: '250px', display: 'flex', justifyContent: 'center'}} />}
+                    {!!spot?.SpotImages?.filter(img => !img.preview)[3] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[3].url} alt={`additional image of ${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', height: '250px', width: '250px', fontSize: '250px', display: 'flex', justifyContent: 'center'}} />}
                 </div>
             </div>
             <div className='spot-details-card-about'>
