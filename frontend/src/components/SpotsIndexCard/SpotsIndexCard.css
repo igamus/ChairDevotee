@@ -2,6 +2,9 @@
     flex: 0 0 20vw;
     margin: 10px;
     margin-bottom: 0;
+    width: 20vw;
+    min-width: 175px;
+    max-width: 20vw;
 }
 
 .spot-index-card:hover {
@@ -15,6 +18,13 @@
     width: 20vw;
     min-width: 175px;
     max-width: 20vw;
+}
+
+.spot-link {
+    width: 20vw;
+    min-width: 175px;
+    max-width: 20vw;
+    flex: 0 0 20vw;
 }
 
 .spot-card-line-1 {
@@ -36,4 +46,5 @@
 
 .spot-location {
     overflow: hidden;
+    height: 20px;
 }
