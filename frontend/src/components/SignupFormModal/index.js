@@ -29,7 +29,7 @@ function SignupFormModal() {
         } else {
             setDisabled(true);
         }
-    }, [firstName, lastName, email, username, password, confirmPassword]) // there's probably a better way that takes advantage of our existing listeners
+    }, [firstName, lastName, email, username, password, confirmPassword]); // there's probably a better way that takes advantage of our existing listeners
 
     const handleSubmit = e => {
         e.preventDefault();
