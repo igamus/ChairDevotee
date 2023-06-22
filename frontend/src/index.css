@@ -1,12 +1,15 @@
 * {
     font-family: 'Roboto', 'sans-serif';
     font-size: 14pt;
-    color: black;
     box-sizing: border-box;
     text-decoration: none;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+a {
+    color: black;
 }
 
 title, style {
@@ -86,4 +89,8 @@ button:disabled {
 .error {
     color: red;
     margin: 10px;
+}
+
+.modal-with-background {
+    border: 7.5px solid black;
 }

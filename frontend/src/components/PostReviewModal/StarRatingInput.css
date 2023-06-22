@@ -1,11 +1,16 @@
-.empty {
-    background-color: white;
-}
-
-.filled {
-    background-color: black;
-}
-
 .star:hover {
     cursor: pointer;
+}
+
+#stars {
+    flex-direction: row;
+    margin-right: 0.25em;
+}
+
+#modal-content #prf-b {
+    width: 100%;
+}
+
+#modal-content #prf-ta {
+    height: 7.5em;
 }

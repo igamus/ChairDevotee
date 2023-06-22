@@ -23,17 +23,25 @@
     background-color: white;
     border-radius: 15px;
     padding: 20px;
+    border: 5px solid black;
 }
 
 #modal-content input {
     background-color: #E8F0FE;
     margin: 10px;
     width: 25em;
+    border: 2.5px solid black;
+}
+
+#modal-content textarea {
+    background-color: #E8F0FE;
+    width: 25em;
+    border: 2.5px solid black;
 }
 
 #modal-content button {
     margin: 10px;
-    width: 95%;
+    width: 96%;
     padding: 5% 0;
 }
 

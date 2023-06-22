@@ -12,7 +12,7 @@ function PostReviewModal({spotid, user}){
     const [disabled, setDisabled] = useState(true);
     const [errors, setErrors] = useState({});
     const [review, setReview] = useState('');
-    const [stars, setStars] = useState('');
+    const [stars, setStars] = useState(0);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -56,7 +56,7 @@ function PostReviewModal({spotid, user}){
                     onChange={e => setReview(e.target.value)}
                 />
                 <div id='star-input-div'>
-                    <StarRatingInput stars={stars} onChange={number => setStars(parseInt(number))} />
+                    <StarRatingInput stars={stars} onChange={number => setStars(parseInt(number))} /> Stars
                 </div>
                 <button className='primary-button' id='prf-b' type='submit' disabled={disabled}>Submit your review</button>
             </form>
