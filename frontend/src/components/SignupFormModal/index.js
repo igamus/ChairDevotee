@@ -33,15 +33,18 @@ function SignupFormModal() {
 
     const handleSubmit = e => {
         e.preventDefault();
-        if (password !== confirmPassword) return setErrors({confirmPassword: 'Passwords must match!'})
         setErrors({});
+        let updatedErrors = {};
+        if (password !== confirmPassword) return setErrors({confirmPassword: 'Passwords must match!'});
+
         return dispatch(sessionActions.signup({ firstName, lastName, email, username, password }))
         .then(closeModal)
         .catch(
             async res => {
                 const data = await res.json(); // is this superfluous and handled in the thunk?
                 if (data && data.errors) {
-                    setErrors(data.errors);
+                    updatedErrors = {...updatedErrors, ...data.errors}
+                    setErrors(updatedErrors);
                 }
             }
         );
