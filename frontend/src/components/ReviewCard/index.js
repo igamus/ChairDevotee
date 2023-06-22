@@ -9,7 +9,7 @@ function ReviewCard({ review, user, spotid }) {
     else formattedReviewDate = '';
 
     return (
-            <div className='reviewCard'>
+            <div className='review-card'>
                 <h3>{review?.User.firstName}</h3>
                 <h4>{formattedReviewDate}</h4>
                 <p>{review?.review}</p>

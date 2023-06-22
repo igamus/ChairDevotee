@@ -43,20 +43,20 @@ function SpotDetails() {
             <div className='image-row'>
                 <img className='preview-image' src={(spot?.SpotImages && !!spot?.SpotImages[0]) ? spot.SpotImages.filter(img => img.preview)[0]?.url : 'https://cdn.pixabay.com/photo/2017/08/26/13/44/armchair-2683081_1280.png'} alt='primary image' />
                 <div className='image-collage'>
-                    {!!spot?.SpotImages?.filter(img => !img.preview)[0] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[0].url} alt={`additional image of ${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', height: '250px', width: '250px', fontSize: '250px', display: 'flex', justifyContent: 'center'}} />}
-                    {!!spot?.SpotImages?.filter(img => !img.preview)[1] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[1].url} alt={`additional image of ${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', height: '250px', width: '250px', fontSize: '250px', display: 'flex', justifyContent: 'center'}} />}
-                    {!!spot?.SpotImages?.filter(img => !img.preview)[2] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[2].url} alt={`additional image of ${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', height: '250px', width: '250px', fontSize: '250px', display: 'flex', justifyContent: 'center'}} />}
-                    {!!spot?.SpotImages?.filter(img => !img.preview)[3] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[3].url} alt={`additional image of ${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', height: '250px', width: '250px', fontSize: '250px', display: 'flex', justifyContent: 'center'}} />}
+                    {!!spot?.SpotImages?.filter(img => !img.preview)[0] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[0].url} alt={`additional image of ${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', fontSize: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} />}
+                    {!!spot?.SpotImages?.filter(img => !img.preview)[1] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[1].url} alt={`additional image of ${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', fontSize: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} />}
+                    {!!spot?.SpotImages?.filter(img => !img.preview)[2] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[2].url} alt={`additional image of ${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', fontSize: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} />}
+                    {!!spot?.SpotImages?.filter(img => !img.preview)[3] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[3].url} alt={`additional image of ${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', fontSize: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} />}
                 </div>
             </div>
             <div className='spot-details-card-about'>
                 <div className='spot-details-card-about-blurb'>
-                    <h2>Hosted by {spot.Owner ? <span>{spot.Owner.firstName} {spot.Owner.lastName}</span> : null}</h2>
+                    <h2>Hosted by {spot.Owner ? <>{spot.Owner.firstName} {spot.Owner.lastName}</> : null}</h2>
                     <p>{spot.description}</p>
                 </div>
                 <div className='spot-details-card-about-card'>
                     <div className='spot-details-card-about-card-data'>
-                        <span>${spot.price} / night</span>
+                        <span><b>${spot.price}</b> / night</span>
                         <span><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{parseFloat(spot.avgStarRating).toFixed(1)} · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</span>
                     </div>
                     <button className='primary-button' id='spot-details-card-reserve' onClick={() => alert('Feature Coming Soon...')}>Reserve</button>

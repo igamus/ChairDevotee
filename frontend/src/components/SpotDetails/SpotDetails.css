@@ -1,0 +1,86 @@
+.spot-details-card {
+    max-width: 1000px;
+}
+
+.spot-details-card * {
+    align-items: flex-start;
+}
+
+.spot-details-card-header {
+    align-self: flex-start;
+}
+
+.spot-details-card-about {
+    align-self: flex-start;
+}
+
+.image-row {
+    flex-direction: row;
+    align-self: flex-start;
+}
+
+.preview-image {
+    width: 499.5px;
+    height: 500px;
+}
+
+.image-collage {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 499.5px;
+    justify-content: space-evenly;
+    align-content: space-around;
+    height: 500px;
+}
+
+.collage-img {
+    width: 248px;
+    height: 248px
+}
+
+.spot-details-card-about {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 1000px;
+}
+
+.spot-details-card-about-card {
+    border-radius: 20px;
+    border: 2.5px solid black;
+    width: 400px;
+    align-content: center;
+    margin: 0.83em 0;
+    height: 8em;
+}
+
+.spot-details-card-about-card-data {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 400px;
+    padding: 1.5em;
+}
+
+.spot-details-card-about-card-data span {
+    flex-direction: row;
+}
+
+#spot-details-card-reserve {
+    width: 85%;
+    height: 3em;
+    align-self: center;
+    align-items: center;
+}
+
+.spot-details-card-reviews {
+    align-self: flex-start;
+}
+
+.spot-details-card-reviews h2 {
+    flex-direction: row;
+    align-self: flex-start;
+}
+
+.review-card * {
+    margin: 10px 0;
+}
