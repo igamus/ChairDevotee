@@ -111,52 +111,64 @@ function SpotForm({ initialFormData, formType}) {
                 <section id='csf-1'>
                     <h2>Where's your place located?</h2>
                     <p>Guests will only get your exact address once they booked a reservation.</p>
-                    <label className='csf-label' for='country'>
-                        Country <span className='error csf-error-span'>{errors.country}</span>
+                    <div className='csf-label-container'>
+                        <label for='country' id='country'>
+                            Country
                         </label>
-                        <input
-                            id='country'
-                            placeholder='Country'
-                            type='text'
-                            value={country}
-                            onChange={e => setCountry(e.target.value)}
-                        />
-                    <label className='csf-label' for='address'>
-                        Address <span className='csf-error-span'>{errors.address}</span>
-                    </label>
-                        <input
-                            id='address'
-                            placeholder='Address'
-                            type='text'
-                            value={address}
-                            onChange={e => setAddress(e.target.value)}
-                        />
+                        <span className='error csf-error-span'>{errors.country}</span>
+                    </div>
+                    <input
+                        id='country'
+                        placeholder='Country'
+                        type='text'
+                        value={country}
+                        onChange={e => setCountry(e.target.value)}
+                    />
+                    <div className='csf-label-container'>
+                        <label for='address'>
+                            Street Address
+                        </label>
+                        <span className='error csf-error-span'>{errors.address}</span>
+                    </div>
+                    <input
+                        id='address'
+                        placeholder='Address'
+                        type='text'
+                        value={address}
+                        onChange={e => setAddress(e.target.value)}
+                    />
                     <span className='csf-labels'>
-                        <label id='city-label' className='csf-label' for='city'>
-                            City
+                        <div className='csf-label-container' id='city-label-container'>
+                            <label for='city'>
+                                City
+                            </label>
                             <span className='error csf-error-span'>{errors.city}</span>
-                        </label>
-                        <label className='csf-label' for='state'>
-                            State <span className='error csf-error-span'>{errors.state}</span>
-                        </label>
-                        </span>
-                        <span className='csf-inputs'>
-                            <input
-                                id='city'
-                                placeholder='City'
-                                type='text'
-                                value={city}
-                                onChange={e => setCity(e.target.value)}
-                            /> ,
-                            <input
-                                placeholder='STATE'
-                                type='text'
-                                value={state}
-                                onChange={e => setState(e.target.value)}
-                            />
-                        </span>
+                        </div>
+                        <div className='csf-label-container' id='state-label-container'>
+                            <label for='state'>
+                                State
+                            </label>
+                            <span className='error csf-error-span'>{errors.state}</span>
+                        </div>
+                    </span>
+                    <span className='csf-inputs'>
+                        <input
+                            id='city'
+                            placeholder='City'
+                            type='text'
+                            value={city}
+                            onChange={e => setCity(e.target.value)}
+                        /> ,
+                        <input
+                            id='state'
+                            placeholder='STATE'
+                            type='text'
+                            value={state}
+                            onChange={e => setState(e.target.value)}
+                        />
+                    </span>
                 </section>
-                <hr />
+                <hr id='divider-csf1-csf2' />
                 <section id='csf-2'>
                     <h2>Describe your place to guests</h2>
                     <p>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</p>
@@ -164,7 +176,7 @@ function SpotForm({ initialFormData, formType}) {
                         id='description'
                         rows={5}
                         form='csf'
-                        placeholder='Description'
+                        placeholder='Please write at least 30 characters'
                         value={description}
                         onChange={e => setDescription(e.target.value)}
                     />
@@ -243,6 +255,7 @@ function SpotForm({ initialFormData, formType}) {
                         :
                     null
                 }
+                <hr />
                 <p className='error csf-error'>{errors.undefined ? <span className='error csf-error-span'>Misc. Error: {errors.undefined}</span> : ''}</p>
                 <button className='primary-button' id='csf-button' type='submit'>Create Spot</button>
             </form>

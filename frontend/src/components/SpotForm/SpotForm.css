@@ -1,0 +1,83 @@
+#csf-div {
+    align-items: flex-start;
+}
+
+#csf-1, #csf-2, #csf-3, #csf-4, #csf-5 {
+    align-items: flex-start;
+}
+
+#csf-2 .error, #csf-3 .error, #csf-4 .error, #csf-5 .error {
+    margin-left: 0;
+}
+
+#csf-div p {
+    max-width: 30em;
+    margin-top: 0.4em;
+}
+
+#csf-div input {
+    background-color: #E8F0FE;
+    width: 30em;
+    border: 2.5px solid black;
+}
+
+#csf-div textarea {
+    background-color: #E8F0FE;
+    width: 30em;
+    border: 2.5px solid black;
+}
+
+#csf-div h2 {
+    margin: 0;
+}
+
+#csf-div hr {
+    width: 30em;
+}
+
+#csf-button {
+    align-self: center;
+}
+
+#csf-price {
+    flex-direction: row;
+    align-items:center
+}
+
+.csf-label-container {
+    flex-direction: row;
+    margin-top: 10px;
+    margin-bottom: 3px;
+    width: 17em;
+}
+
+.csf-labels {
+    flex-direction: row;
+}
+
+#csf-div #city {
+    width: 18em;
+}
+
+#csf-div #state {
+    width: 11em;
+}
+
+.csf-inputs {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#csf-div #price {
+    margin-left: 0.5em;
+    width: 29em;
+}
+
+#city-label-container {
+    width: 19em;
+}
+
+#state-label-container {
+    width: 11em;
+}
