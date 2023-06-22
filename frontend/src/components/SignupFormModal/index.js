@@ -35,10 +35,8 @@ function SignupFormModal() {
         e.preventDefault();
         setErrors({});
         let updatedErrors = {};
-        if (password !== confirmPassword) {
-            updatedErrors.confirmPassword = 'Passwords must match!';
-            setErrors(updatedErrors);
-        }
+        if (password !== confirmPassword) return setErrors({confirmPassword: 'Passwords must match!'});
+
         return dispatch(sessionActions.signup({ firstName, lastName, email, username, password }))
         .then(closeModal)
         .catch(
