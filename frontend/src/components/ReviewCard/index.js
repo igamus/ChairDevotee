@@ -11,7 +11,7 @@ function ReviewCard({ review, user, spotid }) {
     return (
             <div className='review-card'>
                 <h3>{review?.User.firstName}</h3>
-                <h4>{formattedReviewDate}</h4>
+                <h4 id='review-date'>{formattedReviewDate}</h4>
                 <p>{review?.review}</p>
                 {
                     user?.id === review.User.id
