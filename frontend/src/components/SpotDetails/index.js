@@ -21,17 +21,18 @@ function SpotDetails() {
 
     const user = useSelector(state => state.session.user);
     const spot = useSelector(state => state.spots.singleSpot);
-    const reviewsObj = useSelector(state => state.reviews.spot);
-    const reviews = Object.values(reviewsObj);
+    const reviews = useSelector(state => state.reviews.orderedList);
 
     const [showPostReviewModal, setShowPostReviewModal] = useState(false);
     useEffect(() => {
         let hasNotReviewed = true;
-        for (const review of reviews) {
-            if (review.userId === user?.id) hasNotReviewed = false;
+        if (reviews) {
+            for (const review of reviews) {
+                if (review?.userId === user?.id) hasNotReviewed = false;
+            }
+            if (user && user.id !== spot.ownerId && hasNotReviewed) setShowPostReviewModal(true);
+            else setShowPostReviewModal(false);
         }
-        if (user && user.id !== spot.ownerId && hasNotReviewed) setShowPostReviewModal(true);
-        else setShowPostReviewModal(false);
     }, [user, reviews])
 
     return (
@@ -77,7 +78,7 @@ function SpotDetails() {
                         :
                     null}
                 </div>
-                {reviews.length
+                {reviews?.length
                         ?
                 <div className='spot-details-card.reviews#index'>
                     {reviews.map(review => (review?.stars ? <ReviewCard review={review} user={user} spotid={spot.id} key={`review-${review.id}`} /> : null))}

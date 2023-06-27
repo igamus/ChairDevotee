@@ -8,6 +8,16 @@ function DeleteSpotModal({spotid}) {
     const dispatch = useDispatch();
     const yesClick = e => {
         e.preventDefault();
+        // async
+        // try {
+        //     await dispatch(removeSpotThunk(spotid));
+        //     closeModal();
+        //     await dispatch(loadSpotThunk(spotid));
+        // } catch(e) {
+        //     const errors = await e.json();
+        //     console.log(errors);
+        //     alert('Trouble deleting review.');
+        // }
         dispatch(removeSpotThunk(spotid)).then(dispatch(loadSpotThunk(spotid))).then(closeModal);
     };
 

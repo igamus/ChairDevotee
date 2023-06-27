@@ -196,7 +196,8 @@ router.get('/:spotId/reviews', async (req, res) => {
                 },
                 required: false
             }
-        ]
+        ],
+        order: [['createdAt', 'DESC']]
     })
 
     if (!reviews.length) return res.json({"message": "No reviews for this spot."})
