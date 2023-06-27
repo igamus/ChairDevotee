@@ -8,7 +8,7 @@ function Navigation({ isLoaded }) {
 
     return (
         <nav>
-            <NavLink exact to='/' id='logo'><i className='fa-solid fa-chair' style={{color: '#ff385c'}} />ShareVIP</NavLink>
+            <NavLink exact to='/' id='logo'><i className='fa-solid fa-chair' style={{color: '#ff385c', marginRight: '5px'}} />ChairDevotee</NavLink>
 
             <div id='nav-right'>
                 {sessionUser && (

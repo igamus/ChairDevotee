@@ -1,28 +1,32 @@
-# ShareVIP
+# ChairDevotee
 
 ## Browse our site on Render!
 [Click here!](https://igamus-airbnb.onrender.com)
 
-## What is ShareVIP?
+## What is ChairDevotee?
 
-ShareVIP is a clone of AirBnB that replicates all of your favorite functionality and styling*, except it was built by _me_--immediately making my mom prefer it more!
+ChairDevotee is a website dedicated to finding and documenting chairs in the wild, letting users review and rent out places to sit!
+
+## No really, why did you do this?
+
+ChairDevotee is a clone of AirBnB that replicates all of your favorite functionality and styling*, except it was built by _me_--immediately making my mom prefer it more!
 
 > "What's airBnB? What am I looking at, Isaac?" -- Momma Gamus
 
-ShareVIP is a solo project built using the following:
+ChairDevotee is a solo project built using the following:
 * React
 * Redux
 * Sequelize
 
 *some of your favorite functionality and styling -- it's actually slightly more intense to implement than I thought it would be
 
-## What can I do on ShareVIP?
+## What can I do on ChairDevotee?
 [
     Usage descriptions of features
 - image of your site indicating additional functionality
 ]
 
-On ShareVIP, you can peruse a variety of listings (spots) and see what people think of them, by perusing average ratings and user-posted reviews. You can think of the functionality showcased on ShareVIP in terms of technical features.
+On ChairDevotee, you can peruse a variety of listings (spots) and see what people think of them, by perusing average ratings and user-posted reviews. You can think of the functionality showcased on ChairDevotee in terms of technical features.
 
 1. User accounts
 2. Spots (full CRUD feature)
@@ -32,11 +36,11 @@ On ShareVIP, you can peruse a variety of listings (spots) and see what people th
 
 ![Screenshot of user login modal, featuring the demo user button.](./frontend/public/ShareVIP-screenshot.jpg)
 
-ShareVIP uses JWT tokens as cookies and verifies user passwords saved in hashes, allowing for users to register and securely sign into accounts on ShareVIP. Users without an account can see spot listings, but users with accounts gain access to more features on the site, gaining the ability to create, delete, and edit spots and reviews.
+ChairDevotee uses JWT tokens as cookies and verifies user passwords saved in hashes, allowing for users to register and securely sign into accounts on ChairDevotee. Users without an account can see spot listings, but users with accounts gain access to more features on the site, gaining the ability to create, delete, and edit spots and reviews.
 
 ### 2. Spots
 
-ShareVIP provides users with full CRUD interactivity with Spots, allowing them to
+As representations of chairs in the world, ChairDevotee thinks of each chair as a 'Spot' and provides users with full CRUD interactivity with Spots, allowing them to
 
 * Create spots (logged-in users only)
 * Read/see spots
@@ -45,7 +49,7 @@ ShareVIP provides users with full CRUD interactivity with Spots, allowing them t
 
 ### 3. Reviews
 
-ShareVIP provides users with the ability to
+ChairDevotee provides users with the ability to
 
 * Create reviews of other user's spots (logged-in users only)
 * Read reviews on user spots

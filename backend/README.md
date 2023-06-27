@@ -1,4 +1,4 @@
-# AirBnB Clone
+# ChairDevotee
 
 ## Database Schema Design
 
