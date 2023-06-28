@@ -1,7 +1,7 @@
 # ChairDevotee
 
 ## Browse our site on Render!
-[Click here!](https://igamus-airbnb.onrender.com)
+[Click here!](https://chairdevotee.onrender.com)
 
 ## What is ChairDevotee?
 

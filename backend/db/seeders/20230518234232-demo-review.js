@@ -57,7 +57,7 @@ module.exports = {
       {
         spotId: 4,
         userId: 3,
-        review: 'Extremely comfortable chairs with middle-to-upper end ergonomics. This chair is in an excellent location for participating in QUT meetings--close enough to the action to learn and participate but distant enough to avoid being called on when one would rather remain aloof.',
+        review: 'Extremely comfortable chairs with middle-to-upper end ergonomics. This chair is in an excellent location for participating in QUT meetings--close enough to the action but distant enough to avoid being called on when one would rather remain aloof.',
         stars: 5,
       },
       {
