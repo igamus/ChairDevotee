@@ -1,6 +1,6 @@
 import { useModal } from '../../context/Modal';
 import { useDispatch } from 'react-redux';
-import { loadSpotThunk, removeSpotThunk } from '../../store/spots';
+import { removeSpotThunk } from '../../store/spots';
 import './DeleteSpotModal.css';
 
 function DeleteSpotModal({spotid}) {
@@ -8,17 +8,7 @@ function DeleteSpotModal({spotid}) {
     const dispatch = useDispatch();
     const yesClick = e => {
         e.preventDefault();
-        // async
-        // try {
-        //     await dispatch(removeSpotThunk(spotid));
-        //     closeModal();
-        //     await dispatch(loadSpotThunk(spotid));
-        // } catch(e) {
-        //     const errors = await e.json();
-        //     console.log(errors);
-        //     alert('Trouble deleting review.');
-        // }
-        dispatch(removeSpotThunk(spotid)).then(dispatch(loadSpotThunk(spotid))).then(closeModal);
+        dispatch(removeSpotThunk(spotid)).then(closeModal).catch(e => alert('Trouble deleting the review.'));
     };
 
     return (

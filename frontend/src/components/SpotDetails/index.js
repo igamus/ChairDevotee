@@ -13,15 +13,17 @@ function SpotDetails() {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    useEffect(() => {
-        dispatch(loadSpotThunk(spotId)).then(() =>
-            dispatch(loadAllReviewsForSpotThunk(spotId))
-        ).catch(e => history.push('/404'));
-    }, [dispatch]);
-
     const user = useSelector(state => state.session.user);
     const spot = useSelector(state => state.spots.singleSpot);
-    const reviews = useSelector(state => state.reviews.orderedList);
+    const reviews = useSelector(state => state.reviews.spot.orderedList);
+
+    useEffect(() => {
+        dispatch(loadSpotThunk(spotId)).catch((e) => history.push('/404'));
+    }, [dispatch, reviews]);
+
+    useEffect(() => {
+        dispatch(loadAllReviewsForSpotThunk(spotId)).catch(() => {});
+    }, [dispatch]);
 
     const [showPostReviewModal, setShowPostReviewModal] = useState(false);
     useEffect(() => {

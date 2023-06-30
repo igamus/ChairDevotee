@@ -92,7 +92,7 @@ const reviewsReducer = (state = initialState, action) => {
                     review => newState.spot[review.id] = review
                 );
             };
-            newState.orderedList = [...action.spot.Reviews];
+            newState.spot.orderedList = [...action.spot.Reviews];
             return newState;
         case CREATE_SPOT_REVIEW:
             newState = {
@@ -102,20 +102,21 @@ const reviewsReducer = (state = initialState, action) => {
                     [action.spot.id]: {
                         ...action.spot
                     },
+                    orderedList: [...state.spot.orderedList]
                 },
             };
-            newState.orderedList.unshift(action.spot); // better way?
+            newState.spot.orderedList.unshift(action.spot); // better way?
             return newState;
         case DELETE_SPOT_REVIEW:
             newState = {
                 ...state,
                 spot: {
                     ...state.spot,
+                    orderedList: [...state.spot.orderedList]
                 },
-                orderedList: [...state.orderedList]
             };
             delete newState.spot[action.reviewId];
-            newState.orderedList = newState.orderedList.filter(review => review.id !== action.reviewId);
+            newState.spot.orderedList = newState.spot.orderedList.filter(review => review.id !== action.reviewId);
             return newState;
         default:
             return state;
