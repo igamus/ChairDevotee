@@ -109,7 +109,10 @@ const reviewsReducer = (state = initialState, action) => {
         case DELETE_SPOT_REVIEW:
             newState = {
                 ...state,
-                spot: {...state.spot}
+                spot: {
+                    ...state.spot,
+                },
+                orderedList: [...state.orderedList]
             };
             delete newState.spot[action.reviewId];
             newState.orderedList = newState.orderedList.filter(review => review.id !== action.reviewId);

@@ -59,7 +59,6 @@ ChairDevotee provides users with the ability to
 
 The roadmap includes
 
-* Rebrand as **ChairDevotee**
 * Round out review functionality with the ability to **update reviews** and a **manage reviews panel**
 * Implementing the Booking CRUD feature
 * **Spots search**

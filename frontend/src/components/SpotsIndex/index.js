@@ -11,8 +11,7 @@ function SpotsIndex() {
         dispatch(loadAllSpotsThunk());
     }, [dispatch]);
 
-    const spotsObj = useSelector(state => state.spots.allSpots);
-    const spots = Object.values(spotsObj); // is this or forEach more performant?
+    const spots = useSelector(state => Object.values(state.spots.allSpots));
 
     return (
         <section id='spot-index'>

@@ -8,35 +8,35 @@ const RECEIVE_SPOT = 'spots/RECEIVE_SPOT';
 const REMOVE_SPOT = 'spots/REMOVE_SPOT';
 
 // Action Creators
-const loadAllSpotsAction = spots => {
+export const loadAllSpotsAction = spots => {
     return {
         type: LOAD_SPOTS,
         spots
     }
 };
 
-const loadUserSpotsAction = spots => {
+export const loadUserSpotsAction = spots => {
     return {
         type: LOAD_USER_SPOTS,
         spots
     }
 }
 
-const loadSpotAction = spot => {
+export const loadSpotAction = spot => {
     return {
         type: LOAD_SPOT,
         spot
     }
 };
 
-const receiveSpotAction = spot => {
+export const receiveSpotAction = spot => {
     return {
         type: RECEIVE_SPOT,
         spot
     }
 };
 
-const removeSpotAction = spotId => {
+export const removeSpotAction = spotId => {
     return {
         type: REMOVE_SPOT,
         spotId
