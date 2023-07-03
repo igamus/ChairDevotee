@@ -57,6 +57,14 @@ button:disabled {
     border: 2.5px solid darkgray;
 }
 
+button:disabled:hover {
+    background: white;
+    color: darkgray;
+    box-shadow: 5px 4px darkgray;
+    border: 2.5px solid darkgray;
+    cursor: default;
+}
+
 .primary-button {
     box-shadow: 5px 4px black;
     border: 2.5px solid black;

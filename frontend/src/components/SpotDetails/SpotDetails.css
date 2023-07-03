@@ -22,6 +22,7 @@
 .preview-image {
     width: 499.5px;
     height: 500px;
+    object-fit: cover;
 }
 
 .image-collage {
@@ -35,7 +36,8 @@
 
 .collage-img {
     width: 248px;
-    height: 248px
+    height: 248px;
+    object-fit: cover;
 }
 
 .spot-details-card-about {
