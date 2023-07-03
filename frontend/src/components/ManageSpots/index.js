@@ -29,8 +29,6 @@ function ManageSpots() {
             <button className='secondary-button' id='create-spot-button' onClick={onClick}>Create a New Spot</button>
             <div id='manage-spots-index'>
                 {spots.map(spot =>
-                    spot.previewImage
-                        ?
                     <div key={`spot-index-card-${spot.id}`} className='spot-index-card-container'>
                         <SpotsIndexCard key={`spot-card-${spot.id}`} spot={spot} />
                         <span className='spot-card-buttons'>
@@ -45,8 +43,6 @@ function ManageSpots() {
                             />
                         </span>
                     </div>
-                        :
-                    null
                 )}
             </div>
         </div>

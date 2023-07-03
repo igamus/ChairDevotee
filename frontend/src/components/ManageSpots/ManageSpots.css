@@ -1,3 +1,5 @@
+
+
 #manage-spots {
     align-items: flex-start;
     width: 100vw;
@@ -13,13 +15,41 @@
 }
 
 #manage-spots-index {
+    display: grid;
+    grid-template-columns: calc(100vw - 40px);
+    row-gap: 40px;
+    column-gap: 20px;
+    margin: 20px;
+    width: calc(100vw - 125px);
+    max-width: 5000px;
+}
+
+@media (min-width: 550px) {
+    #manage-spots-index {
+        grid-template-columns: repeat(2, calc(50% - 10px));
+    }
+}
+
+@media (min-width: 950px) {
+    #manage-spots-index {
+        grid-template-columns: repeat(3, calc(33.33% - 13px));
+    }
+}
+
+@media (min-width: 1024px) {
+    #manage-spots-index {
+        grid-template-columns: repeat(4, calc(25% - 15px));
+    }
+}
+
+/* #manage-spots-index {
     display: inline-flex;
     flex-direction: row;
     flex-wrap: wrap;
     margin: 10px 50px 0;
     align-items: flex-start;
     gap: 1vh;
-}
+} */
 
 .spot-card-buttons {
     flex-direction: row;
@@ -29,9 +59,10 @@
     margin-top: 10px;
 }
 
+/*
 .spot-index-card-container {
     width: 20vw;
     min-width: 175px;
     max-width: 20vw;
     flex: 0 0 20vw;
-}
+} */
