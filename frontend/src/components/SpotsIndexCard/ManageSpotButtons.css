@@ -1,0 +1,7 @@
+.spot-card-buttons {
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 20px;
+    margin-top: 30px;
+}

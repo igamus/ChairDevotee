@@ -4,8 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import * as spotActions from '../../store/spots';
 import SpotsIndexCard from '../SpotsIndexCard';
-import OpenModalButton from '../OpenModalButton';
-import DeleteSpotModal from '../DeleteSpotModal';
 
 function ManageSpots() {
     const dispatch = useDispatch();
@@ -15,8 +13,7 @@ function ManageSpots() {
         dispatch(spotActions.loadUserSpotsThunk());
     }, [dispatch]);
 
-    const spotsObj = useSelector(state => state.spots.allSpots);
-    const spots = Object.values(spotsObj);
+    const spots = useSelector(state => Object.values(state.spots.allSpots));
 
     const onClick = e => {
         e.preventDefault();
@@ -25,25 +22,12 @@ function ManageSpots() {
 
     return (
         <div id='manage-spots'>
-            <h1 id='manage-spots-header'>Manage Your Spots</h1>
-            <button className='secondary-button' id='create-spot-button' onClick={onClick}>Create a New Spot</button>
-            <div id='manage-spots-index'>
-                {spots.map(spot =>
-                    <div key={`spot-index-card-${spot.id}`} className='spot-index-card-container'>
-                        <SpotsIndexCard key={`spot-card-${spot.id}`} spot={spot} />
-                        <span className='spot-card-buttons'>
-                            <button className='secondary-button manage-button update-button' onClick={e => {
-                                e.preventDefault();
-                                history.push(`/spots/${spot.id}/edit`);
-                            }}>Update</button>
-                            <OpenModalButton
-                                modalComponent={<DeleteSpotModal spotid={spot.id} />}
-                                buttonText={'Delete'}
-                                className='secondary-button manage-button delete-button'
-                            />
-                        </span>
-                    </div>
-                )}
+            <div id='manage-spots-header'>
+                <h1 id='manage-spots-heading'>Manage Your Spots</h1>
+                <button className='secondary-button' id='create-spot-button' onClick={onClick}>Create a New Spot</button>
+            </div>
+            <div id='spot-index'>
+                {spots.map(spot => <SpotsIndexCard key={`spot-card-${spot.id}`} spot={spot} manage={true} />)}
             </div>
         </div>
     );
