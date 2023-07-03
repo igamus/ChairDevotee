@@ -1,8 +1,35 @@
-#spot-index {
+/* #spot-index {
     display: inline-flex;
     flex-direction: row;
     flex-wrap: wrap;
     margin: 10px 50px 0;
     align-items: flex-start;
     gap: 1vh;
+} */
+
+#spot-index {
+    display: grid;
+    grid-template-columns: 1;
+    grid-auto-flow: row dense;
+    /* grid-auto-rows: ; */
+    grid-gap: 10px;
+    margin: 40px;
+}
+
+@media (min-width: 550px) {
+    #spot-index {
+        grid-template-columns: repeat(2, 50%);
+    }
+}
+
+@media (min-width: 950px) {
+    #spot-index {
+        grid-template-columns: repeat(3, 33.33%);
+    }
+}
+
+@media (min-width: 1128px) {
+    #spot-index {
+        grid-template-columns: repeat(4, 25%);
+    }
 }

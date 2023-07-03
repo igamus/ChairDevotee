@@ -1,11 +1,33 @@
-.spot-index-card {
+/* .spot-index-card {
     flex: 0 0 20vw;
     margin: 10px;
     margin-bottom: 0;
     width: 20vw;
     min-width: 175px;
     max-width: 20vw;
+} */
+
+/* .spot-index-card {
+    max-width: min-content;
 }
+
+@media (min-width: 550px) {
+    .spot-index-card, .spot-image, .spot-link, .spot-card-line-1, .spot-card-line-2 {
+        max-width: min-content;
+    }
+}
+
+@media (min-width: 950px) {
+    .spot-index-card, .spot-image, .spot-link, .spot-card-line-1, .spot-card-line-2 {
+        max-width: min-content;
+    }
+}
+
+@media (min-width: 1128px) {
+    .spot-index-card, .spot-image, .spot-link, .spot-card-line-1, .spot-card-line-2 {
+        max-width: min-content;
+    }
+} */
 
 .spot-index-card:hover {
     cursor: pointer;
@@ -13,19 +35,29 @@
 
 .spot-image {
     border-radius: 20px;
+    max-height: 30vh;
+    /* max-width: 100%; */
+    /* object-fit: contain; */
+    /* contain, cover, fill, none, scale-down */
+}
+
+/* .spot-image {
+    border-radius: 20px;
     min-height: 10em;
     max-height: 15vh;
     width: 20vw;
     min-width: 175px;
     max-width: 20vw;
-}
+} */
 
+/*
 .spot-link {
     width: 20vw;
     min-width: 175px;
     max-width: 20vw;
     flex: 0 0 20vw;
 }
+*/
 
 .spot-card-line-1 {
     flex-direction: row;
