@@ -1,7 +1,7 @@
 import './ManageSpots.css';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import * as spotActions from '../../store/spots';
 import SpotsIndexCard from '../SpotsIndexCard';
 
@@ -9,8 +9,10 @@ function ManageSpots() {
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const [isLoaded, setIsLoaded] = useState(false);
+
     useEffect(() => {
-        dispatch(spotActions.loadUserSpotsThunk());
+        dispatch(spotActions.loadUserSpotsThunk()).then(() => setIsLoaded(true));
     }, [dispatch]);
 
     const spots = useSelector(state => Object.values(state.spots.allSpots));
@@ -20,7 +22,7 @@ function ManageSpots() {
         history.push('/spots/create');
     };
 
-    return (
+    return isLoaded && (
         <div id='manage-spots'>
             <div id='manage-spots-header'>
                 <h1 id='manage-spots-heading'>Manage Your Spots</h1>

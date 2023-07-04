@@ -8,7 +8,7 @@ function DeleteSpotModal({spotid}) {
     const dispatch = useDispatch();
     const yesClick = e => {
         e.preventDefault();
-        dispatch(removeSpotThunk(spotid)).then(closeModal).catch(e => alert('Trouble deleting the review.'));
+        dispatch(removeSpotThunk(spotid)).then(closeModal).catch(e => alert('Problem deleting spot.'));
     };
 
     return (

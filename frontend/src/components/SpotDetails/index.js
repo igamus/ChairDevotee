@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, useHistory, Redirect } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadSpotThunk } from '../../store/spots'
 import { loadAllReviewsForSpotThunk } from '../../store/reviews';
@@ -17,12 +17,15 @@ function SpotDetails() {
     const spot = useSelector(state => state.spots.singleSpot);
     const reviews = useSelector(state => state.reviews.spot.orderedList);
 
+    const [isSpotLoaded, setIsSpotLoaded] = useState(false);
+    const [areReviewsLoaded, setAreReviewsLoaded] = useState(false);
+
     useEffect(() => {
-        dispatch(loadSpotThunk(spotId)).catch((e) => history.push('/404'));
+        dispatch(loadSpotThunk(spotId)).then(() => setIsSpotLoaded(true)).catch((e) => history.push('/404'));
     }, [dispatch, reviews]);
 
     useEffect(() => {
-        dispatch(loadAllReviewsForSpotThunk(spotId)).catch(() => {});
+        dispatch(loadAllReviewsForSpotThunk(spotId)).then(() => setAreReviewsLoaded(true)).catch(() => {});
     }, [dispatch]);
 
     const [showPostReviewModal, setShowPostReviewModal] = useState(false);
@@ -37,7 +40,7 @@ function SpotDetails() {
         }
     }, [user, reviews])
 
-    return (
+    return isSpotLoaded && areReviewsLoaded && (
         <div id='spot-details-card'>
             <div id='spot-details-card-header'>
                 <h1 id='spot-details-name'>{spot.name}</h1>
