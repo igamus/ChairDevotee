@@ -38,37 +38,37 @@ function SpotDetails() {
     }, [user, reviews])
 
     return (
-        <div className='spot-details-card'>
-            <div className='spot-details-card-header'>
-                <h1>{spot.name}</h1>
+        <div id='spot-details-card'>
+            <div id='spot-details-card-header'>
+                <h1 id='spot-details-name'>{spot.name}</h1>
                 <h3>{spot.city}, {spot.state ? spot.state + ', ' : null}{spot.country}</h3>
             </div>
-            <div className='image-row'>
-                <img className='preview-image' src={(spot?.SpotImages && !!spot?.SpotImages[0]) ? spot.SpotImages.filter(img => img.preview)[0]?.url : 'https://cdn.pixabay.com/photo/2017/08/26/13/44/armchair-2683081_1280.png'} alt='primary image' />
-                <div className='image-collage'>
-                    {!!spot?.SpotImages?.filter(img => !img.preview)[0] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[0].url} alt={`additional image of ${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', fontSize: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} />}
-                    {!!spot?.SpotImages?.filter(img => !img.preview)[1] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[1].url} alt={`additional image of ${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', fontSize: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} />}
-                    {!!spot?.SpotImages?.filter(img => !img.preview)[2] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[2].url} alt={`additional image of ${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', fontSize: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} />}
-                    {!!spot?.SpotImages?.filter(img => !img.preview)[3] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[3].url} alt={`additional image of ${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', fontSize: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} />}
+            <div id='image-row'>
+                <img id='preview-image' src={(spot?.SpotImages && !!spot?.SpotImages[0]) ? spot.SpotImages.filter(img => img.preview)[0]?.url : 'https://cdn.pixabay.com/photo/2017/08/26/13/44/armchair-2683081_1280.png'} alt='primary chair' />
+                <div id='image-collage'>
+                    {!!spot?.SpotImages?.filter(img => !img.preview)[0] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[0].url} alt={`${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', fontSize: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} />}
+                    {!!spot?.SpotImages?.filter(img => !img.preview)[1] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[1].url} alt={`${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', fontSize: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} />}
+                    {!!spot?.SpotImages?.filter(img => !img.preview)[2] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[2].url} alt={`${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', fontSize: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} />}
+                    {!!spot?.SpotImages?.filter(img => !img.preview)[3] ? <img className='collage-img' src={spot?.SpotImages?.filter(img => !img.preview)[3].url} alt={`${spot.name}`} /> : <i className='fa-solid fa-chair collage-img' style={{color: '#ff385c', fontSize: '150px', display: 'flex', justifyContent: 'center', alignItems: 'center'}} />}
                 </div>
             </div>
-            <div className='spot-details-card-about'>
-                <div className='spot-details-card-about-blurb'>
-                    <h2>Hosted by {spot.Owner ? <>{spot.Owner.firstName} {spot.Owner.lastName}</> : null}</h2>
+            <div id='spot-details-card-about'>
+                <div id='spot-details-card-about-blurb'>
+                    <h2 id='spot-details-host-name'>Hosted by {spot.Owner ? <>{spot.Owner.firstName} {spot.Owner.lastName}</> : null}</h2>
                     <p>{spot.description}</p>
                 </div>
-                <div className='spot-details-card-about-card'>
-                    <div className='spot-details-card-about-card-data'>
-                        <span><b>${spot.price}</b> / night</span>
+                <div id='spot-details-card-about-card'>
+                    <div id='spot-details-card-about-card-data'>
+                        <span><b>${parseFloat(spot.price).toFixed(2)}</b>/night</span>
                         <span><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{parseFloat(spot.avgStarRating).toFixed(1)} · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</span>
                     </div>
-                    <button className='primary-button' id='spot-details-card-reserve' onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
+                    <button className='primary-button' id='spot-details-card-reserve-button' onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
                 </div>
             </div>
-            <hr></hr>
-            <div className='spot-details-card-reviews'>
-                <h2><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{parseFloat(spot.avgStarRating).toFixed(1)} · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</h2>
-                <div className='spot-details-car.reviews#button-parent'>
+            <hr id='spot-details-divider' />
+            <div id='spot-details-card-reviews'>
+                <h2 id='reviews-heading'><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{parseFloat(spot.avgStarRating).toFixed(1)} · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</h2>
+                <div id='spot-details-card-post-reviews-button-parent'>
                     {showPostReviewModal
                         ?
                     <OpenModalButton
@@ -82,7 +82,7 @@ function SpotDetails() {
                 </div>
                 {reviews?.length
                         ?
-                <div className='spot-details-card.reviews#index'>
+                <div id='spot-details-card-reviews-index'>
                     {reviews.map(review => (review?.stars ? <ReviewCard review={review} user={user} spotid={spot.id} key={`review-${review.id}`} /> : null))}
                 </div>
                     :
