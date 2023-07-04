@@ -1,7 +1,12 @@
+.review-card {
+    margin-bottom: 30px;
+}
+
 .review-card * {
     margin: 10px 0;
 }
 
 #review-date {
+    margin: 0;
     color: darkgray;
 }

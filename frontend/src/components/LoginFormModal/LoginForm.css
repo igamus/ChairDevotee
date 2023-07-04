@@ -15,6 +15,7 @@
     background: none;
 }
 
-#error.error {
-    width: 20em;
+#login-error {
+    width: fill;
+    align-items: flex-start;
 }

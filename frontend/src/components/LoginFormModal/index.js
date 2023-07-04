@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
@@ -6,6 +7,7 @@ import './LoginForm.css';
 
 function LoginFormModal() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [credential, setCredential] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
@@ -28,10 +30,9 @@ function LoginFormModal() {
         e.preventDefault();
         setErrors({});
         return dispatch(sessionActions.login({ credential, password }))
-        .then(closeModal)
-        .catch(
-            async res => {
-                const data = await res.json(); // is this superfluous and handled in the thunk?
+        .then(closeModal).then(history.push('/'))
+        .catch(async res => {
+                const data = await res.json();
                 if (data && data.errors) {
                     setErrors(data.errors)
                 };
@@ -44,20 +45,15 @@ function LoginFormModal() {
         return dispatch(sessionActions.login({
             credential: 'demo_user',
             password: 'password6'
-        }))
-        .then(closeModal)
-        .catch(
-            async res => {
-                setErrors({credential: 'Error logging in the demo user'})
-            }
-        )
+        })).then(closeModal).then(history.push('/'))
+        .catch(async res => setErrors({credential: 'Error logging in the demo user'}))
     }
 
     return (
         <div className='modal-interior' id='login'>
             <h1>Log In</h1>
             <form id='login-form' onSubmit={handleSubmit}>
-                <p className='error' id='error'>{errors.credential}</p>
+                <p className='error' id='login-error'>{errors.credential}</p>
                 <div id='login-labels'>
                     <label>
                         <input

@@ -8,7 +8,7 @@ function DeleteReviewModal({reviewid, spotid}) {
     const dispatch = useDispatch();
     const yesClick = e => {
         e.preventDefault();
-        dispatch(deleteReviewThunk(reviewid)).then(closeModal).catch(alert('Problem deleting review.'));
+        dispatch(deleteReviewThunk(reviewid)).then(closeModal).catch(() => alert('Problem deleting review.'));
     };
 
     return (

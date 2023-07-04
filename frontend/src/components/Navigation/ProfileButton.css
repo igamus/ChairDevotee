@@ -37,10 +37,15 @@
     border-radius: 25px;
     color: white;
     background-color: darkgray;
+    border: 1px solid black;
     cursor: pointer;
     display: flex;
     padding: 5px 25px;
     margin: 0 auto;
+}
+
+#profile-logout-button:hover {
+    background-color: rgb(141, 141, 141)
 }
 
 #dropdown-text {

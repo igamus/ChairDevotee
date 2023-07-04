@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
 import * as sessionActions from '../../store/session';
 import './SignupForm.css';
 
 function SignupFormModal() {
     const dispatch = useDispatch();
+    const history = useHistory()
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -39,6 +41,7 @@ function SignupFormModal() {
 
         return dispatch(sessionActions.signup({ firstName, lastName, email, username, password }))
         .then(closeModal)
+        .then(history.push('/'))
         .catch(
             async res => {
                 const data = await res.json(); // is this superfluous and handled in the thunk?
