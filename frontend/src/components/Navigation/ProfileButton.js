@@ -57,6 +57,7 @@ function ProfileButton({ user }) {
                             Hello, {user.firstName}<br/>
                             {user.email}<br/>
                             <hr />
+                            <Link to='/reviews/current' onClick={closeMenu}>Manage Reviews</Link>
                             <Link to='/spots/current' onClick={closeMenu}>Manage Spots</Link>
                             <hr />
                         </div>
