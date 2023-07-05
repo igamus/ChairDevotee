@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 // Action Types
 const LOAD_SPOT_REVIEWS = 'reviews/LOAD_SPOT_REVIEWS';
+const LOAD_USER_REVIEWS = 'reviews/LOAD_USER_REVIEWS';
 const CREATE_SPOT_REVIEW = 'reviews/CREATE_SPOT_REVIEW';
 const DELETE_SPOT_REVIEW = 'reviews/DELETE_SPOT_REVIEW';
 
@@ -12,6 +13,13 @@ const loadAllReviewsForSpotAction = spot => {
         spot
     }
 };
+
+const loadAllReviewsForUserAction = user => {
+    return {
+        type: LOAD_USER_REVIEWS,
+        user
+    }
+}
 
 const createReviewAction = spot => {
     return {
@@ -40,6 +48,17 @@ export const loadAllReviewsForSpotThunk = spotId => async dispatch => {
         return errors;
     }
 };
+
+export const loadAllReviewsForUserThunk = () => async dispatch => {
+    const res = await csrfFetch(`/api/reviews/current`);
+    if (res.ok) {
+        const data = await res.json();
+        return dispatch(loadAllReviewsForUserAction(data));
+    } else {
+        const errors = await res.json();
+        return errors;
+    }
+}
 
 export const createReviewThunk = formData => async dispatch => {
     const user = formData.user;
@@ -92,6 +111,15 @@ const reviewsReducer = (state = initialState, action) => {
                     review => newState.spot[review.id] = review
                 );
                 newState.spot.orderedList = [...action.spot.Reviews];
+            };
+            return newState;
+        case LOAD_USER_REVIEWS:
+            newState = {...state, user: {}};
+            if (!!action.user.Reviews) {
+                action.user.Reviews.forEach(
+                    review => newState.user[review.id] = review
+                );
+                newState.user.orderedList = [...action.user.Reviews];
             };
             return newState;
         case CREATE_SPOT_REVIEW:
