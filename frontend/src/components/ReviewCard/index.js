@@ -2,6 +2,7 @@ import './ReviewCard.css';
 import DeleteReviewModal from '../DeleteReviewModal';
 import OpenModalButton from '../OpenModalButton';
 import reviewDateFormatter from '../../utils/reviewDateFormatter';
+import UpdateReviewModal from '../PostReviewModal/UpdateReviewModal';
 
 function ReviewCard({ review, user, source }) {
     let formattedReviewDate;
@@ -16,11 +17,18 @@ function ReviewCard({ review, user, source }) {
                 {
                     (source === 'user' || user?.id === review.User.id)
                         ?
-                    <OpenModalButton
-                        modalComponent={<DeleteReviewModal reviewid={review?.id} className='modal-with-background' />}
-                        buttonText={'Delete'}
-                        className={'secondary-button drb'}
-                    />
+                    <div class='review-buttons-container'>
+                        <OpenModalButton
+                            modalComponent={<UpdateReviewModal reviewdata={review} className='modal-with-background' />}
+                            buttonText={'Update'}
+                            className={'secondary-button urb'}
+                        />
+                        <OpenModalButton
+                            modalComponent={<DeleteReviewModal reviewid={review?.id} className='modal-with-background' />}
+                            buttonText={'Delete'}
+                            className={'secondary-button drb'}
+                        />
+                    </div>
                         :
                     ''
                 }

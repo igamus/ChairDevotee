@@ -11,6 +11,11 @@
     color: darkgray;
 }
 
-.drb {
+.review-buttons-container {
+    flex-direction: row;
     margin-bottom: 0 !important;
+}
+
+.urb {
+    margin-right: 15px;
 }

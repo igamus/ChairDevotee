@@ -85,6 +85,26 @@ export const createReviewThunk = formData => async dispatch => {
     }
 };
 
+export const updateReviewThunk = formData => async dispatch => {
+    const res = await csrfFetch(`/api/reviews/${formData.id}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            review: formData.review,
+            stars: formData.stars
+        })
+    });
+
+    if (res.ok) {
+        const data = res.json();
+        return dispatch(createReviewAction(data));
+    } else {
+        const errors = res.json();
+        return errors;
+    }
+
+};
+
 export const deleteReviewThunk = reviewId => async dispatch => {
     const res = await csrfFetch(`/api/reviews/${reviewId}`, {method: 'DELETE'})
 
@@ -97,7 +117,6 @@ export const deleteReviewThunk = reviewId => async dispatch => {
 };
 
 // Reducer
-
 const initialState = { spot: {}, user: {} }
 
 const reviewsReducer = (state = initialState, action) => {
@@ -105,7 +124,7 @@ const reviewsReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case LOAD_SPOT_REVIEWS:
-            newState = {...state, spot: {}};
+            newState = {...state, spot: {}, user: {}};
             if (!!action.spot.Reviews) {
                 action.spot.Reviews.forEach(
                     review => newState.spot[review.id] = review
@@ -114,7 +133,7 @@ const reviewsReducer = (state = initialState, action) => {
             };
             return newState;
         case LOAD_USER_REVIEWS:
-            newState = {...state, user: {}};
+            newState = {...state, spot: {}, user: {}};
             if (!!action.user.Reviews) {
                 action.user.Reviews.forEach(
                     review => newState.user[review.id] = review
@@ -123,6 +142,8 @@ const reviewsReducer = (state = initialState, action) => {
             };
             return newState;
         case CREATE_SPOT_REVIEW:
+            console.log('hey.......');
+            console.log('state:', state);
             newState = {
                 ...state,
                 spot: {
@@ -130,25 +151,39 @@ const reviewsReducer = (state = initialState, action) => {
                     [action.spot.id]: {
                         ...action.spot
                     },
-                },
-            };
+                }, // now you broke the create thunk... wait, how could you have? is it just broken?
+            }; // need to manage create/delete in both user/spot or as a switch user/spot
             if (state.spot?.orderedList) {
-                newState.orderedList = [...state.spot.orderedList];
+                newState.spot.orderedList = [...state.spot.orderedList];
                 newState.spot.orderedList.unshift(action.spot); // better way?
             } else {
+                console.log('in else');
                 newState.spot.orderedList = [action.spot]
             }
             return newState;
         case DELETE_SPOT_REVIEW:
-            newState = {
-                ...state,
-                spot: {
-                    ...state.spot,
-                    orderedList: [...state.spot.orderedList]
-                },
-            };
-            delete newState.spot[action.reviewId];
-            newState.spot.orderedList = newState.spot.orderedList.filter(review => review.id !== action.reviewId);
+            if (Object.keys(state.spot).length) {
+                newState = {
+                    ...state,
+                    spot: {
+                        ...state.spot,
+                        orderedList: [...state.spot.orderedList]
+                    },
+                };
+                delete newState.spot[action.reviewId];
+                newState.spot.orderedList = newState.spot.orderedList.filter(review => review.id !== action.reviewId);
+            }
+            if (Object.keys(state.user).length) {
+                newState = {
+                    ...state,
+                    user: {
+                        ...state.user,
+                        orderedList: [...state.user.orderedList]
+                    },
+                };
+                delete newState.user[action.reviewId];
+                newState.user.orderedList = newState.user.orderedList.filter(review => review.id !== action.reviewId);
+            }
             return newState;
         default:
             return state;

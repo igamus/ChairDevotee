@@ -40,7 +40,8 @@ router.get('/current', requireAuth, async (req, res) => {
                 exclude: ['createdAt', 'updatedAt'],
                 required: false
             }
-        ]
+        ],
+        order: [['createdAt', 'DESC']]
     });
 
     return res.json({ Reviews: reviews })
