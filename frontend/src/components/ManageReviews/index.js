@@ -15,7 +15,7 @@ function ManageReviews() {
 
     return areReviewsLoaded && (
         <div id='manage-reviews'>
-            <h1>Manage Reviews</h1>
+            <h1 id='manage-reviews-header'>Manage Reviews</h1>
             <div id='spot-details-card-reviews-index'>
                 {reviews.map(review => (review?.stars ? <ReviewCard review={review} key={`review-${review.id}`} source='user' /> : null))}
             </div>
