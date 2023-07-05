@@ -38,7 +38,7 @@ function SpotDetails() {
             if (user && user.id !== spot.ownerId && hasNotReviewed) setShowPostReviewModal(true);
             else setShowPostReviewModal(false);
         }
-    }, [user, reviews])
+    }, [user, reviews]);
 
     return isSpotLoaded && areReviewsLoaded && (
         <div id='spot-details-card'>
