@@ -11,23 +11,13 @@ function ManageReviews() {
 
     useEffect(() => {
         dispatch(loadAllReviewsForUserThunk()).then(() => setAreReviewsLoaded(true));
-    }, [dispatch]); // reviews?
+    }, [dispatch]); // reviews in dependency array?
 
     return areReviewsLoaded && (
         <div id='manage-reviews'>
             <h1>Manage Reviews</h1>
-            <p>
-                List of reviews created by the user.
-                Can ping `/api/reviews/current` to GET all reviews of current user.
-                reviews: obj
-                    user: obj
-                        all data normalized
-                    orderedList: arr
-            </p>
-            <div>
-                {reviews?.map(review => (
-                    <h2>{review.Spot.name}</h2>
-                ))} {/* Deal with Review card and change the way it works between review from spot perspective and review from user perspective */}
+            <div id='spot-details-card-reviews-index'>
+                {reviews.map(review => (review?.stars ? <ReviewCard review={review} key={`review-${review.id}`} source='user' /> : null))}
             </div>
         </div>
     );

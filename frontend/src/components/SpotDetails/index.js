@@ -88,7 +88,7 @@ function SpotDetails() {
                 {reviews?.length
                         ?
                 <div id='spot-details-card-reviews-index'>
-                    {reviews.map(review => (review?.stars ? <ReviewCard review={review} user={user} spotid={spot.id} key={`review-${review.id}`} /> : null))}
+                    {reviews.map(review => (review?.stars ? <ReviewCard review={review} user={user} spotid={spot.id} key={`review-${review.id}`} source='spot' /> : null))}
                 </div>
                     :
                     <>{showPostReviewModal ? (<h2 className='alt-text'>Be the first to post a review!</h2>) : (<h2 className='alt-text'>No reviews yet!</h2>)}</>

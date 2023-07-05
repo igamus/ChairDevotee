@@ -3,7 +3,7 @@ import { useModal } from '../../context/Modal';
 import { useDispatch } from 'react-redux';
 import { deleteReviewThunk } from '../../store/reviews';
 
-function DeleteReviewModal({reviewid, spotid}) {
+function DeleteReviewModal({reviewid}) {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
     const yesClick = e => {
