@@ -18,7 +18,7 @@ function SpotsIndexCard({spot, manage}) {
                     <span className='spot-rating'><i className='fa-solid fa-star' />{spot.avgRating ? parseFloat(spot.avgRating).toFixed(1) : 'New'}</span>
                 </div>
                 <div className='spot-card-line-2'>
-                    <b>${parseFloat(spot.price).toFixed(2)}</b>/day
+                    <b>${parseFloat(spot.price).toFixed(2)}</b>/night
                 </div>
             </Link>
             <ManageSpotButtons spot={spot} manage={manage} />
