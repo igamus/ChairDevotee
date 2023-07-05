@@ -87,16 +87,12 @@ const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SPOT_REVIEWS:
             newState = {...state, spot: {}};
-            console.log('action.spot:', action.spot);
-            console.log('action.spot.Reviews:',action.spot.Reviews);
-            console.log('!!action.spot.Reviews:', !!action.spot.Reviews);
             if (!!action.spot.Reviews) {
                 action.spot.Reviews.forEach(
                     review => newState.spot[review.id] = review
                 );
                 newState.spot.orderedList = [...action.spot.Reviews];
             };
-            console.log('newState:', newState);
             return newState;
         case CREATE_SPOT_REVIEW:
             newState = {

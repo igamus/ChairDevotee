@@ -28,19 +28,20 @@ function SpotDetails() {
         dispatch(loadAllReviewsForSpotThunk(spotId)).then(() => setAreReviewsLoaded(true)).catch(() => {});
     }, [dispatch]);
 
-    const [showPostReviewModal, setShowPostReviewModal] = useState(false);
+    const [showPostReviewModal, setShowPostReviewModal] = useState(null);
     useEffect(() => {
+        console.log('spotId updated!', spot.spotId);
         let hasNotReviewed = true;
         if (reviews) {
             for (const review of reviews) {
                 if (review?.userId === user?.id) hasNotReviewed = false;
             }
-            if (user && user.id !== spot.ownerId && hasNotReviewed) setShowPostReviewModal(true);
+            if (user && (user.id !== spot.ownerId) && hasNotReviewed) setShowPostReviewModal(true);
             else setShowPostReviewModal(false);
         }
-    }, [user, reviews]);
+    }, [user, reviews, isSpotLoaded]);
 
-    return isSpotLoaded && areReviewsLoaded && (
+    return isSpotLoaded && areReviewsLoaded && ( 
         <div id='spot-details-card'>
             <div id='spot-details-card-header'>
                 <h1 id='spot-details-name'>{spot.name}</h1>
