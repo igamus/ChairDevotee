@@ -54,6 +54,7 @@
 
 #spot-details-card-about-blurb {
     margin-right: 20px;
+    overflow-wrap: anywhere;
 }
 
 #spot-details-host-name {

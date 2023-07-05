@@ -60,7 +60,7 @@ function SpotDetails() {
             <div id='spot-details-card-about'>
                 <div id='spot-details-card-about-blurb'>
                     <h2 id='spot-details-host-name'>Hosted by {spot.Owner ? <>{spot.Owner.firstName} {spot.Owner.lastName}</> : null}</h2>
-                    <p>{spot.description}</p>
+                    <p id='spot-description'>{spot.description}</p>
                 </div>
                 <div id='spot-details-card-about-card'>
                     <div id='spot-details-card-about-card-data'>
