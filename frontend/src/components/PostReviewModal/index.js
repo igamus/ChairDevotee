@@ -32,7 +32,7 @@ function PostReviewModal({spotid, user}){
             user
         };
 
-        dispatch(createReviewThunk(submission)).then(closeModal()).catch(e => e.json()).then(errors => setErrors({message: errors.message}));
+        dispatch(createReviewThunk(submission)).then(closeModal).catch(data => data.json()).then(errors => setErrors(errors));
     };
 
     return (

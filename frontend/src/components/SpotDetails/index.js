@@ -26,7 +26,7 @@ function SpotDetails() {
 
     useEffect(() => {
         dispatch(loadAllReviewsForSpotThunk(spotId)).then(() => setAreReviewsLoaded(true)).catch(() => {});
-    }, [dispatch]);
+    }, [dispatch, reviews]);
 
     const [showPostReviewModal, setShowPostReviewModal] = useState(null);
     useEffect(() => {
