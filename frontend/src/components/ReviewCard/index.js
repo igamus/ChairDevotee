@@ -19,8 +19,7 @@ function ReviewCard({ review, user, spotid }) {
                     <OpenModalButton
                         modalComponent={<DeleteReviewModal reviewid={review?.id} spotid={spotid} className='modal-with-background' />}
                         buttonText={'Delete'}
-                        className={'secondary-button'}
-                        id={'drb'}
+                        className={'secondary-button drb'}
                     />
                         :
                     ''
