@@ -68,6 +68,7 @@ module.exports = {
       },
       {
         ownerId: 6,
+        address: '24 Rue Monge',
         city: 'Paris',
         state: 'Île-de-France',
         country: 'France',
@@ -79,6 +80,7 @@ module.exports = {
       },
       {
         ownerId: 6,
+        address: '24 Rue Monge',
         city: 'Paris',
         state: 'Île-de-France',
         country: 'France',
@@ -90,6 +92,7 @@ module.exports = {
       },
       {
         ownerId: 6,
+        address: '24 Rue Monge',
         city: 'Paris',
         state: 'Île-de-France',
         country: 'France',
@@ -107,7 +110,7 @@ module.exports = {
         lat: 44.9150,
         lng: 20.5426,
         name: 'chair in a wheat field',
-        description: '\tsouthwest of jabučki rit\b\ta chair in a field\bbetween the wheat plants\b\twhere thoughts flow',
+        description: 'southwest of jabučki rit a chair in a field between the wheat plants where thoughts flow',
         price: 2.99
       },
       {
