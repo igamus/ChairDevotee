@@ -7,6 +7,7 @@ import PostReviewModal from '../PostReviewModal';
 import ReviewCard from '../ReviewCard';
 import OpenModalButton from '../OpenModalButton';
 import './SpotDetails.css';
+import CreateBookingModal from '../CreateBookingModal';
 
 function SpotDetails() {
     const { spotId } = useParams();
@@ -67,7 +68,12 @@ function SpotDetails() {
                         <span><b>${parseFloat(spot.price).toFixed(2)}</b>/night</span>
                         <span><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{parseFloat(spot.avgStarRating).toFixed(1)} · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</span>
                     </div>
-                    <button className='primary-button' id='spot-details-card-reserve-button' onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
+                    <OpenModalButton
+                        modalComponent={<CreateBookingModal spotId={spotId} />}
+                        buttonText={'Reserve'}
+                        className={'primary-button'}
+                        id='spot-details-card-reserve-button'
+                    />
                 </div>
             </div>
             <hr id='spot-details-divider' />

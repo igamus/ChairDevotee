@@ -1,0 +1,22 @@
+.update-error{
+    margin: 5px;
+}
+
+#date-selection {
+    flex-direction: row;
+}
+
+#modal-content .date-selector-container {
+    width: 250px;
+}
+
+#modal-content .date-selector-label {
+    flex-direction: row;
+    width: 100%;
+    margin-left: 20px;
+}
+
+#modal-content .date-selector {
+    width: 230px;
+    flex-direction: row;
+}
