@@ -159,8 +159,8 @@ const reviewsReducer = (state = initialState, action) => {
                 },
             };
             if (state.spot?.orderedList) {
-                newState.orderedList = [...state.spot.orderedList];
-                newState.spot.orderedList.unshift(action.spot);
+                newState.spot.orderedList = [...state.spot.orderedList];
+                newState.spot.orderedList.unshift(action.spot); // better way?
             } else {
                 newState.spot.orderedList = [action.spot]
             }
