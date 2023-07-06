@@ -16,8 +16,6 @@ function CreateBookingModal({ spotId }) {
     }, [dispatch]);
 
     const bookings = useSelector(state => Object.values(state.bookings.spot).map(el => ({startDate: el.startDate.slice(0,10), endDate: el.endDate.slice(0,10)})));
-    bookings.push({startDate: '2023-07-09', endDate: '2023-08-10'});
-    console.log('bookings:',bookings);
 
     useEffect(() => {
         const updatedErrors = {};
