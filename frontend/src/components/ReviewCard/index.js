@@ -1,7 +1,7 @@
 import './ReviewCard.css';
 import DeleteReviewModal from '../DeleteReviewModal';
 import OpenModalButton from '../OpenModalButton';
-import { reviewDateFormatter } from '../../utils/reviewDateFormatter.js';
+import { reviewDateFormatter } from '../../utils/dateFormatting.js';
 import UpdateReviewModal from '../PostReviewModal/UpdateReviewModal';
 
 function ReviewCard({ review, user, source, spot }) {

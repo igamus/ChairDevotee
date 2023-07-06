@@ -9,5 +9,5 @@ export function reviewDateFormatter(dateString) {
 export function bookingDateFormatter(dateString) {
     const dateArray = dateString.split('-');
 
-    return `${months[parseInt(dateArray[1] - 1)]} ${dateArray[1]}, ${dateArray[0]}`
+    return `${months[parseInt(dateArray[1] - 1)]} ${dateArray[2]}, ${dateArray[0]}`
 }
