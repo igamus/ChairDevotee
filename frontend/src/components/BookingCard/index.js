@@ -1,4 +1,4 @@
-import { bookingDateFormatter } from '../../utils/reviewDateFormatter';
+import { bookingDateFormatter } from '../../utils/dateFormatting';
 import './BookingCard.css';
 
 function BookingCard({ booking }) {

@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loadSpotBookingsThunk, createBookingThunk } from '../../store/bookings';
 import generateDefaultEndDate from '../../utils/generateDefaultEndDate';
-import { bookingDateFormatter } from '../../utils/reviewDateFormatter';
+import { bookingDateFormatter } from '../../utils/dateFormatting';
 import './CreateBookingModal.css';
 
 function CreateBookingModal({ spotId }) {
