@@ -35,7 +35,7 @@ function UpdateReviewModal({reviewdata, source, spot}) {
 
     return (
         <div className='modal-interior' id='post-review-modal-interior'>
-            <h1 id='update-header'>Did you enjoy your sit on {source === 'spot' ? spot : reviewdata.Spot.name}?</h1>
+            <h1 id='update-header'>Did you enjoy sitting on {source === 'spot' ? spot : reviewdata.Spot.name}?</h1>
             <form id='prf' onSubmit={handleSubmit}>
                 <p className='error' id='rm-er'>{errors.message}</p>
                 <textarea
