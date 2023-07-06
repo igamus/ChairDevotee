@@ -1,5 +1,7 @@
 .update-error{
-    margin: 5px;
+    margin: 10px;
+    width: 500px;
+    text-overflow: anywhere;
 }
 
 #date-selection {

@@ -297,7 +297,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     } else {
         bookings = await Booking.findAll({
             where: { spotId: spotId },
-            attributes: ['spotId', 'startDate','endDate']
+            attributes: ['id','spotId','startDate','endDate']
         });
     }
 
