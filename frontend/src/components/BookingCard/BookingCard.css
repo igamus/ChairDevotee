@@ -5,6 +5,11 @@
     margin: 1em 0;
 }
 
+.booking-info {
+    align-items: flex-start;
+    text-overflow: anywhere;
+}
+
 .booking-image {
     height: 150px;
     width: 150px;

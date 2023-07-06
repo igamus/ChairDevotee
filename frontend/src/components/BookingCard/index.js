@@ -8,6 +8,8 @@ function BookingCard({ booking }) {
                 <h2>{booking.Spot.name}</h2>
                 <p>Start Date: {bookingDateFormatter(booking.startDate.slice(0,10))}</p>
                 <p>End Date: {bookingDateFormatter(booking.endDate.slice(0,10))}</p>
+                <span className='booking-buttons'>
+                </span>
             </div>
             <div className='image-container'>
                 <img src={booking.Spot.previewImage} alt={booking.Spot.name} className='booking-image' />
