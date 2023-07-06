@@ -1,3 +1,5 @@
+import OpenModalButton from '../OpenModalButton';
+import DeleteModal from '../DeleteModal';
 import { bookingDateFormatter } from '../../utils/dateFormatting';
 import './BookingCard.css';
 
@@ -9,6 +11,11 @@ function BookingCard({ booking }) {
                 <p>Start Date: {bookingDateFormatter(booking.startDate.slice(0,10))}</p>
                 <p>End Date: {bookingDateFormatter(booking.endDate.slice(0,10))}</p>
                 <span className='booking-buttons'>
+                    <OpenModalButton
+                        modalComponent={<DeleteModal bookingId={booking.id} type={'booking'} className='modal-with-background' />}
+                        buttonText={'Delete'}
+                        className={'secondary-button drb'}
+                    />
                 </span>
             </div>
             <div className='image-container'>
