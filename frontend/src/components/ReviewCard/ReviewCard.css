@@ -1,5 +1,5 @@
 .review-card {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .review-card * {
@@ -11,9 +11,14 @@
     color: darkgray;
 }
 
+#review-text {
+    overflow-wrap: anywhere;
+    margin-bottom: 0;
+}
+
 .review-buttons-container {
     flex-direction: row;
-    margin-bottom: 0 !important;
+    margin: 0 !important;
 }
 
 .urb {

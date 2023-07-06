@@ -4,6 +4,7 @@ import { csrfFetch } from "./csrf";
 const LOAD_SPOT_REVIEWS = 'reviews/LOAD_SPOT_REVIEWS';
 const LOAD_USER_REVIEWS = 'reviews/LOAD_USER_REVIEWS';
 const CREATE_SPOT_REVIEW = 'reviews/CREATE_SPOT_REVIEW';
+const UPDATE_REVIEW = 'reviews/UPDATE_REVIEW';
 const DELETE_SPOT_REVIEW = 'reviews/DELETE_SPOT_REVIEW';
 
 // Action Creators
@@ -28,6 +29,13 @@ const createReviewAction = spot => {
     }
 }
 
+const updateReviewAction = spot => {
+    return {
+        type: UPDATE_REVIEW,
+        spot
+    }
+}
+
 const deleteSpotReviewAction = reviewId => {
     return {
         type: DELETE_SPOT_REVIEW,
@@ -36,7 +44,6 @@ const deleteSpotReviewAction = reviewId => {
 }
 
 // Thunk Action Creators
-
 export const loadAllReviewsForSpotThunk = spotId => async dispatch => {
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`);
     if (res.ok) {
@@ -96,8 +103,8 @@ export const updateReviewThunk = formData => async dispatch => {
     });
 
     if (res.ok) {
-        const data = res.json();
-        return dispatch(createReviewAction(data));
+        const data = await res.json();
+        return dispatch(updateReviewAction(data));
     } else {
         const errors = res.json();
         return errors;
@@ -142,8 +149,6 @@ const reviewsReducer = (state = initialState, action) => {
             };
             return newState;
         case CREATE_SPOT_REVIEW:
-            console.log('hey.......');
-            console.log('state:', state);
             newState = {
                 ...state,
                 spot: {
@@ -151,14 +156,47 @@ const reviewsReducer = (state = initialState, action) => {
                     [action.spot.id]: {
                         ...action.spot
                     },
-                }, // now you broke the create thunk... wait, how could you have? is it just broken?
-            }; // need to manage create/delete in both user/spot or as a switch user/spot
+                },
+            };
             if (state.spot?.orderedList) {
-                newState.spot.orderedList = [...state.spot.orderedList];
-                newState.spot.orderedList.unshift(action.spot); // better way?
+                newState.orderedList = [...state.spot.orderedList];
+                newState.spot.orderedList.unshift(action.spot);
             } else {
-                console.log('in else');
                 newState.spot.orderedList = [action.spot]
+            }
+            return newState; // broke create
+        case UPDATE_REVIEW:
+            if (Object.keys(state.spot).length) {
+                newState = {
+                    ...state,
+                    spot: {
+                        ...state.spot,
+                        [action.spot.id]: {
+                            ...action.spot
+                        },
+                    },
+                };
+
+                const newOrderedList = [...state.spot.orderedList];
+                const targetIdx = newOrderedList.findIndex(el => action.spot.id === el.id);
+                newOrderedList[targetIdx] = {...newOrderedList[targetIdx], ...action.spot};
+                newState.spot.orderedList = newOrderedList;
+            }
+            if (Object.keys(state.user).length) {
+                newState = {
+                    ...state,
+                    user: {
+                        ...state.user,
+                        [action.spot.id]: {
+                            ...action.spot
+                        },
+                    },
+                };
+
+                const newOrderedList = [...state.user.orderedList];
+                const targetIdx = newOrderedList.findIndex(el => action.spot.id === el.id);
+                newOrderedList[targetIdx] = {...newOrderedList[targetIdx], ...action.spot};
+                newState.user.orderedList = newOrderedList;
             }
             return newState;
         case DELETE_SPOT_REVIEW:

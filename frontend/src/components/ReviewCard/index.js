@@ -4,7 +4,7 @@ import OpenModalButton from '../OpenModalButton';
 import reviewDateFormatter from '../../utils/reviewDateFormatter';
 import UpdateReviewModal from '../PostReviewModal/UpdateReviewModal';
 
-function ReviewCard({ review, user, source }) {
+function ReviewCard({ review, user, source, spot }) {
     let formattedReviewDate;
     if (review?.createdAt) formattedReviewDate = reviewDateFormatter(review.createdAt);
     else formattedReviewDate = '';
@@ -13,13 +13,13 @@ function ReviewCard({ review, user, source }) {
             <div className='review-card'>
                 <h3>{source === 'spot' ? review?.User.firstName : review?.Spot.name}</h3>
                 <h4 id='review-date' style={{fontSize: '13pt'}}>{formattedReviewDate}</h4>
-                <p>{review?.review}</p>
+                <p id='review-text'>{review?.review}</p>
                 {
                     (source === 'user' || user?.id === review.User.id)
                         ?
                     <div class='review-buttons-container'>
                         <OpenModalButton
-                            modalComponent={<UpdateReviewModal reviewdata={review} className='modal-with-background' />}
+                            modalComponent={<UpdateReviewModal reviewdata={review} className='modal-with-background' source={source} spot={source === 'spot' ? spot : null} />}
                             buttonText={'Update'}
                             className={'secondary-button urb'}
                         />

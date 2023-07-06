@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { updateReviewThunk } from '../../../store/reviews';
 import StarRatingInput from '../StarRatingInput';
 
-function UpdateReviewModal({reviewdata}) {
+function UpdateReviewModal({reviewdata, source, spot}) {
     const { closeModal } = useModal();
     const [disabled, setDisabled] = useState(true);
     const [errors, setErrors] = useState({});
@@ -30,12 +30,12 @@ function UpdateReviewModal({reviewdata}) {
             id: reviewdata.id
         };
 
-        dispatch(updateReviewThunk(submission)).then(closeModal).catch(data => data.json()).then(errors => setErrors(errors));
+        dispatch(updateReviewThunk(submission)).then(closeModal).catch(data => {console.log(data)}) //.then(errors => setErrors(errors));
     };
 
     return (
         <div className='modal-interior' id='post-review-modal-interior'>
-            <h1>How was your stay at {reviewdata.Spot.name}?</h1>
+            <h1 id='update-header'>Did you enjoy your sit on {source === 'spot' ? spot : reviewdata.Spot.name}?</h1>
             <form id='prf' onSubmit={handleSubmit}>
                 <p className='error' id='rm-er'>{errors.message}</p>
                 <textarea
