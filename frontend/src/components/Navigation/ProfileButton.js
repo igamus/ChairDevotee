@@ -59,6 +59,7 @@ function ProfileButton({ user }) {
                             <hr />
                             <Link to='/reviews/current' onClick={closeMenu}>Manage Reviews</Link>
                             <Link to='/spots/current' onClick={closeMenu}>Manage Spots</Link>
+                            <Link to='/bookings/current' onClick={closeMenu}>Manage Bookings</Link>
                             <hr />
                         </div>
                         <button className='logout-button' id='profile-logout-button' onClick={logout}>Log Out</button>

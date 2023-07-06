@@ -1,0 +1,12 @@
+.booking-card {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    margin: 1em 0;
+}
+
+.booking-image {
+    height: 150px;
+    width: 150px;
+    border-radius: 20px;
+}
