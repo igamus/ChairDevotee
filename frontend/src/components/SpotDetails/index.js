@@ -18,6 +18,10 @@ function SpotDetails() {
     const spot = useSelector(state => state.spots.singleSpot);
     const reviews = useSelector(state => state.reviews.spot.orderedList);
 
+    const [buttonText, setButtonText] = useState('Reserve');
+    const [disabled, setDisabled] = useState(false);
+
+    // const [isUserLoaded, setIsUserLoaded] = useState(false);
     const [isSpotLoaded, setIsSpotLoaded] = useState(false);
     const [areReviewsLoaded, setAreReviewsLoaded] = useState(false);
 
@@ -28,6 +32,22 @@ function SpotDetails() {
     useEffect(() => {
         dispatch(loadAllReviewsForSpotThunk(spotId)).then(() => setAreReviewsLoaded(true)).catch(() => {});
     }, [dispatch]);
+
+    useEffect(() => {
+        setButtonText('Reserve');
+        setDisabled(false);
+
+        if (!!(user?.id === spot?.ownerId)) {
+            setButtonText('You own this!');
+            setDisabled(true);
+        };
+
+        if (!user) {
+            setButtonText('Log in to Reserve');
+            setDisabled(true);
+        };
+    }, [user, spot]);
+
 
     const [showPostReviewModal, setShowPostReviewModal] = useState(null);
     useEffect(() => {
@@ -70,7 +90,8 @@ function SpotDetails() {
                     </div>
                     <OpenModalButton
                         modalComponent={<CreateBookingModal spotId={spotId} />}
-                        buttonText={'Reserve'}
+                        disabled={disabled}
+                        buttonText={buttonText}
                         className={'primary-button'}
                         id='spot-details-card-reserve-button'
                     />
