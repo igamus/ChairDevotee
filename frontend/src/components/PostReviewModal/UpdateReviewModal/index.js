@@ -30,7 +30,7 @@ function UpdateReviewModal({reviewdata, source, spot}) {
             id: reviewdata.id
         };
 
-        dispatch(updateReviewThunk(submission)).then(closeModal).catch(data => {console.log(data)}) //.then(errors => setErrors(errors));
+        dispatch(updateReviewThunk(submission)).then(closeModal).catch(data => data.json()).then(errors => setErrors(errors));
     };
 
     return (

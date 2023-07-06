@@ -160,11 +160,11 @@ const reviewsReducer = (state = initialState, action) => {
             };
             if (state.spot?.orderedList) {
                 newState.spot.orderedList = [...state.spot.orderedList];
-                newState.spot.orderedList.unshift(action.spot); // better way?
+                newState.spot.orderedList.unshift(action.spot);
             } else {
                 newState.spot.orderedList = [action.spot]
             }
-            return newState; // broke create
+            return newState; 
         case UPDATE_REVIEW:
             if (Object.keys(state.spot).length) {
                 newState = {
