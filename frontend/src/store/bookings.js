@@ -2,12 +2,20 @@ import { csrfFetch } from "./csrf";
 
 // Action types
 const LOAD_SPOT_BOOKINGS = 'bookings/LOAD_SPOT_BOOKINGS';
+const CREATE_BOOKING = 'bookings/CREATE_BOOKING';
 
 // Actions
 const loadSpotBookingsAction = bookings => {
     return {
         type: LOAD_SPOT_BOOKINGS,
         bookings
+    };
+};
+
+const createBookingAction = booking => {
+    return {
+        type: CREATE_BOOKING,
+        booking
     };
 };
 
@@ -21,6 +29,25 @@ export const loadSpotBookingsThunk = spotId => async dispatch => {
     } else {
         const errors = await res.json();
         console.log('errors:', errors);
+        return errors;
+    }
+};
+
+export const createBookingThunk = formData => async dispatch => {
+    const res = await csrfFetch(`/api/spots/${formData.spotId}/bookings`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            startDate: formData.startDate,
+            endDate: formData.endDate
+        })
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        return dispatch(createBookingAction(data));
+    } else {
+        const errors = await res.json();
         return errors;
     }
 };
@@ -39,6 +66,17 @@ const bookingsReducer = (state = initialState, action) => {
                     booking => newState.spot[booking.id] = booking
                 );
             }
+            return newState;
+        case CREATE_BOOKING:
+            newState = {
+                ...state,
+                spot: {
+                    ...state.spot,
+                    [action.booking.id]: {
+                        ...action.booking
+                    }
+                }
+            };
             return newState;
         default:
             return state;
