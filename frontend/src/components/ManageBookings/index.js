@@ -17,7 +17,7 @@ function ManageBookings() {
     return (
         <div id='manage-bookings'>
             <h1>Manage Bookings</h1>
-            {bookings.map(booking => <BookingCard booking={booking} />)}
+            {bookings.length ? bookings.map(booking => <BookingCard booking={booking} type={'user'} />) : <h2>No bookings yet!</h2>}
         </div>
     );
 };

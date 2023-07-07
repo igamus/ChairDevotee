@@ -11,6 +11,7 @@ import ManageSpots from './components/ManageSpots';
 import UpdateSpotForm from './components/UpdateSpotForm';
 import ManageReviews from './components/ManageReviews';
 import ManageBookings from './components/ManageBookings';
+import ManageSpotBookings from './components/ManageSpotBookings';
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function App() {
         <Route exact path='/spots/current' component={ManageSpots} />
         <Route exact path='/spots/create' component={CreateSpotForm} />
         <Route exact path='/spots/:spotId' component={SpotDetails} />
+        <Route exact path='/spots/:spotId/bookings' component={ManageSpotBookings} />
         <Route exact path='/spots/:spotId/edit' component={UpdateSpotForm} />
         <Custom404 />
       </Switch>

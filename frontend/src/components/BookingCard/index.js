@@ -3,20 +3,16 @@ import DeleteModal from '../DeleteModal';
 import { bookingDateFormatter } from '../../utils/dateFormatting';
 import './BookingCard.css';
 
-    // if passed or in-progress, don't give them the button
-    // just need to see if start date is today or earlier
-    // ^ get this working
-    // update created review to redirect to bookings
-
-function BookingCard({ booking }) {
+function BookingCard({ booking, spot, type }) {
     const currentDate = new Date().toISOString().slice(0,10);
 
     return (
         <div className='booking-card'>
             <div className='booking-info'>
-                <h2>{booking.Spot.name}</h2>
+                <h2>{type === 'user' ? booking.Spot.name : spot.name}</h2>
                 <p>Start Date: {bookingDateFormatter(booking.startDate.slice(0,10))}</p>
                 <p>End Date: {bookingDateFormatter(booking.endDate.slice(0,10))}</p>
+                {type === 'spot' ? <h3>Booked by: {booking.User.firstName} {booking.User.lastName}</h3> : null}
                 <span className='booking-buttons'>
                     {
                         !!(booking.startDate.slice(0,10) > currentDate)
@@ -32,10 +28,12 @@ function BookingCard({ booking }) {
                 </span>
             </div>
             <div className='image-container'>
-                <img src={booking.Spot.previewImage} alt={booking.Spot.name} className='booking-image' />
+                <img src={type === 'user' ? booking.Spot.previewImage : spot?.SpotImages.filter(image => image.preview)[0].url} alt={type=== 'user' ? booking.Spot.name : spot.name} className='booking-image' />
             </div>
         </div>
     );
 };
 
 export default BookingCard;
+
+// spot?.SpotImages.filter(image => image.preview)
