@@ -50,7 +50,7 @@ function CreateBookingModal({ spotId }) {
             startDate,
             endDate
         }
-        dispatch(createBookingThunk(submission)).then(closeModal).then(() => history.push('/')).catch(e => e.json()).then(errors => setErrors(errors));
+        dispatch(createBookingThunk(submission)).then(closeModal).then(() => history.push('/bookings/current')).catch(e => e.json()).then(errors => setErrors(errors));
     };
 
     return (

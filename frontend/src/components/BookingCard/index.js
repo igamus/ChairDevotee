@@ -10,6 +10,7 @@ import './BookingCard.css';
 
 function BookingCard({ booking }) {
     const currentDate = new Date().toISOString().slice(0,10);
+
     return (
         <div className='booking-card'>
             <div className='booking-info'>
@@ -18,7 +19,7 @@ function BookingCard({ booking }) {
                 <p>End Date: {bookingDateFormatter(booking.endDate.slice(0,10))}</p>
                 <span className='booking-buttons'>
                     {
-                        booking.startDate.slice(0,10) > currentDate
+                        !!(booking.startDate.slice(0,10) > currentDate)
                             ?
                         <OpenModalButton
                             modalComponent={<DeleteModal bookingId={booking.id} type={'booking'} className='modal-with-background' />}
