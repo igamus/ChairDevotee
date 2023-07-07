@@ -21,7 +21,6 @@ function SpotDetails() {
     const [buttonText, setButtonText] = useState('Reserve');
     const [disabled, setDisabled] = useState(false);
 
-    // const [isUserLoaded, setIsUserLoaded] = useState(false);
     const [isSpotLoaded, setIsSpotLoaded] = useState(false);
     const [areReviewsLoaded, setAreReviewsLoaded] = useState(false);
 
@@ -47,7 +46,6 @@ function SpotDetails() {
             setDisabled(true);
         };
     }, [user, spot]);
-
 
     const [showPostReviewModal, setShowPostReviewModal] = useState(null);
     useEffect(() => {
