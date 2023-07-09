@@ -34,7 +34,7 @@ On ChairDevotee, you can peruse a variety of listings (spots) and see what peopl
 
 ### 1. User accounts
 
-![Screenshot of user login modal, featuring the demo user button.](./frontend/public/ShareVIP-screenshot.jpg)
+![Screenshot of user login modal, featuring the demo user button.](./frontend/public/readme-still.jpg.jpg)
 
 ChairDevotee uses JWT tokens as cookies and verifies user passwords saved in hashes, allowing for users to register and securely sign into accounts on ChairDevotee. Users without an account can see spot listings, but users with accounts gain access to more features on the site, gaining the ability to create, delete, and edit spots and reviews.
 
