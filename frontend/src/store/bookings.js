@@ -48,7 +48,7 @@ export const loadSpotBookingsThunk = spotId => async dispatch => {
     }
 };
 
-export const loadUserBookingsThunk = userId => async dispatch => {
+export const loadUserBookingsThunk = () => async dispatch => {
     const res = await csrfFetch('/api/bookings/current');
 
     if (res.ok) {
@@ -125,13 +125,24 @@ const bookingsReducer = (state = initialState, action) => {
             };
             return newState;
         case DELETE_BOOKING:
-            newState = {
-                ...state,
-                user: {
-                    ...state.user,
-                },
-            };
-            delete newState.user[action.bookingId];
+            if (Object.keys(state.spot).length) {
+                newState = {
+                    ...state,
+                    spot: {
+                        ...state.spot,
+                    },
+                };
+                delete newState.spot[action.bookingId];
+            }
+            if (Object.keys(state.user).length) {
+                newState = {
+                    ...state,
+                    user: {
+                        ...state.user,
+                    },
+                };
+                delete newState.user[action.bookingId];
+            }
             return newState;
         default:
             return state;

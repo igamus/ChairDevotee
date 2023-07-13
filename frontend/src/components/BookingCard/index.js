@@ -28,12 +28,10 @@ function BookingCard({ booking, spot, type }) {
                 </span>
             </div>
             <div className='image-container'>
-                <img src={type === 'user' ? booking.Spot.previewImage : spot?.SpotImages.filter(image => image.preview)[0].url} alt={type=== 'user' ? booking.Spot.name : spot.name} className='booking-image' />
+                <img src={type === 'user' ? booking.Spot.previewImage : spot?.SpotImages?.filter(image => image.preview)[0].url} alt={type=== 'user' ? booking.Spot.name : spot.name} className='booking-image' />
             </div>
         </div>
     );
 };
 
 export default BookingCard;
-
-// spot?.SpotImages.filter(image => image.preview)

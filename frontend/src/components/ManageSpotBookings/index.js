@@ -14,12 +14,13 @@ function ManageSpotBookings() {
     const [spotIsLoaded, setSpotIsLoaded] = useState(false);
 
     useEffect(() => {
-        dispatch(loadSpotBookingsThunk(spotId)).then(setBookingsAreLoaded(true));
-        dispatch(loadSpotThunk(spotId)).then(setSpotIsLoaded(true));
+        dispatch(loadSpotBookingsThunk(spotId)).then(() => setBookingsAreLoaded(true));
+        dispatch(loadSpotThunk(spotId)).then(() => setSpotIsLoaded(true));
     }, [dispatch]);
 
     const bookings = useSelector(state => Object.values(state.bookings.spot));
     const spot = useSelector(state => state.spots.singleSpot);
+    console.log('bookings:', bookings);
     console.log('spot:', spot)
 
     return bookingsAreLoaded && spotIsLoaded && (
