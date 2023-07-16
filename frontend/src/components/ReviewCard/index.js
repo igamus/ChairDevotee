@@ -17,7 +17,7 @@ function ReviewCard({ review, user, source, spot }) {
                 {
                     (source === 'user' || user?.id === review.User.id)
                         ?
-                    <div class='review-buttons-container'>
+                    <div className='review-buttons-container'>
                         <OpenModalButton
                             modalComponent={<UpdateReviewModal reviewdata={review} className='modal-with-background' source={source} spot={source === 'spot' ? spot : null} />}
                             buttonText={'Update'}

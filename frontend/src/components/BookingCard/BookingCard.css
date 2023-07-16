@@ -10,6 +10,11 @@
     text-overflow: anywhere;
 }
 
+.booking-buttons {
+    flex-direction: row;
+    gap: 20px
+}
+
 .booking-image {
     height: 150px;
     width: 150px;

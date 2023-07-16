@@ -78,7 +78,7 @@ function SpotDetails() {
             </div>
             <div id='spot-details-card-about'>
                 <div id='spot-details-card-about-blurb'>
-                    <h2 id='spot-details-host-name'>Hosted by {spot.Owner ? <>{spot.Owner.firstName} {spot.Owner.lastName}</> : null}</h2>
+                    <h2 id='spot-details-host-name'>{!!(user?.id === spot?.ownerId) ? 'You manage this spot' : `Hosted by ${spot.Owner ? `${spot.Owner.firstName} ${spot.Owner.lastName}` : null}`}</h2>
                     <p id='spot-description'>{spot.description}</p>
                 </div>
                 <div id='spot-details-card-about-card'>
@@ -86,13 +86,25 @@ function SpotDetails() {
                         <span><b>${parseFloat(spot.price).toFixed(2)}</b>/night</span>
                         <span><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{parseFloat(spot.avgStarRating).toFixed(1)} · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</span>
                     </div>
-                    <OpenModalButton
-                        modalComponent={<CreateBookingModal spotId={spotId} />}
-                        disabled={disabled}
-                        buttonText={buttonText}
-                        className={'primary-button'}
-                        id='spot-details-card-reserve-button'
-                    />
+                    {
+                        !!(user?.id === spot?.ownerId)
+                            ?
+                        <button
+                            onClick={() => {
+                                history.push(`/spots/${spotId}/bookings`)
+                            }}
+                            className='primary-button'
+                            id='spot-details-card-reserve-button'
+                        >Manage This Spot's Bookings</button>
+                            :
+                        <OpenModalButton
+                            modalComponent={<CreateBookingModal spotId={spotId} type={'create'} />}
+                            disabled={disabled}
+                            buttonText={buttonText}
+                            className={'primary-button'}
+                            id='spot-details-card-reserve-button'
+                        />
+                    }
                 </div>
             </div>
             <hr id='spot-details-divider' />

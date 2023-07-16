@@ -20,8 +20,6 @@ function ManageSpotBookings() {
 
     const bookings = useSelector(state => Object.values(state.bookings.spot));
     const spot = useSelector(state => state.spots.singleSpot);
-    console.log('bookings:', bookings);
-    console.log('spot:', spot)
 
     return bookingsAreLoaded && spotIsLoaded && (
         <div className='spot-bookings'>
@@ -29,7 +27,7 @@ function ManageSpotBookings() {
             {
                 bookings.length
                     ?
-                bookings.map(booking => <BookingCard booking={booking} type='spot' spot={spot} />)
+                bookings.map(booking => <BookingCard key={`booking-card-${booking.id}`} booking={booking} type='spot' spot={spot} />)
                     :
                 <h2>No bookings yet!</h2>
             }

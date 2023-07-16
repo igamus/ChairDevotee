@@ -14,10 +14,10 @@ function ManageBookings() {
 
     const bookings = useSelector(state => Object.values(state.bookings.user));
 
-    return bookingsAreLoaded &&(
+    return bookingsAreLoaded && (
         <div id='manage-bookings'>
             <h1>Manage Bookings</h1>
-            {bookings.length ? bookings.map(booking => <BookingCard booking={booking} type={'user'} />) : <h2>No bookings yet!</h2>}
+            {bookings.length ? bookings.map(booking => <BookingCard key={booking.id} booking={booking} type={'user'} />) : <h2>No bookings yet!</h2>}
         </div>
     );
 };

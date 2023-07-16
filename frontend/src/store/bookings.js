@@ -4,6 +4,7 @@ import { csrfFetch } from "./csrf";
 const LOAD_SPOT_BOOKINGS = 'bookings/LOAD_SPOT_BOOKINGS';
 const LOAD_USER_BOOKINGS = 'bookings/LOAD_USER_BOOKINGS';
 const CREATE_BOOKING = 'bookings/CREATE_BOOKING';
+const UPDATE_BOOKING = 'bookings/UPDATE_BOOKING';
 const DELETE_BOOKING = 'booking/DELETE_BOOKING';
 
 // Actions
@@ -26,6 +27,13 @@ const createBookingAction = booking => {
         type: CREATE_BOOKING,
         booking
     };
+};
+
+const updateBookingAction = booking => {
+    return {
+        type: UPDATE_BOOKING,
+        booking
+    }
 };
 
 const deleteBookingAction = bookingId => {
@@ -79,6 +87,25 @@ export const createBookingThunk = formData => async dispatch => {
     }
 };
 
+export const updateBookingThunk = formData => async dispatch => {
+    const res = await csrfFetch(`/api/bookings/${formData.bookingId}`, {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            startDate: formData.startDate,
+            endDate: formData.endDate
+        })
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        return dispatch(updateBookingAction(data));
+    } else {
+        const errors = await res.json();
+        return errors;
+    };
+};
+
 export const deleteBookingThunk = bookingId => async dispatch => {
     const res = await csrfFetch(`/api/bookings/${bookingId}`, {method: 'DELETE'});
 
@@ -120,6 +147,20 @@ const bookingsReducer = (state = initialState, action) => {
                     ...state.spot,
                     [action.booking.id]: {
                         ...action.booking
+                    }
+                }
+            };
+            return newState;
+        case UPDATE_BOOKING:
+            newState = {
+                ...state,
+                user: {
+                    ...state.user,
+                    [action.booking.id]: {
+                        ...action.booking,
+                        Spot: {
+                            ...state.user[action.booking.id].Spot,
+                        }
                     }
                 }
             };

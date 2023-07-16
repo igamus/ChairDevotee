@@ -47,7 +47,7 @@ function LoginFormModal() {
             password: 'password6'
         })).then(closeModal).then(history.push('/'))
         .catch(async res => setErrors({credential: 'Error logging in the demo user'}))
-    }
+    };
 
     return (
         <div className='modal-interior' id='login'>
