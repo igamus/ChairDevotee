@@ -164,7 +164,7 @@ const reviewsReducer = (state = initialState, action) => {
             } else {
                 newState.spot.orderedList = [action.spot]
             }
-            return newState; 
+            return newState;
         case UPDATE_REVIEW:
             if (Object.keys(state.spot).length) {
                 newState = {

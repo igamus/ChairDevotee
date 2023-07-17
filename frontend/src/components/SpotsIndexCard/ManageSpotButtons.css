@@ -1,7 +1,18 @@
-.spot-card-buttons {
+.buttons-container {
+    margin-top: 15px;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.bookings-button-container {
     flex-direction: row;
     justify-content: flex-start;
     width: 100%;
+    margin-bottom: 15px;
+}
+
+.spot-card-buttons {
+    flex-direction: row;
+    width: 100%;
     gap: 20px;
-    margin-top: 30px;
 }

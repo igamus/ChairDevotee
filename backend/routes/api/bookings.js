@@ -62,29 +62,34 @@ router.put('/:bookingId', [requireAuth, validateBookingUpdate], async (req, res)
 
     if (new Date() > booking.endDate) return res.status(403).json({ message: "Past bookings can't be modified" });
 
-    if (booking.startDate < endDate && endDate < booking.endDate) {
-        return res.status(403).json({ // refactor into validator?
-            message: "Sorry, this spot is already booked for the specified dates",
-            errors: {
-                endDate: "End date conflicts with an existing booking"
-            }
-        });
-    } else if (booking.startDate < startDate && startDate < booking.endDate) {
-        return res.status(403).json({
-            message: "Sorry, this spot is already booked for the specified dates",
-            errors: {
-                startDate: "Start date conflicts with an existing booking"
-            }
-        });
-    } else if (startDate < booking.startDate && booking.endDate < endDate) {
-        return res.status(403).json({
-            message: "Sorry, this spot is already booked for the specified dates",
-            errors: {
-                startDate: "Start date conflicts with an existing booking",
-                endDate: "End date conflicts with an existing booking"
-            }
-        });
-    }
+    const bookings = await Booking.findAll({ where: { spotId: booking.dataValues.spotId } }); // should just eager load?
+    bookings.forEach(booking => {
+        booking = booking.toJSON();
+
+        if (booking.id != bookingId && booking.startDate <= endDate && endDate <= booking.endDate) {
+            return res.status(403).json({ // refactor into validator?
+                message: "Sorry, this spot is already booked for the specified dates",
+                errors: {
+                    endDate: "End date conflicts with an existing booking"
+                }
+            });
+        } else if (booking.id != bookingId && booking.startDate <= startDate && startDate <= booking.endDate) {
+            return res.status(403).json({
+                message: "Sorry, this spot is already booked for the specified dates",
+                errors: {
+                    startDate: "Start date conflicts with an existing booking"
+                }
+            });
+        } else if (booking.id != bookingId && startDate <= booking.startDate && booking.endDate <= endDate) {
+            return res.status(403).json({
+                message: "Sorry, this spot is already booked for the specified dates",
+                errors: {
+                    startDate: "Start date conflicts with an existing booking",
+                    endDate: "End date conflicts with an existing booking"
+                }
+            });
+        }
+    })
 
     await booking.update({
         startDate: startDate,

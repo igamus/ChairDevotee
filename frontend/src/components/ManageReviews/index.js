@@ -11,7 +11,7 @@ function ManageReviews() {
 
     useEffect(() => {
         dispatch(loadAllReviewsForUserThunk()).then(() => setAreReviewsLoaded(true));
-    }, [dispatch]); // reviews in dependency array?
+    }, [dispatch]);
 
     return areReviewsLoaded && (
         <div id='manage-reviews'>

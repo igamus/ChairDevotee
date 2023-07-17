@@ -7,6 +7,7 @@ import PostReviewModal from '../PostReviewModal';
 import ReviewCard from '../ReviewCard';
 import OpenModalButton from '../OpenModalButton';
 import './SpotDetails.css';
+import CreateBookingModal from '../CreateBookingModal';
 
 function SpotDetails() {
     const { spotId } = useParams();
@@ -16,6 +17,9 @@ function SpotDetails() {
     const user = useSelector(state => state.session.user);
     const spot = useSelector(state => state.spots.singleSpot);
     const reviews = useSelector(state => state.reviews.spot.orderedList);
+
+    const [buttonText, setButtonText] = useState('Reserve');
+    const [disabled, setDisabled] = useState(false);
 
     const [isSpotLoaded, setIsSpotLoaded] = useState(false);
     const [areReviewsLoaded, setAreReviewsLoaded] = useState(false);
@@ -27,6 +31,21 @@ function SpotDetails() {
     useEffect(() => {
         dispatch(loadAllReviewsForSpotThunk(spotId)).then(() => setAreReviewsLoaded(true)).catch(() => {});
     }, [dispatch]);
+
+    useEffect(() => {
+        setButtonText('Reserve');
+        setDisabled(false);
+
+        if (!!(user?.id === spot?.ownerId)) {
+            setButtonText('You own this!');
+            setDisabled(true);
+        };
+
+        if (!user) {
+            setButtonText('Log in to Reserve');
+            setDisabled(true);
+        };
+    }, [user, spot]);
 
     const [showPostReviewModal, setShowPostReviewModal] = useState(null);
     useEffect(() => {
@@ -59,7 +78,7 @@ function SpotDetails() {
             </div>
             <div id='spot-details-card-about'>
                 <div id='spot-details-card-about-blurb'>
-                    <h2 id='spot-details-host-name'>Hosted by {spot.Owner ? <>{spot.Owner.firstName} {spot.Owner.lastName}</> : null}</h2>
+                    <h2 id='spot-details-host-name'>{!!(user?.id === spot?.ownerId) ? 'You manage this spot' : `Hosted by ${spot.Owner ? `${spot.Owner.firstName} ${spot.Owner.lastName}` : null}`}</h2>
                     <p id='spot-description'>{spot.description}</p>
                 </div>
                 <div id='spot-details-card-about-card'>
@@ -67,7 +86,25 @@ function SpotDetails() {
                         <span><b>${parseFloat(spot.price).toFixed(2)}</b>/night</span>
                         <span><i className='fa-solid fa-star' />{spot.avgStarRating ? <span>{parseFloat(spot.avgStarRating).toFixed(1)} · {spot.numReviews} {spot.numReviews > 1 ? 'reviews' : 'review'}</span> : 'New'}</span>
                     </div>
-                    <button className='primary-button' id='spot-details-card-reserve-button' onClick={() => alert('Feature Coming Soon...')}>Reserve</button>
+                    {
+                        !!(user?.id === spot?.ownerId)
+                            ?
+                        <button
+                            onClick={() => {
+                                history.push(`/spots/${spotId}/bookings`)
+                            }}
+                            className='primary-button'
+                            id='spot-details-card-reserve-button'
+                        >Manage This Spot's Bookings</button>
+                            :
+                        <OpenModalButton
+                            modalComponent={<CreateBookingModal spotId={spotId} type={'create'} />}
+                            disabled={disabled}
+                            buttonText={buttonText}
+                            className={'primary-button'}
+                            id='spot-details-card-reserve-button'
+                        />
+                    }
                 </div>
             </div>
             <hr id='spot-details-divider' />

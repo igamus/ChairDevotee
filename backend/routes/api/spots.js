@@ -229,7 +229,7 @@ router.post('/:spotId/bookings', [requireAuth, validateBooking], async (req, res
         bookings.forEach(booking => {
             booking = booking.toJSON();
 
-            if (booking.startDate < endDate && endDate < booking.endDate) {
+            if (booking.startDate <= endDate && endDate <= booking.endDate) {
                 bookingConflict = true;
                 return res.status(403).json({ // refactor into validator?
                     message: "Sorry, this spot is already booked for the specified dates",
@@ -237,7 +237,7 @@ router.post('/:spotId/bookings', [requireAuth, validateBooking], async (req, res
                         endDate: "End date conflicts with an existing booking"
                     }
                 });
-            } else if (booking.startDate < startDate && startDate < booking.endDate) {
+            } else if (booking.startDate <= startDate && startDate <= booking.endDate) {
                 bookingConflict = true;
                 return res.status(403).json({
                     message: "Sorry, this spot is already booked for the specified dates",
@@ -245,7 +245,7 @@ router.post('/:spotId/bookings', [requireAuth, validateBooking], async (req, res
                         startDate: "Start date conflicts with an existing booking"
                     }
                 });
-            } else if (startDate < booking.startDate && booking.endDate < endDate) {
+            } else if (startDate <= booking.startDate && booking.endDate <= endDate) {
                 bookingConflict = true;
                 return res.status(403).json({
                     message: "Sorry, this spot is already booked for the specified dates",
@@ -297,7 +297,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     } else {
         bookings = await Booking.findAll({
             where: { spotId: spotId },
-            attributes: ['spotId', 'startDate','endDate']
+            attributes: ['id','spotId','startDate','endDate']
         });
     }
 

@@ -1,0 +1,5 @@
+#manage-bookings {
+    align-items: flex-start;
+    width: calc(100vw - 200px);
+    margin: 0 100px;
+}
