@@ -53,14 +53,25 @@ ChairDevotee provides users with the ability to
 
 * Create reviews of other user's spots (logged-in users only)
 * Read reviews on user spots
+* Update posted reviews (logged-in users on their reviews only)
 * Delete their own reviews (logged-in users on their own spots only)
+* Manage reviews from a centralized `Manage Reviews` page
+
+### 4. Bookings
+What's an AirBnB clone without the ability to book a reservation? Users can plan how long they'd like to sit in a specific chair in the world and
+
+* Create bookings on a spot (logged-in users only)
+* See bookings on
+  - The user's spots from the spot's `Manage Spots` page (logged-in users on their spots only)
+  - Spots for the user from a centralized `Manage Bookings` page (logged in users only)
+* Update bookings (logged-in users on their bookings only)
+* Delete bookings (logged-in users on their bookings or on their spots' bookings only)
 
 ## What are your future plans with this repo?
 
 The roadmap includes
 
-* Round out review functionality with the ability to **update reviews** and a **manage reviews panel**
-* Implementing the Booking CRUD feature
+* Implement **pagination**
 * **Spots search**
 
 and more!
