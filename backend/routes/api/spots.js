@@ -416,8 +416,8 @@ router.get('/:spotId', async (req, res) => {
 });
 
 router.get('/', validateQuery, async (req, res,) => {
-    let { page, size } = req.query;
-    const { minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+    let { page, size } = req.body;
+    const { minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.body;
 
     if (page === undefined || page < 1 || page > 10) page = 1;
     else page = parseInt(page);
