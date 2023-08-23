@@ -5,6 +5,7 @@ import sequelizelogo from './sequelizelogo.png';
 import './SpotsIndex.css';
 import SpotsIndexCard from '../SpotsIndexCard';
 import OpenModalButton from '../OpenModalButton';
+import FilterModal from '../FilterModal';
 
 function SpotsIndex() {
     const dispatch = useDispatch();
@@ -55,7 +56,7 @@ function SpotsIndex() {
                     <i className="fa-brands fa-node" />
                     <div className='tech-name'>Node.js</div>
                 </div>
-                <OpenModalButton id='filter-button' buttonText={<span id='filter-text'><i className="fa-solid fa-filter" />Filters</span>} modalComponent={<div>Hi</div>} />
+                <OpenModalButton id='filter-button' buttonText={<span id='filter-text'><i className="fa-solid fa-filter" />Filters</span>} modalComponent={<FilterModal />} />
             </div>
             <section id='spot-index'>
                 {spots.map(spot => <SpotsIndexCard key={`spot-card-${spot.id}`} spot={spot} />)}

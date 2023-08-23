@@ -12,6 +12,7 @@ nav {
     font-size: 1.2em;
     font-weight: bold;
     padding: 20px;
+    z-index: 1;
 }
 
 
