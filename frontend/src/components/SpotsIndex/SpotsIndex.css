@@ -1,3 +1,57 @@
+#spot-index-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    position: sticky;
+    top: 70px;
+    background-color: white;
+    width: 100vw;
+    border-bottom: 2px solid lightgrey;
+}
+
+.tech-box {
+    height: 50px;
+    margin: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tech-name {
+    color: #5b5b5b;
+    font-size: 12px;
+}
+
+.fa-brands {
+    height: 24px;
+    font-size: 24px;
+    color: #5b5b5b;
+}
+
+#filter-button {
+    color: #5b5b5b;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    height: 50px;
+}
+
+#filter-button:hover {
+    cursor: pointer;
+    background-color: white;
+}
+
+#filter-text {
+    display: flex;
+    flex-direction: row;
+    font-size: 12px;
+    padding: 2px 12px 0;
+}
+
+.fa-filter {
+    margin-right: 6px;
+    font-size: 12px;
+}
+
 #spot-index {
     display: grid;
     grid-template-columns: calc(100vw - 40px);

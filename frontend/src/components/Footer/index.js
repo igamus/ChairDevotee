@@ -15,7 +15,7 @@ function Footer() {
                     <i className="fa-solid fa-globe" style={{marginRight:"10px"}} />English (US)
                 </span>
                 <span className="foot-s2s2">$ USD</span>
-                <span className="foot-s2s3">Support & Resources</span>
+                <span className="foot-s2s3">No Support or Resources</span>
             </span>
         </div>
     );
