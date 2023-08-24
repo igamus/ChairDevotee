@@ -1,15 +1,20 @@
 import "./FilterModal.css";
 import { useModal } from "../../context/Modal";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loadFilteredSpotsThunk } from "../../store/spots";
 
 function FilterModal() {
     const { closeModal } = useModal();
-    const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(10000);
+    const [minPrice, setMinPrice] = useState(1);
+    const [maxPrice, setMaxPrice] = useState(50000);
+
+    const dispatch = useDispatch();
 
     const handleSubmit = async e => {
         e.preventDefault();
-        // if under min or over max, force it
+
+        dispatch(loadFilteredSpotsThunk(`minPrice=${minPrice}&maxPrice=${maxPrice}`));
 
         closeModal();
     };
@@ -29,19 +34,22 @@ function FilterModal() {
                         <div id='filter-price-inputs-container'>
                             <div id='min-price-container'>
                                 <label id='min-price-label' htmlFor="min-price">Minimum</label>
-                                <span>$<input id='min-price' min="0" max="50000" placeholder='1' type='number'></input></span>
+                                <span>$<input id='min-price' min="0" max="50000" placeholder='1' value={minPrice} onChange={e => setMinPrice(e.target.value)} type='number'></input></span>
                             </div>
                             <div style={{color: "#b7b7b7"}}>---</div>
                             <div id='max-price-container'>
                                 <label id='max-price-label' htmlFor="min-price">Maximum</label>
-                                <span>$<input id='max-price' min="0" max="50000" placeholder='1300+' type='number'></input></span>
+                                <span>$<input id='max-price' min="0" max="50000" placeholder='1300+' value={maxPrice} onChange={e => setMaxPrice(e.target.value)} type='number'></input></span>
                             </div>
                         </div>
                     </div>
                 </div>
             <hr />
                 <div id='filter-modal-footer'>
-                    <div id='filter-clear'>Clear all</div>
+                    <div id='filter-clear' onClick={() => {
+                        setMinPrice(1);
+                        setMaxPrice(50_000);
+                    }}>Clear all</div>
                     <button id='form-button' type='submit'>Show places</button>
                 </div>
             </form>

@@ -50,6 +50,21 @@ export const loadAllSpotsThunk = () => async dispatch => {
     return dispatch(loadAllSpotsAction(data));
 }
 
+export const loadFilteredSpotsThunk = urlSuffix => async dispatch => {
+    const res = await csrfFetch(`/api/spots?${urlSuffix}`, {
+        method: 'GET',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    });
+
+    if (res.ok) {
+        const data = await res.json();
+        return dispatch(loadAllSpotsAction(data))
+    } else {
+        const errors = await res.json();
+        return errors;
+    }
+}
+
 export const loadUserSpotsThunk = () => async dispatch => {
     const res = await csrfFetch('/api/spots/current');
     const data = await res.json();
@@ -174,7 +189,7 @@ const spotsReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case LOAD_SPOTS:
-            newState = {...state, allSpots: { ...state.allSpots}};
+            newState = {...state, allSpots: {}};
             action.spots.Spots.forEach(
                 spot => newState.allSpots[spot.id] = spot
             );
