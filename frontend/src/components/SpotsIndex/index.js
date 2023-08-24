@@ -61,6 +61,10 @@ function SpotsIndex() {
             <section id='spot-index'>
                 {spots.map(spot => <SpotsIndexCard key={`spot-card-${spot.id}`} spot={spot} />)}
             </section>
+            <div id='browse-buttons'>
+                <i className="fa-solid fa-chevron-left browse-button" id="nav-left" />
+                <i className="fa-solid fa-chevron-right browse-button" id="nav-right" />
+            </div>
         </>
     );
 };
