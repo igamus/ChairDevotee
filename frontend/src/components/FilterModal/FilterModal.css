@@ -1,8 +1,11 @@
 #filter-modal-header {
     display: flex;
     flex-direction: row;
-    border-bottom: 2px solid lightgrey;
     color: #222222;
+}
+
+#filter-modal hr {
+    border: 1px solid lightgrey;
 }
 
 .close-button {
@@ -16,9 +19,101 @@
     font-size: 12pt;
     margin-left: 24px;
     color: #222222;
+    position: absolute;
+    left: 0;
 }
 
 .close-button:hover {
     cursor: pointer;
     background-color: rgba(230, 230, 230, 0.904);
+}
+
+#filter-price {
+    display: flex;
+    align-items: flex-start;
+}
+
+#filter-price-header {
+    display: flex;
+    color: #242424;
+}
+
+#filter-price-subheader {
+    color: #868686;
+    margin-top: 0;
+}
+
+#filter-price-inputs-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 500px;
+}
+
+#filter-price #min-price-label, #filter-price #max-price-label {
+    display: flex;
+    flex-direction: row;
+    align-self: flex-start;
+    padding-left: 10px;
+    padding-top: 10px;
+    color: #8a8a8a;
+}
+
+#filter-price #min-price-container, #filter-price #max-price-container {
+    border: 1.5px solid #b7b7b7;
+    background-color: white;
+    border-radius: 5px;
+    width: 45%;
+}
+
+#filter-price span {
+    display: flex;
+    flex-direction: row;
+    align-self: flex-start;
+    padding-left: 20px;
+    width: 100%;
+}
+
+#filter-price #min-price, #filter-price #max-price {
+    color: black;
+    border: none;
+    background-color: white;
+}
+
+#filter-modal-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#filter-modal-footer #filter-clear {
+    font-weight: bold;
+    text-decoration: underline;
+    width: 20%;
+    padding: 0.5rem 0;
+    margin: 0.5rem 0;
+    color: #222222;
+}
+
+#filter-clear:hover {
+    cursor: pointer;
+    background-color: rgba(230, 230, 230, 0.904);
+    border-radius: 0.5rem;
+}
+
+#filter-modal-footer #form-button {
+    all: unset;
+    width: 30%;
+    padding: 0.5rem;
+    margin: 0.5rem 1rem 0 0.5rem;
+    color: white;
+    background-color: #222222;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+}
+
+#filter-modal-footer #form-button:hover {
+    cursor: pointer;
 }
