@@ -60,7 +60,8 @@ function SpotForm({ initialFormData, formType}) {
         if (description.length < 30) updatedErrors.description = 'Description needs a minimum of 30 characters';
         if (!name.length) updatedErrors.name = 'Name is required';
         if (!price.toString().length) updatedErrors.price = 'Price is required';
-        else if (isNaN(price)) updatedErrors.price = 'Price must be a number'
+        else if (isNaN(price)) updatedErrors.price = 'Price must be a number';
+        else if (price <= 0 || 50_000 < price) updatedErrors.price = 'Price must be between $0.01 and $50,000';
         if (formType === 'create') {
             if (!image1.length) updatedErrors.image1 = 'Preview Image is required';
             else if (!isValidFileEnding(image1)) updatedErrors.image1 = 'Image URL must end in .png, .jpg, or .jpeg';
