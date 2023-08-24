@@ -39,7 +39,7 @@ function SpotsIndex() {
                 </div>
                 <div className='tech-box'>
                     {/* https://icons8.com/ */}
-                    <img width="24" height="24" src="https://img.icons8.com/ios/50/6a6f73/redux.png" alt="redux"/>
+                    <img width="24" height="24" src="https://img.icons8.com/ios/50/c1c1c/redux.png" alt="redux"/>
                     <div className='tech-name'>Redux</div>
                 </div>
                 <div className='tech-box'>
