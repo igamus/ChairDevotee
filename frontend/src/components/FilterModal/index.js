@@ -8,15 +8,19 @@ function FilterModal() {
     const { closeModal } = useModal();
     const [minPrice, setMinPrice] = useState(1);
     const [maxPrice, setMaxPrice] = useState(50000);
+    const [error, setError] = useState('');
 
     const dispatch = useDispatch();
 
     const handleSubmit = async e => {
         e.preventDefault();
 
-        dispatch(loadFilteredSpotsThunk(`minPrice=${minPrice}&maxPrice=${maxPrice}`));
-
-        closeModal();
+        const res = await dispatch(loadFilteredSpotsThunk(`minPrice=${minPrice}&maxPrice=${maxPrice}`));
+        if (res.message) {
+            setError(res.message);
+        } else {
+            closeModal();
+        };
     };
 
     return (
@@ -31,6 +35,7 @@ function FilterModal() {
                     <div id='filter-price'>
                         <h3 id='filter-price-header'>Price range</h3>
                         <p id='filter-price-subheader'>Seat rental prices before fees and taxes</p>
+                        <p className="error" style={{margin: "0", marginBottom: "1em"}}>{error}</p>
                         <div id='filter-price-inputs-container'>
                             <div id='min-price-container'>
                                 <label id='min-price-label' htmlFor="min-price">Minimum</label>
@@ -42,6 +47,7 @@ function FilterModal() {
                                 <span>$<input id='max-price' min="0" max="50000" placeholder='1300+' value={maxPrice} onChange={e => setMaxPrice(e.target.value)} type='number'></input></span>
                             </div>
                         </div>
+                        <p></p>
                     </div>
                 </div>
             <hr />

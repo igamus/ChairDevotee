@@ -58,6 +58,8 @@ export const loadFilteredSpotsThunk = urlSuffix => async dispatch => {
 
     if (res.ok) {
         const data = await res.json();
+        console.log("size:", data.size);
+        if (data.size === 0) return Error("There are no results for your search!");
         return dispatch(loadAllSpotsAction(data))
     } else {
         const errors = await res.json();

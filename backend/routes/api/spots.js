@@ -416,8 +416,6 @@ router.get('/:spotId', async (req, res) => {
 });
 
 router.get('/', validateQuery, async (req, res,) => {
-    console.log('url:', req.url)
-    console.log('page:', req.query)
     let { page, size } = req.query;
     const { minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
 

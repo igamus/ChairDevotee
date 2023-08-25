@@ -11,6 +11,8 @@ function SpotsIndex() {
     const dispatch = useDispatch();
 
     const [isLoaded, setIsLoaded] = useState(false);
+    const [leftClass, setLeftClass] = useState("fa-solid fa-chevron-left browse-button");
+    const [rightClass, setRightClass] = useState("fa-solid fa-chevron-right browse-button");
 
     useEffect(() => {
         dispatch(loadAllSpotsThunk()).then(() => setIsLoaded(true));
@@ -62,8 +64,8 @@ function SpotsIndex() {
                 {spots.map(spot => <SpotsIndexCard key={`spot-card-${spot.id}`} spot={spot} />)}
             </section>
             <div id='browse-buttons'>
-                <i className="fa-solid fa-chevron-left browse-button" id="nav-left" />
-                <i className="fa-solid fa-chevron-right browse-button" id="nav-right" />
+                <i className={leftClass} id="nav-left" />
+                <i className={rightClass} id="nav-right" />
             </div>
         </>
     );
