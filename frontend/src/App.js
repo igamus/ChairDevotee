@@ -12,6 +12,7 @@ import UpdateSpotForm from './components/UpdateSpotForm';
 import ManageReviews from './components/ManageReviews';
 import ManageBookings from './components/ManageBookings';
 import ManageSpotBookings from './components/ManageSpotBookings';
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ function App() {
         <Route exact path='/spots/:spotId/edit' component={UpdateSpotForm} />
         <Custom404 />
       </Switch>
+      <Footer />
     </>
   );
 }

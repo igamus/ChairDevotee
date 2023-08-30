@@ -1,0 +1,45 @@
+.footer {
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+    width: 100vw;
+    padding: 13px 50px 14px;
+    border-top: 1px solid #dddddd;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.foot-s1 {
+    color: #808080;
+    display: flex;
+    flex-direction: row;
+}
+
+.bullet {
+    margin: 0 5px;
+}
+
+.footer-link {
+    color: #808080;
+}
+
+.footer-link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.foot-s1-space {
+    width: 100px;
+}
+
+.foot-s2 {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.foot-s2s1 {
+    display: flex;
+    flex-direction: row;
+}
