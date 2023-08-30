@@ -13,6 +13,7 @@ import ManageReviews from './components/ManageReviews';
 import ManageBookings from './components/ManageBookings';
 import ManageSpotBookings from './components/ManageSpotBookings';
 import Footer from "./components/Footer";
+import FilterParamsProvider from './context/FilterParams';
 
 function App() {
   const dispatch = useDispatch();
@@ -26,7 +27,9 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       <Switch>
-        <Route exact path='/' component={SpotsIndex} />
+        <FilterParamsProvider>
+          <Route exact path='/' component={SpotsIndex} />
+        </FilterParamsProvider>
         <Route exact path='/bookings/current' component={ManageBookings} />
         <Route exact path='/reviews/current' component={ManageReviews} />
         <Route exact path='/spots/current' component={ManageSpots} />
