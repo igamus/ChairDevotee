@@ -60,13 +60,23 @@ function SpotsIndex() {
                 </div>
                 <OpenModalButton id='filter-button' buttonText={<span id='filter-text'><i className="fa-solid fa-filter" />Filters</span>} modalComponent={<FilterModal />} />
             </div>
-            <section id='spot-index'>
-                {spots.map(spot => <SpotsIndexCard key={`spot-card-${spot.id}`} spot={spot} />)}
-            </section>
             <div id='browse-buttons'>
                 <i className={leftClass} id="nav-left" />
                 <i className={rightClass} id="nav-right" />
             </div>
+            <section id='spot-index'>
+                {spots.map(spot => <SpotsIndexCard key={`spot-card-${spot.id}`} spot={spot} />)}
+            </section>
+            <section id='pagination-footer'>
+                {/* does this need to be a form? */}
+                {/* implement placeholder */}
+                {/* make form work */}
+                <form id='size-setter-form'>
+                    <label htmlFor='size-setter'>Spots per page:</label>
+                    <input id='size-setter' type='text'></input>
+                </form>
+                <span id='page-count'>Current Page: 5 (Max 10)</span>
+            </section>
         </>
     );
 };

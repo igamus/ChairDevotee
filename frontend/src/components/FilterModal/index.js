@@ -3,24 +3,27 @@ import { useModal } from "../../context/Modal";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loadFilteredSpotsThunk } from "../../store/spots";
+import { useFilterParams } from "../../context/FilterParams";
 
 function FilterModal() {
     const { closeModal } = useModal();
-    const [minPrice, setMinPrice] = useState(1);
-    const [maxPrice, setMaxPrice] = useState(50000);
     const [error, setError] = useState('');
+
+    const {minPrice, setMinPrice, maxPrice, setMaxPrice, urlSuffix, setSuffix} = useFilterParams();
 
     const dispatch = useDispatch();
 
     const handleSubmit = async e => {
         e.preventDefault();
 
-        const res = await dispatch(loadFilteredSpotsThunk(`minPrice=${minPrice}&maxPrice=${maxPrice}`));
-        if (res.message) {
-            setError(res.message);
-        } else {
-            closeModal();
-        };
+        setSuffix().then(async () => {
+            const res = await dispatch(loadFilteredSpotsThunk(urlSuffix));
+            if (res.message) {
+                setError(res.message);
+            } else {
+                closeModal();
+            };
+        })
     };
 
     return (

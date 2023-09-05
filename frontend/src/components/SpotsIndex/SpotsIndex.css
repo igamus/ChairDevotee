@@ -89,6 +89,11 @@
     justify-content: space-between;
     width: 100%;
     height: 100%;
+    pointer-events: none;
+}
+
+#nav-left, #nav-right {
+    pointer-events: all;
 }
 
 .browse-button {
@@ -108,4 +113,20 @@
     cursor: pointer;
     background-color: rgba(255,255,255,1);
     box-shadow: -3px 4px 1px lightgray;
+}
+
+#pagination-footer {
+    flex-direction: row;
+    align-self: flex-start;
+    margin: 30px calc(2rem + 20px);
+    gap: 1rem;
+}
+
+#size-setter-form {
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+#size-setter {
+    width: 2rem;
 }

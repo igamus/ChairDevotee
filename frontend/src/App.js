@@ -27,9 +27,11 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       <Switch>
-        <FilterParamsProvider>
-          <Route exact path='/' component={SpotsIndex} />
-        </FilterParamsProvider>
+        <Route exact path='/'>
+          <FilterParamsProvider>
+            <SpotsIndex />
+          </FilterParamsProvider>
+        </Route>
         <Route exact path='/bookings/current' component={ManageBookings} />
         <Route exact path='/reviews/current' component={ManageReviews} />
         <Route exact path='/spots/current' component={ManageSpots} />
