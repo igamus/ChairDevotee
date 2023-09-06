@@ -1,22 +1,26 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadAllSpotsThunk } from '../../store/spots';
+import { loadAllSpotsThunk, loadFilteredSpotsThunk } from '../../store/spots';
 import sequelizelogo from './sequelizelogo.png';
 import './SpotsIndex.css';
 import SpotsIndexCard from '../SpotsIndexCard';
 import OpenModalButton from '../OpenModalButton';
 import FilterModal from '../FilterModal';
+import { useFilterParams } from '../../context/FilterParams';
 
 function SpotsIndex() {
     const dispatch = useDispatch();
+
+    let { page, setPage, size, setSize, urlSuffix, setSuffix } = useFilterParams();
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [leftClass, setLeftClass] = useState("fa-solid fa-chevron-left browse-button");
     const [rightClass, setRightClass] = useState("fa-solid fa-chevron-right browse-button");
 
     useEffect(() => {
-        dispatch(loadAllSpotsThunk()).then(() => setIsLoaded(true));
-    }, [dispatch]);
+        console.log('urlsuffix:', urlSuffix)
+        dispatch(loadFilteredSpotsThunk(urlSuffix)).then(() => setIsLoaded(true));
+    }, [dispatch, urlSuffix]);
 
     const spots = useSelector(state => Object.values(state.spots.allSpots));
 
@@ -71,11 +75,28 @@ function SpotsIndex() {
                 {/* does this need to be a form? */}
                 {/* implement placeholder */}
                 {/* make form work */}
-                <form id='size-setter-form'>
+                <form id='size-setter-form' onSubmit={(e) => setSuffix()}>
                     <label htmlFor='size-setter'>Spots per page:</label>
-                    <input id='size-setter' type='text'></input>
+                    <input
+                        id='size-setter'
+                        type='number'
+                        step="1"
+                        min="1"
+                        max="20"
+                        value={size}
+                        onChange={e => setSize(e.target.value)}
+                    />
+                    <label htmlFor='page-select'>Current Page:</label>
+                    <input
+                        id='page-select'
+                        type='number'
+                        min='1'
+                        max='10'
+                        value={page}
+                        onChange={e => {setPage(e.target.value)}}
+                    />
                 </form>
-                <span id='page-count'>Current Page: 5 (Max 10)</span>
+                <span id='max'>(Max Page Index: 10)</span>
             </section>
         </>
     );

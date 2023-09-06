@@ -8,6 +8,7 @@ import configureStore from './store';
 import { restoreCSRF, csrfFetch } from './store/csrf';
 import * as sessionActions from './store/session';
 import { ModalProvider, Modal } from './context/Modal';
+import FilterParamsProvider from './context/FilterParams';
 
 const store = configureStore();
 
@@ -20,14 +21,16 @@ if (process.env.NODE_ENV !== 'production') {
 
 function Root() {
   return (
-    <ModalProvider>
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-          <Modal />
-        </BrowserRouter>
-      </Provider>
-    </ModalProvider>
+    <Provider store={store}>
+      <FilterParamsProvider>
+        <ModalProvider>
+          <BrowserRouter>
+            <App />
+            <Modal />
+          </BrowserRouter>
+        </ModalProvider>
+      </FilterParamsProvider>
+    </Provider>
   )
 }
 

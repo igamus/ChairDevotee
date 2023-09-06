@@ -127,6 +127,6 @@
     gap: 0.5rem;
 }
 
-#size-setter {
-    width: 2rem;
+#size-setter, #page-select {
+    width: 2.5rem;
 }

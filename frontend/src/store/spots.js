@@ -51,13 +51,14 @@ export const loadAllSpotsThunk = () => async dispatch => {
 }
 
 export const loadFilteredSpotsThunk = urlSuffix => async dispatch => {
-    const res = await csrfFetch(`/api/spots?${urlSuffix}`, {
+    const res = await csrfFetch(`/api/spots${urlSuffix}`, {
         method: 'GET',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     });
 
     if (res.ok) {
         const data = await res.json();
+        console.log("response data in thunk:", data)
         console.log("size:", data.size);
         if (data.size === 0) return Error("There are no results for your search!");
         return dispatch(loadAllSpotsAction(data))

@@ -1,9 +1,13 @@
 import { createContext, useContext, useState } from "react";
+import { useDispatch } from "react-redux";
+import { loadFilteredSpotsThunk } from "../store/spots";
 
 export const FilterParamsContext = createContext();
 export const useFilterParams = () => useContext(FilterParamsContext);
 
 export default function FilterParamsProvider({ children }) {
+    const dispatch = useDispatch();
+
     const [page, setPage] = useState(1);
     const [size, setSize] = useState(20);
     const [minPrice, setMinPrice] = useState(1);
@@ -27,7 +31,7 @@ export default function FilterParamsProvider({ children }) {
         if (page !== 1) suffixStrArr.push(`page=${page}`);
         if (size !== 20) suffixStrArr.push(`size=${size}`);
         if (minPrice !== 1) suffixStrArr.push(`minPrice=${minPrice}`);
-        if (maxPrice !== 50_000) suffixStrArr.push(`minPrice=${maxPrice}`);
+        if (maxPrice !== 50_000) suffixStrArr.push(`maxPrice=${maxPrice}`);
         if (suffixStrArr.length) {
             const suffixStr = "?" + suffixStrArr.join("&");
             return setUrlSuffix(suffixStr);
