@@ -15,8 +15,8 @@ export default function FilterParamsProvider({ children }) {
 
         if (page !== 1) suffixStrArr.push(`page=${page}`);
         if (size !== 20) suffixStrArr.push(`size=${size}`);
-        if (minPrice !== 1) suffixStrArr.push(`minPrice=${minPrice}`);
-        if (maxPrice !== 50_000) suffixStrArr.push(`maxPrice=${maxPrice}`);
+        if (minPrice && minPrice !== 1) suffixStrArr.push(`minPrice=${minPrice}`);
+        if (maxPrice && maxPrice !== 50_000) suffixStrArr.push(`maxPrice=${maxPrice}`);
         if (suffixStrArr.length) {
             const suffixStr = "?" + suffixStrArr.join("&");
             return setUrlSuffix(suffixStr);

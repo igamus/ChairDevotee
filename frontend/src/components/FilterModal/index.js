@@ -17,12 +17,16 @@ function FilterModal() {
         e.preventDefault();
         setError("");
 
+        if (isNaN(minPrice) || isNaN(maxPrice)) return;
         if (parseFloat(minPrice) > parseFloat(maxPrice)) return (setError("Minimum Price must be less than Maximum Price"));
-        await setSuffix()
+        setSuffix();
 
-            console.log('you set it')
-            console.log(urlSuffix);
-            return;
+        const res = await dispatch(loadFilteredSpotsThunk(urlSuffix));
+        if (res.message) {
+            setError(res.message);
+        } else {
+            closeModal();
+        };
     };
 
     return (
