@@ -9,7 +9,8 @@ function FilterModal() {
     const { closeModal } = useModal();
     const [error, setError] = useState('');
 
-    const { minPrice, setMinPrice, maxPrice, setMaxPrice, urlSuffix, setSuffix } = useFilterParams();
+    let { setPage, minPrice, setMinPrice, maxPrice, setMaxPrice, urlSuffix, setSuffix } = useFilterParams();
+    setPage(1);
 
     const dispatch = useDispatch();
 
