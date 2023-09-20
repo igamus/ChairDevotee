@@ -11,11 +11,9 @@ import { useFilterParams } from '../../context/FilterParams';
 function SpotsIndex() {
     const dispatch = useDispatch();
 
-    let { page, setPage, size, setSize, urlSuffix, setSuffix } = useFilterParams();
+    let { page, setPage, size, setSize, urlSuffix, setSuffix, pageLeft, pageRight } = useFilterParams();
 
     const [isLoaded, setIsLoaded] = useState(false);
-    const [leftClass, setLeftClass] = useState("fa-solid fa-chevron-left browse-button");
-    const [rightClass, setRightClass] = useState("fa-solid fa-chevron-right browse-button");
 
     useEffect(() => {
         console.log('urlsuffix:', urlSuffix)
@@ -64,18 +62,43 @@ function SpotsIndex() {
                 </div>
                 <OpenModalButton id='filter-button' buttonText={<span id='filter-text'><i className="fa-solid fa-filter" />Filters</span>} modalComponent={<FilterModal />} />
             </div>
+
             <div id='browse-buttons'>
-                <i className={leftClass} id="nav-left" />
-                <i className={rightClass} id="nav-right" />
+                <i className="fa-solid fa-chevron-left browse-button" id="nav-left" onClick={pageLeft} />
+                <i className="fa-solid fa-chevron-right browse-button" id="nav-right" onClick={pageRight} />
             </div>
+
+            <section id='pagination-header'>
+                <form id='size-setter-form' onSubmit={setSuffix()}>
+                    <label htmlFor='size-setter'>Spots per page:</label>
+                    <input
+                        id='size-setter'
+                        type='number'
+                        step="1"
+                        min="1"
+                        max="20"
+                        value={size}
+                        onChange={e => setSize(e.target.value)}
+                    />
+                    <label htmlFor='page-select'>Current Page:</label>
+                    <input
+                        id='page-select'
+                        type='number'
+                        min='1'
+                        max='10'
+                        value={page}
+                        onChange={e => {setPage(e.target.value)}}
+                    />
+                </form>
+                <span id='max'>(Max Page Index: 10)</span>
+            </section>
+
             <section id='spot-index'>
                 {spots.map(spot => <SpotsIndexCard key={`spot-card-${spot.id}`} spot={spot} />)}
             </section>
+
             <section id='pagination-footer'>
-                {/* does this need to be a form? */}
-                {/* implement placeholder */}
-                {/* make form work */}
-                <form id='size-setter-form' onSubmit={(e) => setSuffix()}>
+                <form id='size-setter-form' onSubmit={setSuffix()}>
                     <label htmlFor='size-setter'>Spots per page:</label>
                     <input
                         id='size-setter'

@@ -16,23 +16,13 @@ function FilterModal() {
     const handleSubmit = async e => {
         e.preventDefault();
         setError("");
-        console.log('before:', urlSuffix);
-        if (minPrice > maxPrice) return (setError("Minimum Price must be less than Maximum Price"));
+
+        if (parseFloat(minPrice) > parseFloat(maxPrice)) return (setError("Minimum Price must be less than Maximum Price"));
         await setSuffix()
 
             console.log('you set it')
             console.log(urlSuffix);
             return;
-
-
-        const res = await dispatch(loadFilteredSpotsThunk(urlSuffix));
-        console.log('res:', res)
-        console.log('res.message:', res.message)
-        if (res.message) {
-            setError(res.message);
-        } else {
-            closeModal();
-        };
     };
 
     return (
@@ -68,6 +58,7 @@ function FilterModal() {
                         dispatch(loadAllSpotsThunk());
                         setMinPrice(1);
                         setMaxPrice(50_000);
+                        setError("");
                     }}>Reset</div>
                     <button id='form-button' type='submit'>Show places</button>
                 </div>
@@ -75,7 +66,5 @@ function FilterModal() {
         </div>
     );
 };
-
-// did you just break both buttons in the modal?
 
 export default FilterModal;

@@ -115,10 +115,17 @@
     box-shadow: -3px 4px 1px lightgray;
 }
 
+#pagination-header {
+    flex-direction: row;
+    align-self: flex-start;
+    margin: 30px calc(2rem + 20px) 20px;
+    gap: 1rem;
+}
+
 #pagination-footer {
     flex-direction: row;
     align-self: flex-start;
-    margin: 30px calc(2rem + 20px);
+    margin: 20px calc(2rem + 20px) 30px;
     gap: 1rem;
 }
 
